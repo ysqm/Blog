@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.elm.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.elm.entity.User">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="account" property="account" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="wechat_id" property="wechatId" jdbcType="VARCHAR" />
+        <result column="registration_time" property="registrationTime" jdbcType="DATE" />
+        <result column="update_time" property="updateTime" jdbcType="DATE" />
+        <result column="last_login_time" property="lastLoginTime" jdbcType="DATE" />
+        <result column="is_logged_out" property="isLoggedOut" jdbcType="BOOLEAN" />
+    </resultMap>
+
+<!--    <sql id="Base_Column_List">-->
+<!--        id,account,password,avatar,username,wechat_id,registration_time,is_logged_out,last_login_time,update_time-->
+<!--    </sql>-->
+
+    <select id="getUserById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT *
+<!--        <include refid="Base_Column_List" />-->
+        FROM users
+        WHERE id = #{id}
+    </select>
+
+    <select id="getUserByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT *
+<!--        <include refid="Base_Column_List" />-->
+        FROM users
+        WHERE account = #{account}
+    </select>
+
+    <insert id="insertUser" parameterType="com.elm.entity.User">
+        INSERT INTO users (
+            account, password, avatar, username, wechat_id, registration_time, is_logged_out, last_login_time, update_time
+        ) VALUES (
+                     #{account}, #{password}, #{avatar}, #{username}, #{wechatId}, #{registrationTime}, #{isLoggedOut}, #{lastLoginTime}, #{updateTime}
+                 )
+    </insert>
+
+    <update id="updateUser" parameterType="com.elm.entity.User">
+        UPDATE users
+        <set>
+            <if test="account != null">
+                account = #{account},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="wechatId != null">
+                wechat_id = #{wechatId},
+            </if>
+            <if test="isLoggedOut != null">
+                is_logged_out = #{isLoggedOut},
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time = #{lastLoginTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <select id="getUser">
+        select id from users
+    </select>
+
+</mapper>
