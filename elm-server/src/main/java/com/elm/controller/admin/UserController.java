@@ -28,7 +28,8 @@ public class UserController {
 
     @PostMapping("/register")
     @ApiOperation("用户注册")
-    public Result register(UpdateUserDTO updateUserDTO) {
+    public Result register(@RequestBody UpdateUserDTO updateUserDTO) {
+        log.info("新增用户：{}", updateUserDTO);
         return userService.addUser(updateUserDTO);
     }
 

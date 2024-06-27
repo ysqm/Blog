@@ -2,6 +2,7 @@ package com.elm.mapper;
 
 import com.elm.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -12,6 +13,9 @@ public interface UserMapper {
     User getUserByQqAccount(String qqAccount);
 
     User getUserByAccount(String username);
+
+    @Select("select * from user where user_id = #{id}")
+    User getUserById(int id);
 
     int createUser(User user);
 
