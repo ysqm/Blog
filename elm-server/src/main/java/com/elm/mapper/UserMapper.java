@@ -7,12 +7,13 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    User getUserById(Integer id);
+    User getUserByWechatAccount(String wechatAccount);
 
-    User getUserByAccount(String account);
+    User getUserByQqAccount(String qqAccount);
 
-    Integer insertUser(User user);
-    Integer updateUser(User user);
+    User getUserByAccount(String username);
 
-    List<Integer> getUser();
+    int createUser(User user);
+
+    int updateUser(User user);
 }

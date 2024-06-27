@@ -13,8 +13,8 @@ CREATE TABLE Users (
                        update_time          DATETIME NOT NULL,
                        wechat_account       VARCHAR(100),
                        qq_account           VARCHAR(100)
-);
 
+);
 
 DROP TABLE IF EXISTS `Articles`;
 CREATE TABLE Articles (

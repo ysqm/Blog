@@ -4,12 +4,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 @Data
-@ApiModel(description = "客户登录时传递的数据模型")
-public class GetMessageDTO implements Serializable {
+@ApiModel(description = "客户创建更改个人信息")
+public class UpdateUserDTO {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("账号&&uid")
