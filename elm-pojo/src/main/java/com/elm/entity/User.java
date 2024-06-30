@@ -17,13 +17,15 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
-    private String account;
-    private String password;
-    private String avatar;
     private String username;
-    private String wechatId;
-    private LocalDateTime registrationTime;
-    private Boolean isLoggedOut;
+    private String password;
+    private String email;
+    private String avatar;
+    private LocalDateTime registerDate;
+    private String bio;
     private LocalDateTime updateTime;
+    private String wechatAccount;
+    private String qqAccount;
+    private Integer isLoggedOut;
     private LocalDateTime lastLoginTime;
 }
