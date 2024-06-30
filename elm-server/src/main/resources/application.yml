@@ -13,6 +13,7 @@ spring:
       username: ${elm.datasource.username}
       password: ${elm.datasource.password}
 
+
 mybatis:
   #mapper配置文件
   mapper-locations: classpath:mapper/*.xml
@@ -41,3 +42,7 @@ sky:
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+
+file:
+  upload:
+    dir: D:\AndroidProject\Blog\elm-server\src\main\resources\upload # 这里填写你实际的上传文件目录
