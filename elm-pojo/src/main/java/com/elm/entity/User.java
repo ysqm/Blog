@@ -21,7 +21,7 @@ public class User implements Serializable {
     private String password;
     private String email;
     private String avatar;
-    private LocalDateTime registerDate;
+    private LocalDateTime createTime;
     private String bio;
     private LocalDateTime updateTime;
     private String wechatAccount;

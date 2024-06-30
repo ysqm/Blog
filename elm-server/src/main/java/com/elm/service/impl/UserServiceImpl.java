@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(updateUserDTO, user);
         user.setIsLoggedOut(StatusConstant.DISABLE);
         user.setLastLoginTime(LocalDateTime.now());
-        user.setRegisterDate(LocalDateTime.now());
+        user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
         user.setId(null);
         User user1 = userMapper.getUserByAccount(user.getUsername());
@@ -38,7 +38,12 @@ public class UserServiceImpl implements UserService {
             return Result.error(MessageConstant.ACCOUNT_EXIST);
         }
         int msg = userMapper.createUser(user);
-        return Result.success( );
+        return Result.success();
+    }
+
+    @Override
+    public Result login(UserLoginDTO userLoginDTO) {
+        return null;
     }
 
 }

@@ -12,6 +12,7 @@ public interface UserMapper {
 
     User getUserByQqAccount(String qqAccount);
 
+    @Select("select * from user where username = #{username}")
     User getUserByAccount(String username);
 
     @Select("select * from user where user_id = #{id}")
