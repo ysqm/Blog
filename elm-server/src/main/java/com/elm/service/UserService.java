@@ -11,5 +11,5 @@ import java.util.Map;
 public interface UserService {
 
     Result addUser(UpdateUserDTO updateUserDTO);
-    Result login(UserLoginDTO userLoginDTO);
+    User login(UserLoginDTO userLoginDTO);
 }

@@ -8,10 +8,10 @@
         <result column="password" property="password" jdbcType="VARCHAR" />
         <result column="email" property="email" jdbcType="VARCHAR" />
         <result column="avatar" property="avatar" jdbcType="VARCHAR" />
-        <result column="create_time" property="createTime" jdbcType="DATETIME" />
-        <result column="last_login_time" property="lastLoginTime" jdbcType="DATETIME" />
+        <result column="create_time" property="createTime" jdbcType="DATE" />
+        <result column="last_login_time" property="lastLoginTime" jdbcType="DATE" />
         <result column="bio" property="bio" jdbcType="VARCHAR" />
-        <result column="update_time" property="updateTime" jdbcType="DATETIME" />
+        <result column="update_time" property="updateTime" jdbcType="DATE" />
         <result column="wechat_account" property="wechatAccount" jdbcType="VARCHAR" />
         <result column="qq_account" property="qqAccount" jdbcType="VARCHAR" />
         <result column="is_logged_out" property="isLoggedOut" jdbcType="BOOLEAN" />

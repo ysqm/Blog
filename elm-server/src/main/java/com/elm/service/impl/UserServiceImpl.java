@@ -5,6 +5,9 @@ import com.elm.constant.StatusConstant;
 import com.elm.dto.UpdateUserDTO;
 import com.elm.dto.UserLoginDTO;
 import com.elm.entity.User;
+import com.elm.exception.AccountLockedException;
+import com.elm.exception.AccountNotFoundException;
+import com.elm.exception.PasswordErrorException;
 import com.elm.mapper.UserMapper;
 import com.elm.result.Result;
 import com.elm.service.UserService;
@@ -42,8 +45,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Result login(UserLoginDTO userLoginDTO) {
-        return null;
+    public User login(UserLoginDTO userLoginDTO) {
+
+        User user = userMapper.getUserByAccount(userLoginDTO.getUsername());
+
+        if(user == null) {
+            throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
+
+        String password = userLoginDTO.getPassword();
+
+        // TODO 可以md5加密
+        if(!user.getPassword().equals(password)) {
+            throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
+        }
+
+        if(StatusConstant.ENABLE.equals(user.getIsLoggedOut())) {
+            throw new AccountLockedException(MessageConstant.ACCOUNT_LOCKED);
+        }
+
+        userMapper.loginTime(LocalDateTime.now());
+
+        return user;
     }
 
 }
