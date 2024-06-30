@@ -27,9 +27,12 @@ public class UpdateUserDTO {
     @ApiModelProperty("个人介绍")
     private String bio;
 
+    @ApiModelProperty("微信账号")
     private String wechatAccount;
 
+    @ApiModelProperty("QQ账号")
     private String qqAccount;
 
+    @ApiModelProperty("是否登出")
     private Integer isLoggedOut;
 }
