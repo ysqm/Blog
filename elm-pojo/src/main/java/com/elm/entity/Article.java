@@ -13,9 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Article implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Article implements Serializable{
 
     private Long articleId;
     private Long userId;
@@ -27,3 +25,4 @@ public class Article implements Serializable {
     private Integer heat;
     private Boolean isDeleted;
 }
+

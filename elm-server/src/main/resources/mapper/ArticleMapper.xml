@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.elm.mapper.ArticleMapper">
+
+    <resultMap id="BaseResultMap" type="com.elm.entity.Article">
+        <id column="article_id" property="articleId" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="content_path" property="contentPath" jdbcType="VARCHAR"/>
+        <result column="publish_date" property="publishDate" jdbcType="TIMESTAMP"/>
+        <result column="update_date" property="updateDate" jdbcType="TIMESTAMP"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="heat" property="heat" jdbcType="INTEGER"/>
+        <result column="is_deleted" property="isDeleted" jdbcType="BOOLEAN"/>
+    </resultMap>
+
+    <select id="getArticleById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT * FROM articles WHERE article_id = #{articleId} AND is_deleted = 0
+    </select>
+
+    <select id="getArticlesByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT * FROM articles WHERE user_id = #{userId} AND is_deleted = 0
+    </select>
+
+    <insert id="insertArticle" parameterType="com.elm.entity.Article">
+        INSERT INTO articles (user_id, title, content_path, publish_date, update_date, status, heat, is_deleted)
+        VALUES (#{userId}, #{title}, #{contentPath}, #{publishDate}, #{updateDate}, #{status}, #{heat}, 0)
+    </insert>
+
+    <update id="updateArticle" parameterType="com.elm.entity.Article">
+        UPDATE articles
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="contentPath != null">
+                content_path = #{contentPath},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        WHERE article_id = #{articleId}
+    </update>
+
+    <update id="softDeleteArticle" parameterType="java.lang.Long">
+        UPDATE articles SET is_deleted = 1 WHERE article_id = #{articleId}
+    </update>
+
+    <delete id="deleteArticle" parameterType="java.lang.Long">
+        DELETE FROM articles WHERE article_id = #{articleId}
+    </delete>
+
+    <update id="hideArticle" parameterType="java.lang.Long">
+        UPDATE articles SET status = 'hidden' WHERE article_id = #{articleId}
+    </update>
+
+    <update id="topArticle" parameterType="java.lang.Long">
+        UPDATE articles SET status = 'published' WHERE article_id = #{articleId} AND status = 'draft'
+    </update>
+</mapper>
