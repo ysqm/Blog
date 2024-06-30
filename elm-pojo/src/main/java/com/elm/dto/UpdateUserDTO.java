@@ -10,7 +10,7 @@ public class UpdateUserDTO {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("账号&&uid")
-    private Integer id;
+    private Integer userId;
 
     @ApiModelProperty("账号名")
     private String username;

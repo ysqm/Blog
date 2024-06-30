@@ -7,6 +7,6 @@ import lombok.Data;
 @ApiOperation("用户登录返回值")
 public class UserLoginVO {
     private String username;
-    private String id;
+    private Integer userId;
     private String token;
 }

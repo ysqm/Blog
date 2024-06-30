@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
         user.setLastLoginTime(LocalDateTime.now());
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
-        user.setId(null);
+        user.setUserId(null);
         User user1 = userMapper.getUserByAccount(user.getUsername());
         if(user1 != null) {
             return Result.error(MessageConstant.ACCOUNT_EXIST);

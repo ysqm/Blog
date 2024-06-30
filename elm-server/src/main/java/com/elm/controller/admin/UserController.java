@@ -46,7 +46,7 @@ public class UserController {
         log.info("用户登录：{}", userLoginDTO);
         User user = userService.login(userLoginDTO);
         Map<String, Object> claims = new HashMap<>();
-        claims.put(JwtClaimsConstant.USER_ID, user.getId());
+        claims.put(JwtClaimsConstant.USER_ID, user.getUserId());
         String token = JwtUtil.createJWT(
                 jwtProperties.getUserSecretKey(),
                 jwtProperties.getUserTtl(),
