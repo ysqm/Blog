@@ -1,12 +1,15 @@
 <template>
   <div>
-    <h1>Welcome to Blog Editor</h1>
-    <router-link to="/my-articles">My Articles</router-link>
+    <h1>Home Page</h1>
+    <router-link to="/editor">Go to Editor</router-link>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Home',
-};
+<script setup>
 </script>
+
+<style scoped>
+h1 {
+  text-align: left;
+}
+</style>

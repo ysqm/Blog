@@ -1,27 +1,31 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+// src/router/index.js
+import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
-import EditArticle from '../views/EditArticle.vue';
-import MyArticles from '../views/MyArticles.vue';
+import Editor from '../views/Editor.vue';
 
-Vue.use(VueRouter);
 
-export default new Router({
-    routes: [
-        {
-            path: '/',
-            name: 'Home',
-            component: Home,
-        },
-        {
-            path: '/edit/:articleId?',
-            name: 'EditArticle',
-            component: EditArticle,
-        },
-        {
-            path: '/my-articles',
-            name: 'MyArticles',
-            component: MyArticles,
-        },
-    ],
+const routes = [
+    {
+        path: '/',
+        name: 'Home',
+        component: Home
+    },
+    {
+        path: '/editor',
+        name: 'Editor',
+        component: Editor
+    }
+];
+
+// 解决重复路由报异常问题
+const originalPush = createRouter.prototype.push;
+createRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err);
+};
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes
 });
+
+export default router;
