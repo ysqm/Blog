@@ -8,37 +8,20 @@
         <result column="password" property="password" jdbcType="VARCHAR" />
         <result column="email" property="email" jdbcType="VARCHAR" />
         <result column="avatar" property="avatar" jdbcType="VARCHAR" />
-        <result column="register_date" property="registerDate" jdbcType="TIMESTAMP" />
+        <result column="create_time" property="createTime" jdbcType="DATE" />
+        <result column="last_login_time" property="lastLoginTime" jdbcType="DATE" />
         <result column="bio" property="bio" jdbcType="VARCHAR" />
-        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="DATE" />
         <result column="wechat_account" property="wechatAccount" jdbcType="VARCHAR" />
         <result column="qq_account" property="qqAccount" jdbcType="VARCHAR" />
         <result column="is_logged_out" property="isLoggedOut" jdbcType="BOOLEAN" />
     </resultMap>
 
-    <select id="getUserByWechatAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
-        SELECT *
-        FROM users
-        WHERE wechat_account = #{wechatAccount}
-    </select>
-
-    <select id="getUserByQqAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
-        SELECT *
-        FROM users
-        WHERE qq_account = #{qqAccount}
-    </select>
-
-    <select id="getUserByAccount" parameterType="java.lang.String" resultMap="BaseResultMap">
-        SELECT *
-        FROM users
-        WHERE username = #{username}
-    </select>
-
     <insert id="createUser" parameterType="com.elm.entity.User">
         INSERT INTO users (
-            username, password, email, avatar, register_date, bio, update_time, wechat_account, qq_account, is_logged_out
+            username, password, email, avatar, create_time, bio, update_time, wechat_account, qq_account, is_logged_out,last_login_time
         ) VALUES (
-                     #{username}, #{password}, #{email}, #{avatar}, #{registerDate}, #{bio}, #{updateTime}, #{wechatAccount}, #{qqAccount}, #{isLoggedOut}
+                     #{username}, #{password}, #{email}, #{avatar}, #{createTime}, #{bio}, #{updateTime}, #{wechatAccount}, #{qqAccount}, #{isLoggedOut},#{lastLoginTime}
                  )
     </insert>
 
@@ -57,23 +40,14 @@
             <if test="avatar != null">
                 avatar = #{avatar},
             </if>
-            <if test="registerDate != null">
-                register_date = #{registerDate},
-            </if>
             <if test="bio != null">
                 bio = #{bio},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime},
             </if>
             <if test="wechatAccount != null">
                 wechat_account = #{wechatAccount},
             </if>
             <if test="qqAccount != null">
                 qq_account = #{qqAccount},
-            </if>
-            <if test="isLoggedOut != null">
-                is_logged_out = #{isLoggedOut},
             </if>
         </set>
         WHERE id = #{id}
