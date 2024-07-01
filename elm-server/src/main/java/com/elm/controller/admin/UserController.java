@@ -58,4 +58,11 @@ public class UserController {
         return Result.success(userLoginVO);
     }
 
+    @PostMapping("/edit")
+    @ApiOperation("编辑用户信息")
+    public Result edit(@RequestBody UpdateUserDTO updateUserDTO) {
+        log.info("用户信息更新:{}", updateUserDTO);
+        return userService.updateUser(updateUserDTO);
+    }
+
 }
