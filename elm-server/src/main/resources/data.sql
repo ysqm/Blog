@@ -22,7 +22,7 @@ DROP TABLE IF EXISTS `filehistory`;
 CREATE TABLE filehistory (
                     id                      INT AUTO_INCREMENT PRIMARY KEY ,
                     filename                VARCHAR(500) NOT NULL,
-                    path                VARCHAR(500) NOT NULL,
+                    path                    VARCHAR(500) NOT NULL,
                     create_time             DATETIME NOT NULL ,
                     update_time             DATETIME NOT NULL ,
                     status                  ENUM('DESTORY','DELETE','HIDE','NORMAL') default 'HIDE',

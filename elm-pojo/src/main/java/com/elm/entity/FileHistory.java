@@ -12,10 +12,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FileHistory {
-    private int id;
+    private Integer id;
     private String filename;
     private String path;
     private LocalDateTime createTime;
     private LocalDateTime updateTime;
-
+    private FileStatus status;
+    private String type;
+    private Integer uploadAuthor;
 }
