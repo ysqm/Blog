@@ -4,6 +4,4 @@ elm:
     host: localhost
     port: 3306
     database: blogdata
-    username: root
-    password: 1314520lx
 
