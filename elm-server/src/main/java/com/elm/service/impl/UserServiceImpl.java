@@ -1,9 +1,15 @@
 package com.elm.service.impl;
 
+import com.elm.constant.MessageConstant;
+import com.elm.constant.StatusConstant;
+import com.elm.dto.UpdateUserDTO;
 import com.elm.dto.UserLoginDTO;
 import com.elm.entity.User;
 import com.elm.mapper.UserMapper;
+import com.elm.result.Result;
 import com.elm.service.UserService;
+import org.springframework.beans.BeanUtils;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,84 +24,21 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
-    public  Map<String,Object> getUserById(Integer id)
-    {
-        Map<String,Object> map = new HashMap<>();
-        User user = userMapper.getUserById(id);
-        if(user!=null){
-            map.put("data",user);
-            map.put("msg",0);
-        } else {
-            map.put("data",null);
-            map.put("msg",-1);
-        }
-        return map;
-    }
-
-    public Map<String,Object> RegisterUser(User User)
-    {
-        Map<String,Object> result=new HashMap<>();
-        User User1 = userMapper.getUserByAccount(User.getAccount());
-        if(User1!=null){
-            result.put("msg",-1);
-        } else {
-            User.setRegistrationTime(LocalDateTime.now());
-            int status = userMapper.insertUser(User);
-            result.put("msg",status);
-        }
-        return result;
-    }
-
-    public Map<String,Object> LoginUser(UserLoginDTO UserLoginDTO)
-    {
-        Map<String ,Object> result = new HashMap<>();
-        String pwd = UserLoginDTO.getPassword();
-        String Acount = UserLoginDTO.getUsername();
-        User User1 = userMapper.getUserByAccount(Acount);
-        if(User1!=null){
-            if(pwd.equals(User1.getPassword())){
-                User1.setLastLoginTime(LocalDateTime.now());
-                userMapper.updateUser(User1);
-                result.put("msg",0);
-                result.put("data",User1);
-            } else {
-                result.put("msg",-1);
-                result.put("data","Password Error");
-            }
-        } else {
-            result.put("msg",-1);
-            result.put("data","User not found");
-        }
-        return result;
-    }
-
-    public Map<String,Object> UpdateUser(User user)
-    {
-        user.setUpdateTime(LocalDateTime.now());
-        int status = userMapper.updateUser(user);
-        Map<String ,Object> result = new HashMap<>();
-        result.put("msg",status);
-        return result;
-    }
-
-    private boolean CreateUser(String account,String password)
-    {
+    @Override
+    public Result addUser(UpdateUserDTO updateUserDTO) {
         User user = new User();
-        user.setAccount(account);
-        user.setPassword(password);
+        BeanUtils.copyProperties(updateUserDTO, user);
+        user.setIsLoggedOut(StatusConstant.DISABLE);
         user.setLastLoginTime(LocalDateTime.now());
-        user.setAvatar("1");
-        user.setRegistrationTime(LocalDateTime.now());
-        user.setWechatId("2");
-        int status = userMapper.insertUser(user);
-        return true;
+        user.setRegisterDate(LocalDateTime.now());
+        user.setUpdateTime(LocalDateTime.now());
+        user.setId(null);
+        User user1 = userMapper.getUserByAccount(user.getUsername());
+        if(user1 != null) {
+            return Result.error(MessageConstant.ACCOUNT_EXIST);
+        }
+        int msg = userMapper.createUser(user);
+        return Result.success( );
     }
 
-    public Map<String,Object> Adduser(Integer num)
-    {
-        Map<String,Object> result = new HashMap<>();
-        for(int i=0;i<num;i++) CreateUser(UUID.randomUUID().toString().replace("-", ""), UUID.randomUUID().toString().replace("-", ""));
-        result.put("msg",0);
-        return result;
-    }
 }

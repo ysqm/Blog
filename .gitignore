@@ -9,10 +9,11 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+elm-server/src/main/resources/application-dev.yml
 *.iws
 *.iml
 *.ipr
-
+/elm-server/src/main/resources/application-dev.yml
 ### Eclipse ###
 .apt_generated
 .classpath
