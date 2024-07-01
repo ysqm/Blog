@@ -18,7 +18,7 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
-    @PostMapping
+    @PostMapping("/create")
     public Result<ArticleVO> createArticle(
             @RequestParam("userId") Long userId,
             @RequestParam("title") String title,
@@ -33,7 +33,7 @@ public class ArticleController {
         return Result.success(articleVO);
     }
 
-    @PutMapping("/{articleId}")
+    @PutMapping("/update/{articleId}")
     public Result<ArticleVO> updateArticle(
             @PathVariable Long articleId,
             @RequestParam("title") String title,
@@ -47,13 +47,13 @@ public class ArticleController {
         return Result.success(articleVO);
     }
 
-    @DeleteMapping("/{articleId}")
+    @DeleteMapping("/delete/{articleId}")
     public Result<Void> deleteArticle(@PathVariable Long articleId) {
         articleService.deleteArticle(articleId);
         return Result.success();
     }
 
-    @PostMapping("/{articleId}/soft-delete")
+    @PostMapping("/soft-delete/{articleId}")
     public Result<Void> softDeleteArticle(@PathVariable Long articleId) {
         articleService.softDeleteArticle(articleId);
         return Result.success();
