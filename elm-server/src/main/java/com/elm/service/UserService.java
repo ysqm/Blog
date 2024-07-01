@@ -12,4 +12,5 @@ public interface UserService {
 
     Result addUser(UpdateUserDTO updateUserDTO);
     User login(UserLoginDTO userLoginDTO);
+    Result updateUser(UpdateUserDTO updateUserDTO);
 }

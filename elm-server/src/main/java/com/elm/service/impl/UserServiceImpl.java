@@ -7,6 +7,7 @@ import com.elm.dto.UserLoginDTO;
 import com.elm.entity.User;
 import com.elm.exception.AccountLockedException;
 import com.elm.exception.AccountNotFoundException;
+import com.elm.exception.EmailRepeatException;
 import com.elm.exception.PasswordErrorException;
 import com.elm.mapper.UserMapper;
 import com.elm.result.Result;
@@ -40,6 +41,9 @@ public class UserServiceImpl implements UserService {
         if(user1 != null) {
             return Result.error(MessageConstant.ACCOUNT_EXIST);
         }
+        if(user.getEmail() != null && userMapper.getUserByEmail(user.getEmail()) != null) {
+            return Result.error(MessageConstant.EMAIL_REPEAT);
+        }
         int msg = userMapper.createUser(user);
         return Result.success();
     }
@@ -68,5 +72,16 @@ public class UserServiceImpl implements UserService {
 
         return user;
     }
+
+    @Override
+    public Result updateUser(UpdateUserDTO updateUserDTO) {
+        User user = new User();
+        Result result = new Result<>();
+        BeanUtils.copyProperties(updateUserDTO, user);
+        Integer msg = userMapper.updateUser(user);
+        msg = userMapper.updateTime(LocalDateTime.now());
+        return result.success(msg);
+    }
+
 
 }

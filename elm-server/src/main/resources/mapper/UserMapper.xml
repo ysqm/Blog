@@ -50,7 +50,7 @@
                 qq_account = #{qqAccount},
             </if>
         </set>
-        WHERE id = #{id}
+        WHERE user_id = #{userId}
     </update>
 
 </mapper>
