@@ -24,6 +24,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
+
+    @Autowired
     private ArticleTagMapper articleTagMapper;
     @Value("${file.upload.dir}")
     private String uploadDir;// 设置文件上传目录
@@ -39,8 +41,12 @@ public class ArticleServiceImpl implements ArticleService {
         article.setStatus(articleDTO.getStatus());
         article.setPublishDate(new Date());
         articleMapper.insertArticle(article);
+        Long articleId = article.getArticleId();
 
-        saveArticleTags(article.getArticleId(), articleDTO.getTagIds());
+        // 保存标签关联
+        if (articleDTO.getTagIds() != null) {
+            saveArticleTags(articleId, articleDTO.getTagIds());
+        }
         return toVO(article);
     }
 
@@ -59,7 +65,13 @@ public class ArticleServiceImpl implements ArticleService {
         article.setUpdateDate(new Date());
         articleMapper.updateArticle(article);
 
-        updateArticleTags(article.getArticleId(), articleDTO.getTagIds());
+        // 更新标签关联
+        if (articleDTO.getTagIds() != null) {
+            // 先删除旧的标签关联
+            articleTagMapper.deleteArticleTagsByArticleId(articleId);
+            // 保存新的标签关联
+            saveArticleTags(articleId, articleDTO.getTagIds());
+        }
         return toVO(article);
     }
 

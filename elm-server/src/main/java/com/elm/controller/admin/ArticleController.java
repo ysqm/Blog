@@ -23,12 +23,14 @@ public class ArticleController {
             @RequestParam("userId") Long userId,
             @RequestParam("title") String title,
             @RequestParam("status") String status,
-            @RequestPart("file") MultipartFile file) {
+            @RequestPart("file") MultipartFile file,
+            @RequestParam(value = "tagIds", required = false) List<Long> tagIds) {
         CreateArticleDTO dto = new CreateArticleDTO();
         dto.setUserId(userId);
         dto.setTitle(title);
         dto.setStatus(status);
         dto.setFile(file);
+        dto.setTagIds(tagIds);
         ArticleVO articleVO = articleService.createArticle(dto);
         return Result.success(articleVO);
     }
@@ -38,11 +40,13 @@ public class ArticleController {
             @PathVariable Long articleId,
             @RequestParam("title") String title,
             @RequestParam("status") String status,
-            @RequestParam("file") MultipartFile file) {
+            @RequestPart("file") MultipartFile file,
+            @RequestParam(value = "tagIds", required = false) List<Long> tagIds) {
         UpdateArticleDTO dto = new UpdateArticleDTO();
         dto.setTitle(title);
         dto.setStatus(status);
         dto.setFile(file);
+        dto.setTagIds(tagIds);
         ArticleVO articleVO = articleService.updateArticle(articleId, dto);
         return Result.success(articleVO);
     }

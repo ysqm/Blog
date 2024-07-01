@@ -1,71 +1,70 @@
 <template>
-  <div>
-    <input v-model="title" placeholder="Title" />
-    <select v-model="status">
-      <option value="draft">Draft</option>
-      <option value="published">Published</option>
-    </select>
-    <div id="editor"></div>
-    <button @click="saveArticle">Save</button>
+  <div id="editor">
+    <h2>Article Editor</h2>
+    <input v-model="title" placeholder="Title">
+    <div id="md-editor"></div>
+    <button @click="saveArticle">Save Article</button>
   </div>
 </template>
 
 <script>
-import { createArticle, updateArticle, getArticleById } from '../api/article';
-import { mapState } from 'vuex';
+import { ref, onMounted } from 'vue';
+import "editor.md/css/editormd.css";
+import editormd from "/editor.md";
+import api from '@/api';
 
 export default {
-  props: {
-    articleId: {
-      type: Number,
-      default: null,
-    },
-  },
-  data() {
-    return {
-      title: '',
-      status: 'draft',
-      editor: null,
-    };
-  },
-  computed: {
-    ...mapState(['userId']),
-  },
-  mounted() {
-    this.initEditor();
-    if (this.articleId) {
-      this.loadArticle();
-    }
-  },
-  methods: {
-    initEditor() {
-      this.editor = editormd("editor", {
+  setup() {
+    const title = ref('');
+    const fileContent = ref('');
+
+    onMounted(() => {
+      initializeEditor();
+    });
+
+    const initializeEditor = () => {
+      editormd("md-editor", {
         width: "90%",
         height: 640,
-        path: "/editor.md/lib/",
+        path: "/node_modules/editor.md/lib/",
         saveHTMLToTextarea: true,
+        onchange: function() {
+          fileContent.value = this.getMarkdown();
+        },
       });
-    },
-    loadArticle() {
-      getArticleById(this.articleId).then(response => {
-        const article = response.data.data;
-        this.title = article.title;
-        this.status = article.status;
-        this.editor.setMarkdown(article.content);
-      });
-    },
-    saveArticle() {
-      const file = new Blob([this.editor.getMarkdown()], { type: 'text/markdown' });
-      if (this.articleId) {
-        updateArticle(this.articleId, this.title, this.status, file).then(() => {
-          this.$router.push('/my-articles');
-        });
-      } else {
-        createArticle(this.userId, this.title, this.status, file).then(() => {
-          this.$router.push('/my-articles');
-        });
-      }
-    },
+    };
+
+    const saveArticle = () => {
+      const formData = new FormData();
+      const blob = new Blob([fileContent.value], { type: 'text/markdown' });
+      formData.append('userId', 1); // 示例用户ID
+      formData.append('title', title.value);
+      formData.append('status', 'draft');
+      formData.append('file', blob, 'article.md');
+
+      api.post('/articles/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+          .then(response => {
+            console.log('Article saved:', response.data);
+          })
+          .catch(error => {
+            console.error('Error saving article:', error);
+          });
+    };
+
+    return {
+      title,
+      saveArticle,
+    };
   },
 };
 </script>
+
+<style>
+#md-editor {
+  margin-top: 20px;
+}
+</style>
