@@ -7,3 +7,15 @@ elm:
     username: root
     password: ysqm
 
+
+
+upload:
+  temp-path: D:\project\Blog\resources\temp
+  save-path: D:\project\Blog\resources\uploadFile
+  extensions:
+    mp4: video
+    avi: video
+    jpg: image
+    png: image
+    txt: text
+    md: text
