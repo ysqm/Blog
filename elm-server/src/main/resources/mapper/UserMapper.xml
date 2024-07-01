@@ -28,27 +28,15 @@
     <update id="updateUser" parameterType="com.elm.entity.User">
         UPDATE users
         <set>
-            <if test="username != null">
-                username = #{username},
-            </if>
-            <if test="password != null">
-                password = #{password},
-            </if>
-            <if test="email != null">
-                email = #{email},
-            </if>
-            <if test="avatar != null">
-                avatar = #{avatar},
-            </if>
-            <if test="bio != null">
-                bio = #{bio},
-            </if>
-            <if test="wechatAccount != null">
-                wechat_account = #{wechatAccount},
-            </if>
-            <if test="qqAccount != null">
-                qq_account = #{qqAccount},
-            </if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="lastLoginTime != null">last_login_time = #{lastLoginTime},</if>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="bio != null">bio = #{bio},</if>
+            <if test="wechatAccount != null">wechat_account = #{wechatAccount},</if>
+            <if test="qqAccount != null">qq_account = #{qqAccount},</if>
         </set>
         WHERE user_id = #{userId}
     </update>

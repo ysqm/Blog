@@ -2,13 +2,11 @@ package com.elm.service.impl;
 
 import com.elm.constant.MessageConstant;
 import com.elm.constant.StatusConstant;
+import com.elm.context.BaseContext;
 import com.elm.dto.UpdateUserDTO;
 import com.elm.dto.UserLoginDTO;
 import com.elm.entity.User;
-import com.elm.exception.AccountLockedException;
-import com.elm.exception.AccountNotFoundException;
-import com.elm.exception.EmailRepeatException;
-import com.elm.exception.PasswordErrorException;
+import com.elm.exception.*;
 import com.elm.mapper.UserMapper;
 import com.elm.result.Result;
 import com.elm.service.UserService;
@@ -33,9 +31,9 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         BeanUtils.copyProperties(updateUserDTO, user);
         user.setIsLoggedOut(StatusConstant.DISABLE);
-        user.setLastLoginTime(LocalDateTime.now());
-        user.setCreateTime(LocalDateTime.now());
-        user.setUpdateTime(LocalDateTime.now());
+        //user.setLastLoginTime(LocalDateTime.now());
+        //user.setCreateTime(LocalDateTime.now());
+        //user.setUpdateTime(LocalDateTime.now());
         user.setUserId(null);
         User user1 = userMapper.getUserByAccount(user.getUsername());
         if(user1 != null) {
@@ -75,11 +73,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result updateUser(UpdateUserDTO updateUserDTO) {
-        User user = new User();
+        User user = new User(),user1 = userMapper.getUserByAccount(updateUserDTO.getUsername());
         Result result = new Result<>();
+        Integer userId = BaseContext.getCurrentId();
+        if(!userId.equals(updateUserDTO.getUserId())) {
+            throw new BaseException(MessageConstant.UNKNOWN_ERROR);
+        }
         BeanUtils.copyProperties(updateUserDTO, user);
+        if(user.getEmail() != null && userMapper.getUserByEmail(user.getEmail()) != null) {
+            return Result.error(MessageConstant.EMAIL_REPEAT);
+        }
+        if(!user1.getUserId().equals(userId)){
+            return Result.error(MessageConstant.ACCOUNT_EXIST);
+        }
         Integer msg = userMapper.updateUser(user);
-        msg = userMapper.updateTime(LocalDateTime.now());
         return result.success(msg);
     }
 
