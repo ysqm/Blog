@@ -6,15 +6,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Tag implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
-    private Integer id;
+public class Tag {
+    private Long tagId;
     private String tagName;
+    private String status;
 }
