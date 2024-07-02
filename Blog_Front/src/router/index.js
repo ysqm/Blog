@@ -1,17 +1,11 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../views/Home.vue';
 import Editor from '../views/Editor.vue';
 import Community from "@/views/Community.vue";
 import Login from "@/views/Login.vue";
 
 
 const routes = [
-    {
-        path: '/',
-        name: 'Home',
-        component: Home
-    },
     {
         path: '/editor',
         name: 'Editor',
@@ -23,7 +17,7 @@ const routes = [
         component: Community
     },
     {
-        path: '/login',
+        path: '/',
         name: 'Login',
         component: Login
     }
