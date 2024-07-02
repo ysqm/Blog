@@ -27,15 +27,15 @@ public class FileController {
     public Result uploadFile(@RequestPart("file") MultipartFile file) {return fileService.uploadFile(file);}
 
     @PostMapping("/download")
-    public Result downloadFile(@RequestPart("file") Integer id) {return fileService.downloadFile(id);}
+    public Result downloadFile(Integer id) {return fileService.downloadFile(id);}
 
     @GetMapping("/getById")
-    public Result getFileById(@RequestBody Integer id) {
+    public Result getFileById(Integer id) {
         return fileService.getFileById(id);
     }
 
     @PostMapping("/hide")
-    public Result hideFile(@RequestBody Integer id) {
+    public Result hideFile(Integer id) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);
         fileHistory.setStatus(FileStatus.HIDE);
@@ -43,7 +43,7 @@ public class FileController {
     }
 
     @PostMapping("/delete")
-    public Result deleteFile(@RequestBody Integer id) {
+    public Result deleteFile(Integer id) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);
         fileHistory.setStatus(FileStatus.DELETE);
@@ -51,7 +51,7 @@ public class FileController {
     }
 
     @PostMapping("/recover")
-    public Result recoverFile(@RequestBody Integer id) {
+    public Result recoverFile(Integer id) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);
         fileHistory.setStatus(FileStatus.NORMAL);
@@ -59,7 +59,7 @@ public class FileController {
     }
 
     @PostMapping("/rename")
-    public Result updateFile(@RequestBody Integer id, @RequestBody String filename) {
+    public Result updateFile(Integer id,String filename) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);
         fileHistory.setFilename(filename);

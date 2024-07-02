@@ -40,20 +40,18 @@ public class FileServiceImpl implements FileService {
         String fileName = file.getOriginalFilename();
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
         String uuid = UUID.randomUUID().toString();
-        fileHistory.builder()
-                .path(uploadDir)
-                .type(suffix)
-                .uploadAuthor(BaseContext.getCurrentId())
-                .filename(file.getOriginalFilename())
-                .uuid(uuid)
-                .status(FileStatus.HIDE)
-                .build();
         File dest = new File(uploadDir, uuid + "." + suffix);
         try {
             file.transferTo(dest);
         } catch (IOException e) {
             throw new FileUploadException(MessageConstant.UPLOAD_FAILED);
         }
+        fileHistory.setStatus(FileStatus.HIDE);
+        fileHistory.setPath(uploadDir);
+        fileHistory.setType(suffix);
+        fileHistory.setUuid(uuid);
+        fileHistory.setUploadAuthor(BaseContext.getCurrentId());
+        fileHistory.setFilename(file.getOriginalFilename());
         fileMapper.InsertFile(fileHistory);
         return Result.success(fileHistory);
     }
@@ -83,7 +81,7 @@ public class FileServiceImpl implements FileService {
         fileHistory = fileMapper.getFileById(Id);
         if(fileHistory == null) {return Result.error(MessageConstant.FILE_NOT_FOUND);}
         BeanUtils.copyProperties(fileHistory, downloadFileVO);
-        downloadFileVO.setFile(getMultipartFile(fileHistory.getFilename(),fileHistory.getPath()));
+        downloadFileVO.setFile(getMultipartFile(fileHistory.getUuid() + "." + fileHistory.getType(),fileHistory.getPath()));
         return Result.success(downloadFileVO);
     }
 
@@ -94,7 +92,7 @@ public class FileServiceImpl implements FileService {
         if(pathSuffix == null || pathSuffix.isEmpty()) {
             throw new IllegalFileNameException(MessageConstant.ILLEGAL_FILE_NAME);
         }
-        File uploadDirFile = new File(uploadFileProperties.getSavePath() + pathSuffix);
+        File uploadDirFile = new File(uploadFileProperties.getSavePath() + "\\" + pathSuffix);
         if (!uploadDirFile.exists()) {
             boolean mkdirs = uploadDirFile.mkdirs();
             if (!mkdirs) {
