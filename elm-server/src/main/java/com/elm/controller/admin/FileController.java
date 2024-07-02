@@ -6,11 +6,22 @@ import com.elm.entity.FileStatus;
 import com.elm.properties.UploadFileProperties;
 import com.elm.result.Result;
 import com.elm.service.FileService;
+import com.elm.vo.DownloadFileVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 @RestController
 @RequestMapping("/file")
@@ -26,10 +37,28 @@ public class FileController {
     @PostMapping("/upload")
     public Result uploadFile(@RequestPart("file") MultipartFile file) {return fileService.uploadFile(file);}
 
-    @PostMapping("/download")
-    public Result downloadFile(Integer id) {return fileService.downloadFile(id);}
+    @GetMapping("/download/{id}")
+    @ApiOperation("获取文件内容")
+    public ResponseEntity downloadFile(@PathVariable Integer id) throws IOException {
+        Result<DownloadFileVO> result = fileService.downloadFile(id);
+        DownloadFileVO downloadFileVO = result.getData();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + downloadFileVO.getFilename());
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
+        InputStream inputStream = downloadFileVO.getFile().getInputStream();
+
+        // 将输入流的内容读取为字节数组
+        byte[] fileBytes = IOUtils.toByteArray(inputStream);
+        // 创建返回的ResponseEntity
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .headers(headers)
+                .body(fileBytes);
+    }
 
     @GetMapping("/getById")
+    @ApiOperation("获取文件信息")
     public Result getFileById(Integer id) {
         return fileService.getFileById(id);
     }
