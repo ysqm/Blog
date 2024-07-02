@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.elm.mapper.TagMapper">
+
+    <insert id="insertTag">
+        INSERT INTO Tags (tag_name, status)
+        VALUES (#{tagName}, #{status})
+    </insert>
+
+    <update id="updateTag">
+        UPDATE Tags
+        SET status = #{status}
+        WHERE tag_id = #{tagId}
+    </update>
+
+    <select id="getAllTags" resultType="com.elm.entity.Tag">
+        SELECT * FROM Tags
+    </select>
+
+    <select id="getPendingTags" resultType="com.elm.entity.Tag">
+        SELECT * FROM Tags WHERE status = 'pending'
+    </select>
+
+    <select id="getTagById" resultType="com.elm.entity.Tag">
+        SELECT * FROM Tags WHERE tag_id = #{tagId}
+    </select>
+
+</mapper>
