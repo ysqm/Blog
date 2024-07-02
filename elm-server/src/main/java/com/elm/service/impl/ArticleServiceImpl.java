@@ -4,6 +4,7 @@ import com.elm.dto.CreateArticleDTO;
 import com.elm.dto.UpdateArticleDTO;
 import com.elm.entity.Article;
 import com.elm.mapper.ArticleMapper;
+import com.elm.properties.UploadFileProperties;
 import com.elm.mapper.ArticleTagMapper;
 import com.elm.service.ArticleService;
 import com.elm.vo.ArticleVO;
@@ -24,11 +25,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private UploadFileProperties uploadFileProperties;
 
     @Autowired
     private ArticleTagMapper articleTagMapper;
-    @Value("${file.upload.dir}")
-    private String uploadDir;// 设置文件上传目录
 
     @Override
     public ArticleVO createArticle(CreateArticleDTO articleDTO) {
@@ -134,7 +135,7 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         // Ensure the upload directory exists
-        File uploadDirFile = new File(uploadDir);
+        File uploadDirFile = new File(uploadFileProperties.getSavePath());
         if (!uploadDirFile.exists()) {
             boolean mkdirs = uploadDirFile.mkdirs();
             if (!mkdirs) {
@@ -157,7 +158,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     private void deleteFile(String filePath) {
-        File file = new File(uploadDir + File.separator + filePath);
+        File file = new File(uploadFileProperties.getSavePath() + File.separator + filePath);
         if (file.exists()) {
             file.delete();
         }

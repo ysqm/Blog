@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Edit Article</h1>
     <ArticleEditor :articleId="$route.params.articleId" />
   </div>
 </template>

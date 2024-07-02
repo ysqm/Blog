@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.security.Permission;
 import java.time.LocalDateTime;
 
 @Data
@@ -28,4 +29,5 @@ public class User implements Serializable {
     private String qqAccount;
     private Integer isLoggedOut;
     private LocalDateTime lastLoginTime;
+    private PermissionLevel permissionLevel;
 }

@@ -10,6 +10,13 @@ public class MessageConstant {
     public static final String ACCOUNT_NOT_FOUND = "账号不存在";
     public static final String ACCOUNT_LOCKED = "账号被锁定";
     public static final String EMAIL_REPEAT = "邮箱已注册";
+    public static final String QQ_REPEAT = "QQ已注册";
+    public static final String WECHAT_REPEAT = "微信已注册";
+    public static final String FILE_NOT_FOUND = "文件未找到";
+    public static final String FILE_MESSAGE_WRONG = "文件信息错误";
+    public static final String FILE_READ_ERROR = "文件读入错误";
+    public static final String ILLEGAL_FILE_NAME = "非法文件名";
+    public static final String FAILED_CREATE_DIRECTORY = "未能成功创建文件及";
     public static final String UNKNOWN_ERROR = "未知错误";
     public static final String USER_NOT_LOGIN = "用户未登录";
     public static final String CATEGORY_BE_RELATED_BY_SETMEAL = "当前分类关联了套餐,不能删除";
