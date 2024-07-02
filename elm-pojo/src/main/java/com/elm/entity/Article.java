@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Article implements Serializable{
+
     private Long articleId;
     private Long userId;
     private String title;
@@ -24,3 +25,4 @@ public class Article implements Serializable{
     private Integer heat;
     private Boolean isDeleted;
 }
+

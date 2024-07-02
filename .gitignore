@@ -39,4 +39,5 @@ build/
 ### Mac OS ###
 .DS_Store
 
-D:\AndroidProject\Blog\elm-server\src\main\resources\application-dev.yml
+D:\project\Blog\elm-server\src\main\resources\application-dev.yml
+

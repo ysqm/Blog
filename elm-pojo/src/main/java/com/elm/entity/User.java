@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.security.Permission;
 import java.time.LocalDateTime;
 
 @Data
@@ -16,16 +17,17 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer id;
+    private Integer userId;
     private String username;
     private String password;
     private String email;
     private String avatar;
-    private LocalDateTime registerDate;
+    private LocalDateTime createTime;
     private String bio;
     private LocalDateTime updateTime;
     private String wechatAccount;
     private String qqAccount;
     private Integer isLoggedOut;
     private LocalDateTime lastLoginTime;
+    private PermissionLevel permissionLevel;
 }

@@ -34,7 +34,7 @@ logging:
         service: info
         controller: info
 
-sky:
+elm:
   jwt:
     # 设置jwt签名加密时使用的秘钥
     admin-secret-key: itcast
@@ -42,7 +42,24 @@ sky:
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
-
-file:
+    # 设置jwt签名密钥
+    user-secret-key: itcast
+    # 设置jwt过期时间
+    user-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    user-token-name: token
   upload:
-    dir: D:\AndroidProject\Blog\elm-server\src\main\resources\upload # 这里填写你实际的上传文件目录
+    temp-path: D:\project\Blog\resources\temp
+    save-path: D:\project\Blog\resources\uploadFile
+    extensions:
+      mp4: video
+      avi: video
+      jpg: image
+      png: image
+      txt: text
+      md: text
+
+servlet:
+   multipart:
+    max-file-size: 10MB
+    max-request-size: 10MB
