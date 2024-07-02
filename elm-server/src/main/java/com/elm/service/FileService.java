@@ -8,4 +8,5 @@ public interface FileService {
     Result uploadFile(MultipartFile file);
     Result getFileById(Integer Id);
     Result updateFileById(FileHistory fileHistory);
+    Result downloadFile(Integer Id);
 }

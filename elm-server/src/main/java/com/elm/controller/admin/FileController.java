@@ -9,10 +9,7 @@ import com.elm.service.FileService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -26,14 +23,18 @@ public class FileController {
     private UploadFileProperties uploadFileProperties;
 
 
-    public Result uploadFile(@RequestPart("file") MultipartFile file) {
-        return fileService.uploadFile(file);
-    }
+    @PostMapping("/upload")
+    public Result uploadFile(@RequestPart("file") MultipartFile file) {return fileService.uploadFile(file);}
 
+    @PostMapping("/download")
+    public Result downloadFile(@RequestPart("file") Integer id) {return fileService.downloadFile(id);}
+
+    @GetMapping("/getById")
     public Result getFileById(@RequestBody Integer id) {
         return fileService.getFileById(id);
     }
 
+    @PostMapping("/hide")
     public Result hideFile(@RequestBody Integer id) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);
@@ -41,6 +42,7 @@ public class FileController {
         return fileService.updateFileById(fileHistory);
     }
 
+    @PostMapping("/delete")
     public Result deleteFile(@RequestBody Integer id) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);
@@ -48,6 +50,7 @@ public class FileController {
         return fileService.updateFileById(fileHistory);
     }
 
+    @PostMapping("/recover")
     public Result recoverFile(@RequestBody Integer id) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);
@@ -55,6 +58,7 @@ public class FileController {
         return fileService.updateFileById(fileHistory);
     }
 
+    @PostMapping("/rename")
     public Result updateFile(@RequestBody Integer id, @RequestBody String filename) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);

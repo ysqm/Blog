@@ -2,17 +2,19 @@ package com.elm.service.impl;
 
 import com.elm.constant.MessageConstant;
 import com.elm.context.BaseContext;
+import com.elm.dto.UploadFileDTO;
 import com.elm.entity.FileHistory;
 import com.elm.entity.FileStatus;
-import com.elm.exception.FailedCreateDirectoryException;
-import com.elm.exception.IllegalFileNameException;
+import com.elm.exception.*;
 import com.elm.mapper.FileMapper;
 import com.elm.properties.UploadFileProperties;
 import com.elm.result.Result;
 import com.elm.service.FileService;
-import com.elm.utils.JwtUtil;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import com.elm.vo.DownloadFileVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,7 +31,7 @@ public class FileServiceImpl implements FileService {
     private UploadFileProperties uploadFileProperties;
 
     @Override
-    public Result uploadFile(MultipartFile file) throws FileUploadException {
+    public Result uploadFile(MultipartFile file) {
         if(file == null || file.isEmpty()) {
             return Result.error(MessageConstant.FILE_NOT_FOUND);
         }
@@ -74,6 +76,17 @@ public class FileServiceImpl implements FileService {
         } else return Result.error(MessageConstant.FILE_NOT_FOUND);
     }
 
+    @Override
+    public Result downloadFile(Integer Id) {
+        FileHistory fileHistory = new FileHistory();
+        DownloadFileVO downloadFileVO = new DownloadFileVO();
+        fileHistory = fileMapper.getFileById(Id);
+        if(fileHistory == null) {return Result.error(MessageConstant.FILE_NOT_FOUND);}
+        BeanUtils.copyProperties(fileHistory, downloadFileVO);
+        downloadFileVO.setFile(getMultipartFile(fileHistory.getFilename(),fileHistory.getPath()));
+        return Result.success(downloadFileVO);
+    }
+
     private String makeFileDir(MultipartFile file) {
         String fileSuffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
         Map<String,String> mapExtensions = uploadFileProperties.getExtensions();
@@ -89,5 +102,26 @@ public class FileServiceImpl implements FileService {
             }
         }
         return uploadDirFile.getAbsolutePath();
+    }
+
+    private MultipartFile getMultipartFile(String fileName,String filePath) {
+
+        File file = new File(filePath, fileName);
+        if (!file.exists()) {
+            // 处理文件不存在的情况
+            throw new FileNowFoundException(MessageConstant.FILE_NOT_FOUND);
+        }
+        // 创建FileSystemResource对象
+        FileSystemResource resource = new FileSystemResource(file);
+        // 创建MultipartFile对象
+        MultipartFile multipartFile;
+        try {
+            multipartFile = new MockMultipartFile(fileName, resource.getInputStream());
+        } catch (Exception e) {
+            // 处理文件读取失败的情况
+            throw new FileReadException(MessageConstant.FILE_READ_ERROR);
+        }
+
+        return multipartFile;
     }
 }

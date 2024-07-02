@@ -14,6 +14,7 @@ public class MessageConstant {
     public static final String WECHAT_REPEAT = "微信已注册";
     public static final String FILE_NOT_FOUND = "文件未找到";
     public static final String FILE_MESSAGE_WRONG = "文件信息错误";
+    public static final String FILE_READ_ERROR = "文件读入错误";
     public static final String ILLEGAL_FILE_NAME = "非法文件名";
     public static final String FAILED_CREATE_DIRECTORY = "未能成功创建文件及";
     public static final String UNKNOWN_ERROR = "未知错误";
