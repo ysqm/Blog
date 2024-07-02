@@ -86,14 +86,16 @@ export default {
 .search button {
   padding: 5px 5px;
   border: none;
-  background-color: #FFA500;
+  background-color: #84FAD1FF;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .editor-icon {
   margin-left: 5px;
-  background-color: #FFA500;
+  background-color: #84FAD1FF;
+  border: none;
+  border-radius: 4px;
 }
 
 
@@ -108,7 +110,7 @@ export default {
   padding: 5px 5px;
   border: none;
   color: #FFFFFF;
-  background-color: #FFA500;
+  background-color: #84fad1;
   border-radius: 4px;
   cursor: pointer;
 }
