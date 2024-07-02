@@ -4,17 +4,5 @@ elm:
     host: localhost
     port: 3306
     database: blogdata
-
-
-
-
-upload:
-  temp-path: D:\project\Blog\resources\temp
-  save-path: D:\project\Blog\resources\uploadFile
-  extensions:
-    mp4: video
-    avi: video
-    jpg: image
-    png: image
-    txt: text
-    md: text
+    username: root
+    password: ysqm
