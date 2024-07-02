@@ -75,11 +75,13 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public Result downloadFile(Integer Id) {
+    public Result<DownloadFileVO> downloadFile(Integer Id) {
         FileHistory fileHistory = new FileHistory();
         DownloadFileVO downloadFileVO = new DownloadFileVO();
         fileHistory = fileMapper.getFileById(Id);
-        if(fileHistory == null) {return Result.error(MessageConstant.FILE_NOT_FOUND);}
+        if(fileHistory == null) {
+            throw new FileNowFoundException(MessageConstant.FILE_NOT_FOUND);
+        }
         BeanUtils.copyProperties(fileHistory, downloadFileVO);
         downloadFileVO.setFile(getMultipartFile(fileHistory.getUuid() + "." + fileHistory.getType(),fileHistory.getPath()));
         return Result.success(downloadFileVO);
