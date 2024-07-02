@@ -1,49 +1,67 @@
 <template>
   <div class="login-container">
     <div class="login-box">
-      <h2>用户登录</h2>
-      <div class="input-group">
-        <label for="username">用户名:</label>
-        <input type="text" id="username" v-model="username" required>
+      <div class="logo">
+        <img src="@/assets/logo.svg" alt="logo" />
       </div>
-      <div class="input-group">
-        <label for="password">密码:</label>
-        <input type="password" id="password" v-model="password" required>
+      <h2>BLOG用户登录</h2>
+      <p class="tagline">代码改变世界</p>
+      <div class="tabs">
+        <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">密码登录</button>
+        <button :class="{ active: !isPasswordLogin }" @click="isPasswordLogin = false">短信登录</button>
       </div>
-      <div class="checkbox-group">
-        <input type="checkbox" id="remember" v-model="remember">
-        <label for="remember">记住我</label>
-      </div>
-      <button @click="login">登录</button>
+      <form v-if="isPasswordLogin" @submit.prevent="login">
+        <input type="text" placeholder="登录用户名 / 邮箱" v-model="username" />
+        <input type="password" placeholder="密码" v-model="password" />
+        <div class="remember-me">
+          <input type="checkbox" id="remember" v-model="rememberMe" />
+          <label for="remember">记住我</label>
+        </div>
+        <button type="submit" class="login-button">登录</button>
+      </form>
+      <form v-else @submit.prevent="login">
+        <input type="text" placeholder="手机号" v-model="phone" />
+        <input type="text" placeholder="验证码" v-model="verificationCode" />
+        <button type="submit" class="login-button">登录</button>
+      </form>
       <div class="third-party-login">
-        <p>第三方登录:</p>
+        <p>第三方登录/注册</p>
         <div class="icons">
-          <a href="#"><i class="icon-wechat"></i></a>
-          <a href="#"><i class="icon-qq"></i></a>
-          <a href="#"><i class="icon-github"></i></a>
+          <a href="#"><IconWeChat></IconWeChat></a>
+          <a href="#"><IconQQ></IconQQ></a>
+          <a href="#"><IconGithub></IconGithub></a>
         </div>
       </div>
+      <a href="#" class="register-link">没有账号，立即注册</a>
     </div>
   </div>
 </template>
 
 <script>
+import IconGithub from "@/components/icons/IconGithub.vue";
+import IconQQ from "@/components/icons/IconQQ.vue";
+import IconWeChat from "@/components/icons/IconWeChat.vue";
+
+
 export default {
-  name: 'Login',
+  components: {IconGithub, IconQQ, IconWeChat},
   data() {
     return {
+      isPasswordLogin: true,
       username: '',
       password: '',
-      remember: false
-    }
+      rememberMe: false,
+      phone: '',
+      verificationCode: '',
+    };
   },
   methods: {
     login() {
-      // 执行登录逻辑
-      console.log(`Username: ${this.username}, Password: ${this.password}, Remember: ${this.remember}`);
-    }
-  }
-}
+      // 在这里添加你的登录逻辑
+      console.log("登录中...");
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -52,34 +70,93 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f0f0f0;
+  background-color: #f0f2f5;
 }
 
 .login-box {
-  background-color: white;
-  padding: 30px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 360px;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
-.input-group {
-  margin-bottom: 20px;
-  text-align: left;
+.logo img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 10px;
 }
 
-.checkbox-group {
-  margin-bottom: 20px;
-  text-align: left;
+h2 {
+  margin: 10px 0;
+  font-size: 24px;
 }
 
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: #4CAF50;
-  color: white;
+.tagline {
+  margin: 5px 0 20px;
+  color: #999;
+}
+
+.vip-link {
+  color: #007bff;
+  text-decoration: none;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  background: none;
   border: none;
-  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  border-bottom: 2px solid #007bff;
+  color: #007bff;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.remember-me label {
+  margin-left: 5px;
+  font-size: 14px;
+  color: #666;
+}
+
+.login-button {
+  padding: 10px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
   cursor: pointer;
 }
 
@@ -87,8 +164,28 @@ button {
   margin-top: 20px;
 }
 
+.third-party-login p {
+  margin-bottom: 10px;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+}
+
 .icons a {
   margin: 0 10px;
-  color: #333;
+}
+
+.icons img {
+  width: 30px;
+  height: 30px;
+}
+
+.register-link {
+  display: block;
+  margin-top: 20px;
+  color: #007bff;
+  text-decoration: none;
 }
 </style>

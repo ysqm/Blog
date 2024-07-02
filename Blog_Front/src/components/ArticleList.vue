@@ -57,77 +57,71 @@ export default {
           summary: '在Python中我们日常分析数据...',
           author: '多玩我的世界盒子',
           date: '2024-06-30',
-          avatar: 'path/to/avatar2.png',
+          avatar: 'avatar.jpg',
           heat: 80,
           likes: 15,
           views: 150,
           comments: 3
         }
-        // 更多文章
+        // 更多文章数据
       ]
     }
   }
 }
-    // 获取文章列表
 </script>
 
 <style scoped>
 .article-list {
-  margin-right: 100px; /* 右侧边栏宽度 */
-  padding: 20px;
-  overflow-y: auto;
-  background-color: #e8a9c9; /* 背景色 */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-left: 120px;
+  margin-right: calc(200px + 20px);
 }
 .article {
-  margin-bottom: 20px;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 .article h3 {
-  margin: 0 0 10px;
-  font-weight: bold;
-  font-style: italic;
+  margin: 0;
 }
-.article .img-preview {
+
+.img-preview {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-direction: row;
 }
-.img-preview .article-img {
-  width: 30px;
-  height: 30px;
+
+.article-img {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
+  object-fit: cover;
 }
-.article p {
-  margin: 0 0 10px;
-  font-weight: lighter;
-  font-size: xx-small;
-}
+
 .meta {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  margin-top: 10px;
 }
+
 .meta .info {
   display: flex;
   gap: 10px;
-  font-style: italic;
-  font-size: x-small;
 }
-.meta .info span {
-  display: inline-block;
-}
-.stats {
+
+.meta .stats {
   display: flex;
   gap: 10px;
-  font-size: xx-small;
-}
-.stats span {
-  display: flex;
   align-items: center;
 }
-.stats span svg {
-  margin-right: 5px;
+
+.meta .stats span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 </style>
