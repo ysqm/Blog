@@ -4,6 +4,7 @@ import com.elm.dto.CreateArticleDTO;
 import com.elm.dto.UpdateArticleDTO;
 import com.elm.entity.Article;
 import com.elm.mapper.ArticleMapper;
+import com.elm.mapper.ArticleTagMapper;
 import com.elm.service.ArticleService;
 import com.elm.vo.ArticleVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleMapper articleMapper;
 
+    @Autowired
+    private ArticleTagMapper articleTagMapper;
     @Value("${file.upload.dir}")
     private String uploadDir;// 设置文件上传目录
 
@@ -38,6 +41,12 @@ public class ArticleServiceImpl implements ArticleService {
         article.setStatus(articleDTO.getStatus());
         article.setPublishDate(new Date());
         articleMapper.insertArticle(article);
+        Long articleId = article.getArticleId();
+
+        // 保存标签关联
+        if (articleDTO.getTagIds() != null) {
+            saveArticleTags(articleId, articleDTO.getTagIds());
+        }
         return toVO(article);
     }
 
@@ -55,6 +64,14 @@ public class ArticleServiceImpl implements ArticleService {
         article.setStatus(articleDTO.getStatus());
         article.setUpdateDate(new Date());
         articleMapper.updateArticle(article);
+
+        // 更新标签关联
+        if (articleDTO.getTagIds() != null) {
+            // 先删除旧的标签关联
+            articleTagMapper.deleteArticleTagsByArticleId(articleId);
+            // 保存新的标签关联
+            saveArticleTags(articleId, articleDTO.getTagIds());
+        }
         return toVO(article);
     }
 
@@ -64,6 +81,7 @@ public class ArticleServiceImpl implements ArticleService {
         if (article != null) {
             deleteFile(article.getContentPath());
             articleMapper.deleteArticle(articleId);
+            deleteArticleTags(articleId);
         }
     }
 
@@ -106,6 +124,7 @@ public class ArticleServiceImpl implements ArticleService {
         vo.setUpdateDate(article.getUpdateDate());
         vo.setStatus(article.getStatus());
         vo.setHeat(article.getHeat());
+        vo.setTagIds(getArticleTagIds(article.getArticleId()));
         return vo;
     }
 
@@ -143,4 +162,24 @@ public class ArticleServiceImpl implements ArticleService {
             file.delete();
         }
     }
+
+    private void saveArticleTags(Long articleId, List<Long> tagIds) {
+        if (tagIds != null) {
+            tagIds.forEach(tagId -> articleTagMapper.insertArticleTag(articleId, tagId));
+        }
+    }
+
+    private void updateArticleTags(Long articleId, List<Long> tagIds) {
+        articleTagMapper.deleteArticleTagsByArticleId(articleId);
+        saveArticleTags(articleId, tagIds);
+    }
+
+    private void deleteArticleTags(Long articleId) {
+        articleTagMapper.deleteArticleTagsByArticleId(articleId);
+    }
+
+    private List<Long> getArticleTagIds(Long articleId) {
+        return articleTagMapper.getTagIdsByArticleId(articleId);
+    }
 }
+

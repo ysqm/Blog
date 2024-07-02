@@ -22,7 +22,7 @@
         SELECT * FROM articles WHERE user_id = #{userId} AND is_deleted = 0
     </select>
 
-    <insert id="insertArticle" parameterType="com.elm.entity.Article">
+    <insert id="insertArticle" parameterType="com.elm.entity.Article" useGeneratedKeys="true" keyProperty="articleId">
         INSERT INTO articles (user_id, title, content_path, publish_date, update_date, status, heat, is_deleted)
         VALUES (#{userId}, #{title}, #{contentPath}, #{publishDate}, #{updateDate}, #{status}, #{heat}, 0)
     </insert>

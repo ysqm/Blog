@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @ApiModel(description = "返回的文章数据模型")
@@ -33,4 +34,7 @@ public class ArticleVO {
 
     @ApiModelProperty("文章热度")
     private Integer heat;
+
+    @ApiModelProperty("文章标签ID列表")
+    private List<Long> tagIds;
 }
