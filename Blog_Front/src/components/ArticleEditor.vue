@@ -62,7 +62,7 @@ onMounted(() => {
     toolbar: [
       'emoji', 'headings', 'bold', 'italic', 'strike', '|', 'list', 'ordered-list', 'check',
       'quote', 'code', 'inline-code', 'link', 'upload', 'table', '|', 'record', 'edit-mode',
-      'both', 'preview', '|', 'undo', 'redo', '|', 'fullscreen','outline','export'
+      'both', 'preview', '|', 'undo', 'redo', '|', 'fullscreen', 'outline', 'export'
     ],
     after() {
       vditor.value.setValue('');
@@ -82,7 +82,7 @@ const saveDraft = () => {
   formData.append('title', title.value);
   formData.append('status', 'draft');
   const fileName = formatFileName(title.value);
-  const blob = new Blob([content], { type: 'text/markdown' });
+  const blob = new Blob([content], {type: 'text/markdown'});
   formData.append('file', blob, fileName);
   formData.append('tagIds', selectedTagIds.value);
 
@@ -104,7 +104,7 @@ const publishArticle = () => {
   formData.append('title', title.value);
   formData.append('status', 'published');
   const fileName = formatFileName(title.value);
-  const blob = new Blob([content], { type: 'text/markdown' });
+  const blob = new Blob([content], {type: 'text/markdown'});
   formData.append('file', blob, fileName);
   formData.append('tagIds', selectedTagIds.value);
 

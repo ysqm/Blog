@@ -11,6 +11,7 @@ const app = createApp(App)
 app.use(router)
 // 配置vue启用axios
 app.config.globalProperties.$axios = axios
+axios.defaults.withCredentials = false;
 // 挂载app
 app.mount('#app')
 
