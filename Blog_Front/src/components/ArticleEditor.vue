@@ -185,6 +185,10 @@ const saveArticle = () => {
   background-color: #f8f8f8;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-right: 150px;
+  margin-left: 150px;
+  left: 0;
+
 }
 
 .toolbar {
@@ -252,10 +256,12 @@ const saveArticle = () => {
   padding: 24px;
   background-color: #ffffff;
   border-radius: 0 0 8px 8px;
+
 }
 
 .edit h3{
   margin-right:24px;
+  white-space: nowrap;
 }
 .editor {
   flex-grow: 1;
