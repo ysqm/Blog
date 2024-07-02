@@ -54,14 +54,21 @@ export default {
   margin: 10px 0;
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid #ddd;
 }
 .right-sidebar ul li a {
   text-decoration: none;
   color: black;
+  font-size: x-small;
+  font-weight: bold;
+  font-style: italic;
 }
 .right-sidebar ul li span {
   display: flex;
-  align-items: center;
+  color: red;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
 }
 .right-sidebar ul li span svg {
   margin-left: 5px;
