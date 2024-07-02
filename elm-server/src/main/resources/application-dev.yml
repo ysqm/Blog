@@ -5,9 +5,6 @@ elm:
     port: 3306
     database: blogdata
 
-
-
-
 upload:
   temp-path: D:\project\Blog\resources\temp
   save-path: D:\project\Blog\resources\uploadFile
@@ -18,3 +15,4 @@ upload:
     png: image
     txt: text
     md: text
+

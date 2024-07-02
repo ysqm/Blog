@@ -6,6 +6,7 @@ import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @ApiModel(description = "创建文章时传递的数据模型")
@@ -22,4 +23,7 @@ public class CreateArticleDTO implements Serializable {
 
     @ApiModelProperty("文章状态")
     private String status;
+
+    @ApiModelProperty("文章标签ID列表")
+    private List<Long> tagIds;
 }
