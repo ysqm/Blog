@@ -21,6 +21,7 @@ CREATE TABLE users (
 DROP TABLE IF EXISTS `filehistory`;
 CREATE TABLE filehistory (
                     id                      INT AUTO_INCREMENT PRIMARY KEY ,
+                    uuid                    VARCHAR(36),
                     filename                VARCHAR(500) NOT NULL,
                     path                    VARCHAR(500) NOT NULL,
                     create_time             DATETIME NOT NULL ,

@@ -16,8 +16,8 @@ public interface FileMapper {
 
     @AutoFill(value = OperationType.INSERT)
     @Insert("INSERT INTO filehistory (" +
-            "id,filename,path,create_time,update_time,status,type,upload_author) values (" +
-            "#{id},#{filename},#{createTime},#{updateTime},#{status},#{type},#{upload_author})")
+            "id,filename,path,create_time,update_time,status,type,upload_author,uuid) values (" +
+            "#{id},#{filename},#{createTime},#{updateTime},#{status},#{type},#{upload_author},#{uuid})")
     Integer InsertFile(FileHistory fileHistory);
 
     @AutoFill(value = OperationType.UPDATE)

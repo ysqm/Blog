@@ -19,5 +19,6 @@ public class FileHistory {
     private LocalDateTime updateTime;
     private FileStatus status;
     private String type;
+    private String uuid;
     private Integer uploadAuthor;
 }

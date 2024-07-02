@@ -2,6 +2,7 @@ package com.elm.controller.admin;
 
 
 import com.elm.entity.FileHistory;
+import com.elm.entity.FileStatus;
 import com.elm.properties.UploadFileProperties;
 import com.elm.result.Result;
 import com.elm.service.FileService;
@@ -24,15 +25,40 @@ public class FileController {
     @Autowired
     private UploadFileProperties uploadFileProperties;
 
-    public Result uploadFile(@RequestPart("file") MultipartFile file, @RequestBody FileHistory fileHistory) {
-        return fileService.uploadFile(file,fileHistory);
+
+    public Result uploadFile(@RequestPart("file") MultipartFile file) {
+        return fileService.uploadFile(file);
     }
 
     public Result getFileById(@RequestBody Integer id) {
         return fileService.getFileById(id);
     }
 
-    public Result updateFileById(@RequestBody FileHistory fileHistory) {
+    public Result hideFile(@RequestBody Integer id) {
+        FileHistory fileHistory = new FileHistory();
+        fileHistory.setId(id);
+        fileHistory.setStatus(FileStatus.HIDE);
+        return fileService.updateFileById(fileHistory);
+    }
+
+    public Result deleteFile(@RequestBody Integer id) {
+        FileHistory fileHistory = new FileHistory();
+        fileHistory.setId(id);
+        fileHistory.setStatus(FileStatus.DELETE);
+        return fileService.updateFileById(fileHistory);
+    }
+
+    public Result recoverFile(@RequestBody Integer id) {
+        FileHistory fileHistory = new FileHistory();
+        fileHistory.setId(id);
+        fileHistory.setStatus(FileStatus.NORMAL);
+        return fileService.updateFileById(fileHistory);
+    }
+
+    public Result updateFile(@RequestBody Integer id, @RequestBody String filename) {
+        FileHistory fileHistory = new FileHistory();
+        fileHistory.setId(id);
+        fileHistory.setFilename(filename);
         return fileService.updateFileById(fileHistory);
     }
 }
