@@ -1,6 +1,6 @@
 <template>
   <div style="width:100%;height:100%;position: relative">
-    <input type="text" v-model="title" placeholder="Enter title" />
+    <h1><input type="text" v-model="title" placeholder="请输入标题" /></h1>
     <div id="vditor"></div>
     <button @click="saveDraft">Save Draft</button>
     <button @click="publishArticle">Publish</button>
@@ -25,7 +25,7 @@ onMounted(() => {
     toolbar: [
       'emoji', 'headings', 'bold', 'italic', 'strike', '|', 'list', 'ordered-list', 'check',
       'quote', 'code', 'inline-code', 'link', 'upload', 'table', '|',  'record', 'edit-mode',
-      'both', 'preview' , '|', 'undo','redo', '|', 'fullscreen'
+      'both', 'preview' , '|', 'undo','redo', '|', 'fullscreen','outline','export'
     ],
     after() {
       vditor.value.setValue('');
@@ -73,12 +73,15 @@ const publishArticle = () => {
 <style scoped>
 #vditor {
   margin-bottom: 20px;
+  text-align: left; /* 确保文本左对齐 */
 }
 
 input[type="text"] {
-  width: 100%;
+  font-size: 24px;
+  font-weight: bold;
   padding: 10px;
   margin-bottom: 20px;
   box-sizing: border-box;
+  width: 100%;
 }
 </style>
