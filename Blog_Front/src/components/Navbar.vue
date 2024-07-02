@@ -14,7 +14,9 @@
       </button>
     </div>
     <button class="editor-icon">
-      <IconPen />
+      <router-link to="/Editor">
+        <IconPen />
+      </router-link>
     </button>
     <div class="auth-buttons">
       <button>登录</button>

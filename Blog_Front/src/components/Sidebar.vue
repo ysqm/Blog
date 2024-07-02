@@ -33,10 +33,16 @@ export default {
   padding: 0;
 }
 .sidebar ul li {
-  margin-bottom: 10px;
+  padding: 20px;
+  margin: 20px 0;
+  border-bottom: 1px solid #ddd;
+
 }
 .sidebar ul li a {
   text-decoration: none;
   color: black;
+  font-size: large;
+  font-weight: bold;
+  font-style: italic;
 }
 </style>
