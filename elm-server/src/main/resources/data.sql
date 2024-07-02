@@ -19,15 +19,16 @@ CREATE TABLE users (
 
 DROP TABLE IF EXISTS `Articles`;
 CREATE TABLE Articles (
-                         article_id         INT AUTO_INCREMENT PRIMARY KEY,
-                         user_id            INT,
-                         title              VARCHAR(255) NOT NULL,
-                         content            TEXT NOT NULL,
-                         publish_date       DATETIME NOT NULL,
-                         update_date        DATETIME NULL,
-                         status             ENUM('published', 'draft', 'deleted', 'hidden') NOT NULL,
-                         heat               INT DEFAULT 0,
-                         FOREIGN KEY (user_id) REFERENCES Users(user_id)
+                          article_id         INT AUTO_INCREMENT PRIMARY KEY,
+                          user_id            INT,
+                          title              VARCHAR(255) NOT NULL,
+                          content_path       VARCHAR(255) NOT NULL,
+                          publish_date       DATETIME NOT NULL,
+                          update_date        DATETIME NULL,
+                          status             ENUM('published', 'draft', 'deleted', 'hidden') NOT NULL,
+                          heat               INT DEFAULT 0,
+                          is_deleted         INT DEFAULT 0,
+                          FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
 DROP TABLE IF EXISTS `Comments`;

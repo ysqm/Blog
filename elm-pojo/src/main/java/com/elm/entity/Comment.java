@@ -16,10 +16,10 @@ public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer id;
-    private Integer articleId;
-    private Integer userId;
+    private Long commentId;
+    private Long articleId;
+    private Long userId;
     private String content;
     private LocalDateTime commentDate;
-    private Integer parentCommentId;
+    private Long parentCommentId;
 }
