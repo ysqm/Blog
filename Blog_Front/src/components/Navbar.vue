@@ -45,7 +45,7 @@ export default {
   align-items: center;
   padding: 10px 20px;
   justify-content: space-between;
-  background-color: #2c3e50;
+  background-color: #1E90FF;
   z-index: 1000; /* 确保导航栏在顶部 */
 }
 
@@ -86,25 +86,29 @@ export default {
 .search button {
   padding: 5px 5px;
   border: none;
-  background-color: #fff;
+  background-color: #FFA500;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .editor-icon {
   margin-left: 5px;
+  background-color: #FFA500;
 }
+
 
 .auth-buttons {
   display: flex;
   margin-left: 5px;
+
 }
 
 .auth-buttons button {
   margin-right: 25px;
   padding: 5px 5px;
   border: none;
-  background-color: #fff;
+  color: #FFFFFF;
+  background-color: #FFA500;
   border-radius: 4px;
   cursor: pointer;
 }
