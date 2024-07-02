@@ -3,18 +3,33 @@ USE `blogdata`;
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE users (
-                       user_id              INT AUTO_INCREMENT PRIMARY KEY,
-                       username             VARCHAR(50) UNIQUE NOT NULL,
-                       password             VARCHAR(255) NOT NULL,
-                       email                VARCHAR(100) UNIQUE NOT NULL,
-                       avatar               TEXT,
-                       create_time          DATETIME NOT NULL,
-                       last_login_time      DATETIME DEFAULT NULL,
-                       bio                  TEXT,
-                       update_time          DATETIME NOT NULL,
-                       wechat_account       VARCHAR(100) UNIQUE,
-                       qq_account           VARCHAR(100) UNIQUE,
-                       is_logged_out        INT DEFAULT 0 CHECK (is_logged_out IN (0, 1))
+                        user_id              INT AUTO_INCREMENT PRIMARY KEY,
+                        username             VARCHAR(50) UNIQUE NOT NULL,
+                        password             VARCHAR(255) NOT NULL,
+                        email                VARCHAR(100) UNIQUE NOT NULL,
+                        avatar               TEXT,
+                        create_time          DATETIME NOT NULL,
+                        last_login_time      DATETIME DEFAULT NULL,
+                        bio                  TEXT,
+                        update_time          DATETIME NOT NULL,
+                        wechat_account       VARCHAR(100) UNIQUE,
+                        qq_account           VARCHAR(100) UNIQUE,
+                        is_logged_out        INT DEFAULT 0 CHECK (is_logged_out IN (0, 1)),
+                        permission_level     ENUM('BANNED','USER','ADMIN','SUPER_ADMIN') default 'USER'
+);
+
+DROP TABLE IF EXISTS `filehistory`;
+CREATE TABLE filehistory (
+                    id                      INT AUTO_INCREMENT PRIMARY KEY ,
+                    uuid                    VARCHAR(36),
+                    filename                VARCHAR(500) NOT NULL,
+                    path                    VARCHAR(500) NOT NULL,
+                    create_time             DATETIME NOT NULL ,
+                    update_time             DATETIME NOT NULL ,
+                    status                  ENUM('DESTORY','DELETE','HIDE','NORMAL') default 'HIDE',
+                    type                    VARCHAR(50) NOT NULL ,
+                    upload_author           INT NOT NULL,
+                    FOREIGN KEY (upload_author) REFERENCES Users(user_id)
 );
 
 DROP TABLE IF EXISTS `Articles`;
