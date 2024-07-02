@@ -35,6 +35,7 @@ public class FileController {
 
 
     @PostMapping("/upload")
+    @ApiOperation("上传文件")
     public Result uploadFile(@RequestPart("file") MultipartFile file) {return fileService.uploadFile(file);}
 
     @GetMapping("/download/{id}")
