@@ -14,8 +14,8 @@ public class CreateCommentDTO implements Serializable {
     @ApiModelProperty("用户ID")
     private Long userId;
 
-    @ApiModelProperty("评论ID")
-    private Long commentId;
+//    @ApiModelProperty("评论ID")
+//    private Long commentId;
 
     @ApiModelProperty("文章ID")
     private Long articleId;

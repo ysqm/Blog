@@ -16,11 +16,11 @@ public class CommentVO {
     @ApiModelProperty("用户ID")
     private Long userId;
 
+    @ApiModelProperty("文章ID")
+    private Long articleId;
+
     @ApiModelProperty("父评论ID")
     private Long parentCommentId;
-
-    @ApiModelProperty("更新时间")
-    private Date updateDate;
 
     @ApiModelProperty("评论内容")
     private String content;

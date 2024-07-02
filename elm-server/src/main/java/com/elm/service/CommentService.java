@@ -3,10 +3,11 @@ package com.elm.service;
 import com.elm.dto.CreateCommentDTO;
 import com.elm.dto.UpdateCommentDTO;
 import com.elm.entity.Comment;
+import com.elm.vo.CommentVO;
 import com.elm.result.Result;
 
 public interface CommentService {
-    Result addComment(CreateCommentDTO createCommentDTO);
+    CommentVO addComment(CreateCommentDTO createCommentDTO);
     Comment getComment(Integer commentId);
-    Result updateComment(UpdateCommentDTO updateCommentDTO);
+    CommentVO updateComment(UpdateCommentDTO updateCommentDTO);
 }
