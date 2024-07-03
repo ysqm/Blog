@@ -34,16 +34,16 @@ CREATE TABLE filehistory (
 
 DROP TABLE IF EXISTS `Articles`;
 CREATE TABLE Articles (
-                          article_id         INT AUTO_INCREMENT PRIMARY KEY,
-                          user_id            INT,
-                          title              VARCHAR(255) NOT NULL,
-                          content_path       TEXT NOT NULL,
-                          publish_date       DATETIME NOT NULL,
-                          update_date        DATETIME NULL,
-                          status             ENUM('published', 'draft', 'deleted', 'hidden') NOT NULL,
-                          heat               INT DEFAULT 0,
-                          is_deleted         BOOLEAN default 0,
-                          FOREIGN KEY (user_id) REFERENCES Users(user_id)
+                         article_id         INT AUTO_INCREMENT PRIMARY KEY,
+                         user_id            INT,
+                         title              VARCHAR(255) NOT NULL,
+                         content_path       TEXT NOT NULL,
+                         publish_date       DATETIME NOT NULL,
+                         update_date        DATETIME NULL,
+                         status             ENUM('published', 'draft', 'deleted', 'hidden') NOT NULL,
+                         heat               INT DEFAULT 0,
+                         is_deleted         BOOLEAN default 0,
+                         FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
 DROP TABLE IF EXISTS `Comments`;
