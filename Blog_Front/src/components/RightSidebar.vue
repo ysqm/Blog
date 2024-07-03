@@ -35,14 +35,14 @@ export default {
   right: 0;
   width: 200px;
   height: calc(100vh - 50px); /* 调整高度以排除导航栏 */
-  background-color: #f9f9f9;
+  background-color: #F8F8F8;
   padding: 20px;
   box-shadow: -2px 0 5px rgba(0,0,0,0.1);
   overflow-y: auto; /* 确保侧边栏可滚动 */
 }
 .right-sidebar h3 {
   margin-top: 0;
-  color: red;
+  color: #FFA500;
   text-align: center;
   font-weight: bold;
 }
@@ -54,14 +54,21 @@ export default {
   margin: 10px 0;
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid #ddd;
 }
 .right-sidebar ul li a {
   text-decoration: none;
-  color: black;
+  color: #333333;
+  font-size: x-small;
+  font-weight: bold;
+  font-style: italic;
 }
 .right-sidebar ul li span {
   display: flex;
-  align-items: center;
+  color: #333333;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
 }
 .right-sidebar ul li span svg {
   margin-left: 5px;

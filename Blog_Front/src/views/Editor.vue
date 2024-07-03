@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <h1>Edit Article</h1>
+    <Navbar />
     <ArticleEditor :articleId="$route.params.articleId" />
-  </div>
 </template>
 
 <script>
 import ArticleEditor from '../components/ArticleEditor.vue';
+import Navbar from "@/components/Navbar.vue";
 
 export default {
   components: {
+    Navbar,
     ArticleEditor,
   },
 };

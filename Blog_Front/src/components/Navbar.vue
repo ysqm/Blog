@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar">
-    <div class="logo">BLOG</div>
+    <div class="logo">WeBlog</div>
     <ul class="nav-links">
       <li><a href="#">分类</a></li>
       <li><a href="#">精华</a></li>
@@ -14,11 +14,13 @@
       </button>
     </div>
     <button class="editor-icon">
-      <IconPen />
+      <router-link to="/Editor">
+        <IconPen />
+      </router-link>
     </button>
     <div class="auth-buttons">
-      <button>登录</button>
-      <button>注册</button>
+      <button><router-link to="/login">登录</router-link></button>
+      <button><router-link to="/register">注册</router-link></button>
     </div>
   </nav>
 </template>
@@ -43,7 +45,7 @@ export default {
   align-items: center;
   padding: 10px 20px;
   justify-content: space-between;
-  background-color: #2c3e50;
+  background-color: #1E90FF;
   z-index: 1000; /* 确保导航栏在顶部 */
 }
 
@@ -84,25 +86,31 @@ export default {
 .search button {
   padding: 5px 5px;
   border: none;
-  background-color: #fff;
+  background-color: #84FAD1FF;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .editor-icon {
   margin-left: 5px;
+  background-color: #84FAD1FF;
+  border: none;
+  border-radius: 4px;
 }
+
 
 .auth-buttons {
   display: flex;
   margin-left: 5px;
+
 }
 
 .auth-buttons button {
   margin-right: 25px;
   padding: 5px 5px;
   border: none;
-  background-color: #fff;
+  color: #FFFFFF;
+  background-color: #84fad1;
   border-radius: 4px;
   cursor: pointer;
 }

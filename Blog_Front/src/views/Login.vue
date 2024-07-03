@@ -42,6 +42,7 @@ import IconGithub from "@/components/icons/IconGithub.vue";
 import IconQQ from "@/components/icons/IconQQ.vue";
 import IconWeChat from "@/components/icons/IconWeChat.vue";
 import axios from "axios";
+
 import {store} from '@/store/modules/index'
 import { request } from "@/request";
 import {login} from "@/api/user"
@@ -49,8 +50,9 @@ import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter(); 
 
+
 export default {
-  components: {IconGithub, IconQQ, IconWeChat},
+  components: { IconGithub, IconQQ, IconWeChat },
   data() {
     return {
       isPasswordLogin: true,
@@ -77,17 +79,22 @@ export default {
         } else {
           alert(response.data.msg)
         }
-        
       }).catch(error => {
         console.error(error)
       })
+      console.log("登录中...");
     },
   },
 };
 </script>
 
 <style scoped>
+/* 保持现有样式 */
 .login-container {
+  top: 0;
+  left: 0;
+  width: 100%;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;

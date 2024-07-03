@@ -33,7 +33,7 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #E594CB;
+  background-color: #F0F8FF;
 }
 
 .main-content {
@@ -46,7 +46,6 @@ export default {
   flex: 1;
   overflow-y: auto;
   padding: 20px;
-  background-color: #e8a9c9; /* 背景色 */
 }
 
 article {

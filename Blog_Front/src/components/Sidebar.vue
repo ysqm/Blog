@@ -22,7 +22,7 @@ export default {
   left: 0;
   width: 100px;
   height: calc(100vh - 50px); /* 调整高度以排除导航栏 */
-  background-color: #f9f9f9;
+  background-color: #F8F8F8;
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
   flex-shrink: 0;
@@ -33,10 +33,17 @@ export default {
   padding: 0;
 }
 .sidebar ul li {
-  margin-bottom: 10px;
+  padding: 20px;
+  margin: 20px 0;
+  border-bottom: 1px solid #ddd;
+  color: #333333;
+
 }
 .sidebar ul li a {
   text-decoration: none;
   color: black;
+  font-size: large;
+  font-weight: bold;
+  font-style: italic;
 }
 </style>

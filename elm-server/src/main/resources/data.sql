@@ -8,10 +8,10 @@ CREATE TABLE users (
                         password             VARCHAR(255) NOT NULL,
                         email                VARCHAR(100) UNIQUE NOT NULL,
                         avatar               TEXT,
-                        create_time          DATETIME NOT NULL,
+                        create_time          DATETIME ,
                         last_login_time      DATETIME DEFAULT NULL,
                         bio                  TEXT,
-                        update_time          DATETIME NOT NULL,
+                        update_time          DATETIME ,
                         wechat_account       VARCHAR(100) UNIQUE,
                         qq_account           VARCHAR(100) UNIQUE,
                         is_logged_out        INT DEFAULT 0 CHECK (is_logged_out IN (0, 1)),
@@ -37,11 +37,12 @@ CREATE TABLE Articles (
                          article_id         INT AUTO_INCREMENT PRIMARY KEY,
                          user_id            INT,
                          title              VARCHAR(255) NOT NULL,
-                         content            TEXT NOT NULL,
+                         content_path       TEXT NOT NULL,
                          publish_date       DATETIME NOT NULL,
                          update_date        DATETIME NULL,
                          status             ENUM('published', 'draft', 'deleted', 'hidden') NOT NULL,
                          heat               INT DEFAULT 0,
+                         is_deleted         BOOLEAN default 0,
                          FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
@@ -61,7 +62,8 @@ CREATE TABLE Comments (
 DROP TABLE IF EXISTS `Tags`;
 CREATE TABLE Tags (
                      tag_id         INT AUTO_INCREMENT PRIMARY KEY,
-                     tag_name       VARCHAR(50) UNIQUE NOT NULL
+                     tag_name       VARCHAR(50) UNIQUE NOT NULL,
+                     status         ENUM('pending','approved','official') NOT NULL
 );
 
 DROP TABLE IF EXISTS `ArticleTags`;
@@ -75,14 +77,14 @@ CREATE TABLE ArticleTags (
 
 DROP TABLE IF EXISTS `LikeDislikes`;
 CREATE TABLE LikeDislikes (
-                            record_id           INT AUTO_INCREMENT PRIMARY KEY,
-                            user_id             INT NOT NULL,
-                            target_id           INT NOT NULL,
-                            record_type         ENUM('article', 'comment') NOT NULL,
-                            record_status       ENUM('like', 'dislike') NOT NULL,
-                            FOREIGN KEY (user_id) REFERENCES Users(user_id),
-                            FOREIGN KEY (target_id) REFERENCES Articles(article_id),
-                            FOREIGN KEY (target_id) REFERENCES Comments(comment_id)
+                              record_id       INT AUTO_INCREMENT PRIMARY KEY,
+                              user_id         INT NOT NULL,
+                              target_id       INT NOT NULL,
+                              record_type     ENUM('article', 'comment') NOT NULL,
+                              record_status   ENUM('like', 'dislike') NOT NULL,
+                              FOREIGN KEY (user_id) REFERENCES Users(user_id),
+                              FOREIGN KEY (target_id) REFERENCES Articles(article_id),
+                              FOREIGN KEY (target_id) REFERENCES Comments(comment_id)
 );
 
 DROP TABLE IF EXISTS `Follows`;
