@@ -42,7 +42,14 @@ import IconGithub from "@/components/icons/IconGithub.vue";
 import IconQQ from "@/components/icons/IconQQ.vue";
 import IconWeChat from "@/components/icons/IconWeChat.vue";
 import axios from "axios";
-import { store } from '@/store/modules/index';
+
+import {store} from '@/store/modules/index'
+import { request } from "@/request";
+import {login} from "@/api/user"
+import { useRoute, useRouter } from 'vue-router'
+
+const router = useRouter(); 
+
 
 export default {
   components: { IconGithub, IconQQ, IconWeChat },
@@ -58,24 +65,23 @@ export default {
   },
   methods: {
     login() {
-      // 判断是密码登录还是短信登录
-      const loginData = this.isPasswordLogin
-          ? { username: this.username, password: this.password }
-          : { phone: this.phone, verificationCode: this.verificationCode };
-
-      axios.post('/api/user/login', loginData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      // 在这里添加你的登录逻辑
+      login(this.username,this.password).then(response => {
+        console.log(response.data)
+        if(response.data.code == 1){
+          store.commit('setBio',   response.data.bio)
+          store.commit('setToken', response.data.token)
+          store.commit('setUsername', response.data.username)
+          store.commit('setUid', response.data.uid)
+          store.commit('setAvatar', response.data.Avatar)
+          console.log("登录中...");
+          this.$router.push('/community');
+        } else {
+          alert(response.data.msg)
+        }
+      }).catch(error => {
+        console.error(error)
       })
-          .then(response => {
-            console.log(response.data);
-            // 假设后端返回的响应中有token
-            store.commit('setToken', response.data.token);
-          })
-          .catch(error => {
-            console.error(error);
-          });
       console.log("登录中...");
     },
   },
