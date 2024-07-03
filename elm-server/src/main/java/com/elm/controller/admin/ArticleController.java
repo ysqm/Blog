@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/articles")
-@CrossOrigin(origins = "http://localhost:5174") // 允许从特定的前端地址访问
+@CrossOrigin(origins = "http://localhost:5175") // 允许从特定的前端地址访问
 public class ArticleController {
 
     @Autowired

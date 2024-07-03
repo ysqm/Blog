@@ -1,53 +1,60 @@
 <template>
   <div class="article-editor-container">
-    <div class="toolbar">
-      <div class="title-container">
-        <h3>文章标题</h3>
-        <input type="text" v-model="title" placeholder="输入标题" class="title-input" />
-      </div>
+    <el-row :gutter="20">
+      <el-col :span="24">
+        <el-card>
+          <el-form>
+            <el-form-item label="文章标题">
+              <el-input v-model="title" placeholder="输入标题" />
+            </el-form-item>
 
-      <div class="tags-container">
-        <h3>文章标签</h3>
-        <div class="tag-list">
-          <div v-for="tag in availableTags" :key="tag.tagId" class="tag-item">
-            <input type="checkbox" :value="tag.tagId" v-model="selectedTagIds" class="tag-checkbox" />
-            <span class="tag-name">{{ tag.tagName }}</span>
-          </div>
-          <div class="tag-item">
-            <input type="text" v-model="customTag" placeholder="添加自定义标签" @keyup.enter="addCustomTag" class="custom-tag-input" />
-          </div>
-        </div>
-      </div>
+            <el-form-item label="文章标签">
+              <el-checkbox-group v-model="selectedTagIds">
+                <el-checkbox
+                    v-for="tag in availableTags"
+                    :key="tag.tagId"
+                    :label="tag.tagId"
+                >{{ tag.tagName }}</el-checkbox>
+              </el-checkbox-group>
+              <el-input
+                  v-model="customTag"
+                  placeholder="添加自定义标签"
+                  @keyup.enter="addCustomTag"
+                  style="margin-top: 10px;"
+              />
+            </el-form-item>
 
-      <div class="status-container">
-        <h3>文章状态</h3>
-        <div class="status-options">
-          <div class="status-item">
-            <input type="radio" name="status" value="draft" v-model="status" class="status-radio" />
-            <span class="status-label">草稿</span>
-          </div>
-          <div class="status-item">
-            <input type="radio" name="status" value="published" v-model="status" class="status-radio" />
-            <span class="status-label">发布</span>
-          </div>
-          <div class="status-item">
-            <input type="radio" name="status" value="hidden" v-model="status" class="status-radio" />
-            <span class="status-label">隐藏</span>
-          </div>
-        </div>
-      </div>
-    </div>
+            <el-form-item label="文章状态">
+              <el-radio-group v-model="status">
+                <el-radio label="draft">草稿</el-radio>
+                <el-radio label="published">发布</el-radio>
+                <el-radio label="hidden">隐藏</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-form>
+        </el-card>
+      </el-col>
 
-    <div class="edit">
-      <h3>文章内容</h3>
-      <div id="vditor" class="editor"></div>
-    </div>
+      <el-col :span="24">
+        <el-card>
+          <h3>文章内容</h3>
+          <div id="vditor" class="editor"></div>
+        </el-card>
+      </el-col>
 
-    <div class="save-button-container">
-      <button @click="saveArticle" class="save-button">保存</button>
-    </div>
+      <el-col :span="24" class="save-button-container">
+        <el-button type="primary" @click="saveArticle">保存</el-button>
+      </el-col>
+    </el-row>
 
-    <p v-if="error" class="error-message">{{ error }}</p>
+    <el-alert
+        v-if="error"
+        title="Error"
+        type="error"
+        :description="error"
+        show-icon
+        style="margin-top: 20px;"
+    />
   </div>
 </template>
 
@@ -56,6 +63,7 @@ import { ref, onMounted } from 'vue';
 import Vditor from 'vditor';
 import 'vditor/dist/index.css';
 import axios from 'axios';
+import { ElMessage } from 'element-plus';
 
 const vditor = ref(null);
 const title = ref('');
@@ -187,106 +195,15 @@ const saveArticle = () => {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-right: 150px;
   margin-left: 150px;
-  left: 0;
-
 }
 
-.toolbar {
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
-  border-radius: 8px 8px 0 0;
-}
-
-.title-container,
-.tags-container,
-.status-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.title-input {
-  flex-grow: 1;
-  padding: 8px 12px;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-.tag-list,
-.status-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.tag-item,
-.status-item {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.tag-checkbox,
-.status-radio {
-  width: 16px;
-  height: 16px;
-}
-
-.tag-name,
-.status-label {
-  font-size: 14px;
-  color: #333333;
-}
-
-.custom-tag-input {
-  padding: 6px 10px;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.edit {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 24px;
-  background-color: #ffffff;
-  border-radius: 0 0 8px 8px;
-
-}
-
-.edit h3{
-  margin-right:24px;
-  white-space: nowrap;
-}
 .editor {
   flex-grow: 1;
   text-align: left;
-
 }
 
 .save-button-container {
-  padding: 16px 24px;
   text-align: right;
-}
-
-.save-button {
-  padding: 8px 16px;
-  background-color: #1890ff;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.error-message {
-  color: #ff4d4f;
-  margin-top: 10px;
-  font-size: 14px;
+  margin-top: 20px;
 }
 </style>
