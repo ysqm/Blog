@@ -33,6 +33,6 @@ public class UpdateUserDTO {
     @ApiModelProperty("QQ账号")
     private String qqAccount;
 
-    @ApiModelProperty("是否登出")
+    @ApiModelProperty("是否注销")
     private Integer isLoggedOut;
 }

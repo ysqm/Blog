@@ -42,6 +42,9 @@ import IconGithub from "@/components/icons/IconGithub.vue";
 import IconQQ from "@/components/icons/IconQQ.vue";
 import IconWeChat from "@/components/icons/IconWeChat.vue";
 import axios from "axios";
+import {store} from '@/store/modules/index'
+
+
 
 
 export default {
@@ -58,6 +61,9 @@ export default {
   },
   methods: {
     login() {
+
+    
+
       // 在这里添加你的登录逻辑
       axios.request({
         method:"POST", // 请求方法
@@ -68,6 +74,8 @@ export default {
       }
       }).then(response => {
         console.log(response.data)
+
+        store.commit('setToken', 10)
       }).catch(error => {
         console.error(error)
       })
