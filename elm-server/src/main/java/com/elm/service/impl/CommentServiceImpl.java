@@ -3,7 +3,6 @@ package com.elm.service.impl;
 import com.elm.constant.MessageConstant;
 import com.elm.dto.CreateCommentDTO;
 import com.elm.dto.UpdateCommentDTO;
-import com.elm.entity.Article;
 import com.elm.entity.Comment;
 import com.elm.mapper.CommentMapper;
 import com.elm.result.Result;
@@ -14,51 +13,65 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CommentServiceImpl implements CommentService {
 
-//    private final CommentMapper commentMapper;
-//
-//    public CommentServiceImpl(CommentMapper commentMapper) {
-//        this.commentMapper = commentMapper;
-//    }
     @Autowired
-    private  CommentMapper commentMapper;
+    private CommentMapper commentMapper;
 
     @Override
-    public CommentVO addComment(CreateCommentDTO createCommentDTO) {
-
+    public Result<CommentVO> addComment(CreateCommentDTO createCommentDTO) {
         Comment comment = new Comment();
         BeanUtils.copyProperties(createCommentDTO, comment);
-        comment.setUserId(createCommentDTO.getUserId());
         comment.setCommentDate(LocalDateTime.now());
-        comment.setArticleId(createCommentDTO.getArticleId());
-        comment.setContent(createCommentDTO.getContent());
         if (createCommentDTO.getParentCommentId() == null || createCommentDTO.getParentCommentId() == 0) {
-            comment.setParentCommentId(null); // 顶级评论设置为 null
-        }else{
-            comment.setParentCommentId(createCommentDTO.getParentCommentId());
+            comment.setParentCommentId(null);
         }
-
         commentMapper.createComment(comment);
-        return toVO(comment);
+        return Result.success(toVO(comment));
     }
 
     @Override
-    public Comment getComment(Integer commentId) {
+    public Comment getComment(Long commentId) {
         return commentMapper.getCommentById(commentId);
     }
 
     @Override
-    public CommentVO updateComment(UpdateCommentDTO updateCommentDTO) {
+    public Result<CommentVO> updateComment(UpdateCommentDTO updateCommentDTO) {
         Comment comment = new Comment();
         BeanUtils.copyProperties(updateCommentDTO, comment);
         comment.setCommentDate(LocalDateTime.now());
         commentMapper.updateComment(comment);
-        return toVO(comment);
+        return Result.success(toVO(comment));
     }
+
+    @Override
+    public Result<Void> deleteComment(Long commentId) {
+        commentMapper.deleteComment(commentId);
+        return Result.success();
+    }
+
+    @Override
+    public List<CommentVO> getCommentsByUserId(Long userId) {
+        List<Comment> comments = commentMapper.getCommentsByUserId(userId);
+        return comments.stream().map(this::toVO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CommentVO> getCommentsByArticleId(Long articleId) {
+        List<Comment> comments = commentMapper.getCommentsByArticleId(articleId);
+        return comments.stream().map(this::toVO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CommentVO> getCommentsByParentCommentId(Long parentCommentId) {
+        List<Comment> comments = commentMapper.getCommentsByParentCommentId(parentCommentId);
+        return comments.stream().map(this::toVO).collect(Collectors.toList());
+    }
+
     private CommentVO toVO(Comment comment) {
         CommentVO vo = new CommentVO();
         vo.setCommentId(comment.getCommentId());
@@ -69,5 +82,4 @@ public class CommentServiceImpl implements CommentService {
         vo.setCommentDate(comment.getCommentDate());
         return vo;
     }
-
 }

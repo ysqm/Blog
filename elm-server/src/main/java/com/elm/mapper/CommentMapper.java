@@ -8,31 +8,19 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
 
-    // 获取所有评论
-
     List<Comment> getAllComments();
 
-    // 根据评论ID获取评论
+    Comment getCommentById(Long commentId);
 
-    Comment getCommentById(long commentId);
+    List<Comment> getCommentsByArticleId(Long articleId);
 
-    // 根据文章ID获取评论
+    List<Comment> getCommentsByUserId(Long userId);
 
-    List<Comment> getCommentsByArticleId(long articleId);
-
-    // 根据用户ID获取评论
-
-    List<Comment> getCommentsByUserId(long userId);
-
-    // 创建评论
+    List<Comment> getCommentsByParentCommentId(Long parentCommentId);
 
     Integer createComment(Comment comment);
 
-    // 更新评论
-
     Integer updateComment(Comment comment);
 
-    // 删除评论
-
-    Integer deleteComment(long commentId);
+    Integer deleteComment(Long commentId);
 }

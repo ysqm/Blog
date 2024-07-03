@@ -6,36 +6,31 @@
 <mapper namespace="com.elm.mapper.CommentMapper">
 
     <resultMap id="BaseResultMap" type="com.elm.entity.Comment">
-        <id column="comment_id" property="commentId" jdbcType="INTEGER"/>
-        <result column="article_id" property="articleId" jdbcType="INTEGER"/>
-        <result column="user_id" property="userId" jdbcType="INTEGER"/>
-        <result column="content" property="content" jdbcType="LONGVARCHAR"/> <!-- 修改这里 -->
+        <id column="comment_id" property="commentId" jdbcType="BIGINT"/>
+        <result column="article_id" property="articleId" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
         <result column="comment_date" property="commentDate" jdbcType="TIMESTAMP"/>
-        <result column="parent_comment_id" property="parentCommentId" jdbcType="INTEGER"/>
+        <result column="parent_comment_id" property="parentCommentId" jdbcType="BIGINT"/>
     </resultMap>
 
-    <!-- 获取某篇文章的所有评论 -->
-    <select id="getCommentsByArticleId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        SELECT *
-        FROM comments
-        WHERE article_id = #{articleId}
+    <select id="getCommentsByArticleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT * FROM comments WHERE article_id = #{articleId}
     </select>
 
-    <!-- 获取某个用户的所有评论 -->
-    <select id="getCommentsByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        SELECT *
-        FROM comments
-        WHERE user_id = #{userId}
+    <select id="getCommentsByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT * FROM comments WHERE user_id = #{userId}
     </select>
 
-    <!-- 插入新评论 -->
-    <insert id="createComment" parameterType="com.elm.entity.Comment">
+    <select id="getCommentsByParentCommentId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT * FROM comments WHERE parent_comment_id = #{parentCommentId}
+    </select>
+
+    <insert id="createComment" parameterType="com.elm.entity.Comment" useGeneratedKeys="true" keyProperty="commentId">
         INSERT INTO comments (article_id, user_id, content, comment_date, parent_comment_id)
         VALUES (#{articleId}, #{userId}, #{content}, #{commentDate}, #{parentCommentId})
     </insert>
 
-
-    <!-- 更新评论 -->
     <update id="updateComment" parameterType="com.elm.entity.Comment">
         UPDATE comments
         <set>
@@ -48,11 +43,15 @@
         WHERE comment_id = #{commentId}
     </update>
 
-    <!-- 通过ID选择评论 -->
-    <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        SELECT *
-        FROM comments
-        WHERE comment_id = #{id}
+    <select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT * FROM comments WHERE comment_id = #{id}
     </select>
 
+    <delete id="deleteComment" parameterType="java.lang.Long">
+        DELETE FROM comments WHERE comment_id = #{commentId}
+    </delete>
+
+    <select id="getCommentById" parameterType="java.lang.Long" resultType="com.elm.entity.Comment">
+        SELECT * FROM comments WHERE comment_id = #{commentId}
+    </select>
 </mapper>
