@@ -3,7 +3,7 @@
     <div class="login-box">
       <div class="logo">
 
-        <img src="../../public/avatar.jpg" alt="logo" />
+        <img src="/avatar.jpg" alt="logo" />
       </div>
       <h2>WeBlog-Register</h2>
       <p class="tagline">代码改变世界</p>

@@ -48,9 +48,6 @@ import IconWeChat from "@/components/icons/IconWeChat.vue";
 import axios from "axios";
 import {store} from '@/store/modules/index'
 
-
-
-
 export default {
   components: {IconGithub, IconQQ, IconWeChat},
   data() {
@@ -66,7 +63,7 @@ export default {
   methods: {
     login() {
 
-    
+
 
       // 在这里添加你的登录逻辑
       axios.request({
@@ -128,13 +125,6 @@ h2 {
 .tagline {
   margin: 5px 0 20px;
   color: #999;
-}
-
-.vip-link {
-  color: #007bff;
-  text-decoration: none;
-  margin-bottom: 20px;
-  display: inline-block;
 }
 
 .tabs {
