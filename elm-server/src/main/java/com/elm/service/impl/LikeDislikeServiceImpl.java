@@ -14,11 +14,22 @@ public class LikeDislikeServiceImpl implements LikeDislikeService {
 
     @Override
     public void addLikeDislike(LikeDislike likeDislike) {
-        likeDislikeMapper.insertOrUpdate(likeDislike);
+        // 检查是否已经存在记录
+        LikeDislike existingRecord = likeDislikeMapper.findByUserIdAndTargetIdAndRecordType(
+                likeDislike.getUserId(), likeDislike.getTargetId(), likeDislike.getRecordType());
+        if (existingRecord != null) {
+            // 如果存在，则更新记录
+            existingRecord.setRecordStatus(likeDislike.getRecordStatus());
+            likeDislikeMapper.update(existingRecord);
+        } else {
+            // 否则插入新记录
+            likeDislikeMapper.insert(likeDislike);
+        }
     }
 
     @Override
     public void removeLikeDislike(LikeDislike likeDislike) {
+        // 直接删除记录
         likeDislikeMapper.delete(likeDislike);
     }
 

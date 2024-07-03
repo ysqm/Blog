@@ -13,27 +13,44 @@
         <result column="record_status" property="recordStatus" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <insert id="insertOrUpdate" parameterType="com.elm.entity.LikeDislike">
+    <!-- 查找是否存在现有记录 -->
+    <select id="findByUserIdAndTargetIdAndRecordType" resultMap="BaseResultMap" parameterType="map">
+        SELECT * FROM LikeDislikes
+        WHERE user_id = #{userId} AND target_id = #{targetId} AND record_type = #{recordType}
+    </select>
+
+    <!-- 插入新记录 -->
+    <insert id="insert" parameterType="com.elm.entity.LikeDislike">
         INSERT INTO LikeDislikes (user_id, target_id, record_type, record_status)
         VALUES (#{userId}, #{targetId}, #{recordType}, #{recordStatus})
-            ON DUPLICATE KEY UPDATE record_status = #{recordStatus}
     </insert>
 
+    <!-- 更新现有记录 -->
+    <update id="update" parameterType="com.elm.entity.LikeDislike">
+        UPDATE LikeDislikes
+        SET record_status = #{recordStatus}
+        WHERE user_id = #{userId} AND target_id = #{targetId} AND record_type = #{recordType}
+    </update>
+
+    <!-- 删除记录 -->
     <delete id="delete" parameterType="com.elm.entity.LikeDislike">
         DELETE FROM LikeDislikes
         WHERE user_id = #{userId} AND target_id = #{targetId} AND record_type = #{recordType}
     </delete>
 
+    <!-- 统计评论的点赞或点踩数量 -->
     <select id="countByCommentId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
         SELECT COUNT(*) FROM LikeDislikes
         WHERE record_type = 'comment' AND target_id = #{commentId}
     </select>
 
+    <!-- 统计文章的点赞或点踩数量 -->
     <select id="countByArticleId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
         SELECT COUNT(*) FROM LikeDislikes
         WHERE record_type = 'article' AND target_id = #{articleId}
     </select>
 
+    <!-- 统计用户的点赞或点踩数量 -->
     <select id="countByUserId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
         SELECT COUNT(*) FROM LikeDislikes
         WHERE user_id = #{userId}

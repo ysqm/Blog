@@ -65,6 +65,7 @@ public class FileController {
     }
 
     @PostMapping("/hide")
+    @ApiOperation("隐藏文件")
     public Result hideFile(Integer id) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);
@@ -73,6 +74,7 @@ public class FileController {
     }
 
     @PostMapping("/delete")
+    @ApiOperation("删除文件")
     public Result deleteFile(Integer id) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);
@@ -81,6 +83,7 @@ public class FileController {
     }
 
     @PostMapping("/recover")
+    @ApiOperation("恢复文件")
     public Result recoverFile(Integer id) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);
@@ -89,6 +92,7 @@ public class FileController {
     }
 
     @PostMapping("/rename")
+    @ApiOperation("重命名文件")
     public Result updateFile(Integer id,String filename) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);
