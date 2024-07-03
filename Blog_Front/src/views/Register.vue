@@ -4,29 +4,25 @@
       <div class="logo">
         <img src="../../public/avatar.jpg" alt="logo" />
       </div>
-      <h2>WeBlog-Login</h2>
+      <h2>WeBlog-Register</h2>
       <p class="tagline">代码改变世界</p>
       <div class="tabs">
-        <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">密码登录</button>
-        <button :class="{ active: !isPasswordLogin }" @click="isPasswordLogin = false">短信登录</button>
+        <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">账号注册</button>
       </div>
-      <form v-if="isPasswordLogin" @submit.prevent="login">
-        <input type="text" placeholder="登录用户名 / 邮箱" v-model="username" />
+      <form v-if="isPasswordLogin" @submit.prevent=register>
+        <input type="text" placeholder="注册邮箱" v-model="username" />
         <input type="password" placeholder="密码" v-model="password" />
-        <div class="remember-me">
-          <input type="checkbox" id="remember" v-model="rememberMe" />
-          <label for="remember">记住我</label>
+        <input type="password" placeholder="确认密码" v-model="password" />
+        <div class="phone-getCode">
+          <input type="tel" placeholder="手机号码" v-model="phone" />
+          <button class="Get-Code">获取验证码</button>
         </div>
-        <button type="submit" class="login-button">登录</button>
-      </form>
-      <form v-else @submit.prevent="login">
-        <input type="text" placeholder="手机号" v-model="phone" />
         <input type="text" placeholder="验证码" v-model="verificationCode" />
         <div class="remember-me">
           <input type="checkbox" id="remember" v-model="rememberMe" />
-          <label for="remember">记住我</label>
+          <label for="remember">记住账号</label>
         </div>
-        <button type="submit" class="login-button">登录</button>
+        <button type="submit" class="login-button">注册</button>
       </form>
       <div class="third-party-login">
         <p>第三方登录/注册</p>
@@ -36,7 +32,7 @@
           <a href="#"><IconGithub></IconGithub></a>
         </div>
       </div>
-      <router-link to="/register"><a href="#" class="register-link">没有账号，立即注册</a></router-link>
+      <router-link to="/login"><a href="#" class="register-link">已有账号，立即登录</a></router-link>
     </div>
   </div>
 </template>
@@ -60,11 +56,12 @@ export default {
     };
   },
   methods: {
-    login() {
-      // 在这里添加你的登录逻辑
-      console.log("登录中...");
+    register() {
+      console.log('register');
     },
+
   },
+
 };
 </script>
 
@@ -109,11 +106,18 @@ h2 {
   color: #999;
 }
 
-.vip-link {
+.phone-getCode{
+  display: flex;
+  justify-content: space-between;
+
+}
+.Get-Code{
+  padding: 5px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
   color: #007bff;
-  text-decoration: none;
-  margin-bottom: 20px;
-  display: inline-block;
 }
 
 .tabs {

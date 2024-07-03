@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar">
-    <div class="logo">BLOG</div>
+    <div class="logo">WeBlog</div>
     <ul class="nav-links">
       <li><a href="#">分类</a></li>
       <li><a href="#">精华</a></li>
@@ -20,7 +20,7 @@
     </button>
     <div class="auth-buttons">
       <button><router-link to="/login">登录</router-link></button>
-      <button>注册</button>
+      <button><router-link to="/register">注册</router-link></button>
     </div>
   </nav>
 </template>
