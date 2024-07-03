@@ -85,17 +85,24 @@ const loadTags = () => {
 };
 
 const addCustomTag = () => {
-  if (customTag.value.trim() !== '') {
-    axios.post('/api/tag/create', { tagName: customTag.value })
-        .then(response => {
-          availableTags.value.push(response.data.data);
-          selectedTagIds.value.push(response.data.data.tagId);
-          customTag.value = '';
-        })
-        .catch(err => {
-          console.error('Error creating custom tag:', err);
-        });
-  }
+  return new Promise((resolve, reject) => {
+    if (customTag.value.trim() !== '') {
+      axios.post('/api/tag/create', { tagName: customTag.value })
+          .then(response => {
+            const newTag = response.data.data;
+            availableTags.value.push(newTag);
+            selectedTagIds.value.push(newTag.tagId);
+            customTag.value = '';
+            resolve();
+          })
+          .catch(err => {
+            console.error('Error creating custom tag:', err);
+            reject(err);
+          });
+    } else {
+      resolve();
+    }
+  });
 };
 
 onMounted(() => {
@@ -118,70 +125,34 @@ const formatFileName = (title) => {
   return title.replace(/[^a-zA-Z0-9]/g, '_') + '.md';
 };
 
-const saveDraft = () => {
-  const content = vditor.value.getValue();
-  const formData = new FormData();
-  formData.append('userId', userId);
-  formData.append('title', title.value);
-  formData.append('status', 'draft');
-  const fileName = formatFileName(title.value);
-  const blob = new Blob([content], {type: 'text/markdown'});
-  formData.append('file', blob, fileName);
-  formData.append('tagIds', selectedTagIds.value);
-
-  axios.post('/api/articles/create', formData)
-      .then(response => {
-        console.log('Draft saved:', response.data);
-        error.value = '';
-      })
-      .catch(err => {
-        console.error('Error saving draft:', err);
-        error.value = 'Error saving draft: ' + (err.response?.data?.message || err.message);
-      });
-};
-
-const publishArticle = () => {
-  const content = vditor.value.getValue();
-  const formData = new FormData();
-  formData.append('userId', userId);
-  formData.append('title', title.value);
-  formData.append('status', 'published');
-  const fileName = formatFileName(title.value);
-  const blob = new Blob([content], {type: 'text/markdown'});
-  formData.append('file', blob, fileName);
-  formData.append('tagIds', selectedTagIds.value);
-
-  axios.post('/articles/create', formData)
-      .then(response => {
-        console.log('Article published:', response.data);
-        error.value = '';
-      })
-      .catch(err => {
-        console.error('Error publishing article:', err);
-        error.value = 'Error publishing article: ' + (err.response?.data?.message || err.message);
-      });
-};
-
 const saveArticle = () => {
-  const content = vditor.value.getValue();
-  const formData = new FormData();
-  formData.append('userId', userId);
-  formData.append('title', title.value);
-  formData.append('status', status.value);
-  const fileName = formatFileName(title.value);
-  const blob = new Blob([content], { type: 'text/markdown' });
-  formData.append('file', blob, fileName);
-  formData.append('tagIds', selectedTagIds.value);
+  addCustomTag().then(() => {
+    const content = vditor.value.getValue();
+    const formData = new FormData();
+    formData.append('userId', userId);
+    formData.append('title', title.value);
+    formData.append('status', status.value);
+    const fileName = formatFileName(title.value);
+    const blob = new Blob([content], { type: 'text/markdown' });
+    formData.append('file', blob, fileName);
+    formData.append('tagIds', selectedTagIds.value.join(','));// 确保标签ID作为JSON字符串发送
 
-  axios.post('/api/articles/create', formData)
-      .then(response => {
-        console.log('Article saved:', response.data);
-        error.value = '';
-      })
-      .catch(err => {
-        console.error('Error saving article:', err);
-        error.value = 'Error saving article: ' + (err.response?.data?.message || err.message);
-      });
+    axios.post('/api/articles/create', formData)
+        .then(response => {
+          console.log('Article saved:', response.data);
+          error.value = '';
+          ElMessage.success('Article saved successfully');
+        })
+        .catch(err => {
+          console.error('Error saving article:', err);
+          error.value = 'Error saving article: ' + (err.response?.data?.message || err.message);
+          ElMessage.error('Error saving article: ' + (err.response?.data?.message || err.message));
+        });
+  }).catch(err => {
+    console.error('Error adding custom tag:', err);
+    error.value = 'Error adding custom tag: ' + (err.response?.data?.message || err.message);
+    ElMessage.error('Error adding custom tag: ' + (err.response?.data?.message || err.message));
+  });
 };
 </script>
 
