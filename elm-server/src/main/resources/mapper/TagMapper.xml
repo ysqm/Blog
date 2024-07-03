@@ -5,10 +5,10 @@
 
 <mapper namespace="com.elm.mapper.TagMapper">
 
-    <insert id="insertTag">
-        INSERT INTO Tags (tag_name, status)
-        VALUES (#{tagName}, #{status})
-    </insert>
+<!--    <insert id="insertTag" >-->
+<!--        INSERT INTO Tags (tag_name, status)-->
+<!--        VALUES (#{tagName}, #{status})-->
+<!--    </insert>-->
 
     <update id="updateTag">
         UPDATE Tags
