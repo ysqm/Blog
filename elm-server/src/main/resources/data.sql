@@ -37,11 +37,12 @@ CREATE TABLE Articles (
                          article_id         INT AUTO_INCREMENT PRIMARY KEY,
                          user_id            INT,
                          title              VARCHAR(255) NOT NULL,
-                         content            TEXT NOT NULL,
+                         content_path       TEXT NOT NULL,
                          publish_date       DATETIME NOT NULL,
                          update_date        DATETIME NULL,
                          status             ENUM('published', 'draft', 'deleted', 'hidden') NOT NULL,
                          heat               INT DEFAULT 0,
+                         is_deleted         BOOLEAN default 0,
                          FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
@@ -61,7 +62,8 @@ CREATE TABLE Comments (
 DROP TABLE IF EXISTS `Tags`;
 CREATE TABLE Tags (
                      tag_id         INT AUTO_INCREMENT PRIMARY KEY,
-                     tag_name       VARCHAR(50) UNIQUE NOT NULL
+                     tag_name       VARCHAR(50) UNIQUE NOT NULL,
+                     status         ENUM('pending','approved','official') NOT NULL
 );
 
 DROP TABLE IF EXISTS `ArticleTags`;
