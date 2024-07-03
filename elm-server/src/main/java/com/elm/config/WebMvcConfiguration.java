@@ -38,7 +38,11 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .addPathPatterns("/user/**")
                 .excludePathPatterns("/user/login")
                 .excludePathPatterns("/user/register")
-                .addPathPatterns("/file/**");
+                .addPathPatterns("/file/**")
+                .addPathPatterns("/tag/**")
+                .addPathPatterns("/articles/**")
+                .addPathPatterns("/likeDislike/**")
+                .addPathPatterns("/comment/**");
     }
 
     /**
