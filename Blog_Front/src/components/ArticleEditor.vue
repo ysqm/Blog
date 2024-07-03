@@ -71,17 +71,109 @@ const publishArticle = () => {
 </script>
 
 <style scoped>
-#vditor {
-  margin-bottom: 20px;
-  text-align: left; /* 确保文本左对齐 */
+.article-editor-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-input[type="text"] {
-  font-size: 24px;
-  font-weight: bold;
-  padding: 10px;
-  margin-bottom: 20px;
-  box-sizing: border-box;
-  width: 100%;
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: 8px 8px 0 0;
+}
+
+.title-container,
+.tags-container,
+.status-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.title-input {
+  flex-grow: 1;
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.tag-list,
+.status-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag-item,
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tag-checkbox,
+.status-radio {
+  width: 16px;
+  height: 16px;
+}
+
+.tag-name,
+.status-label {
+  font-size: 14px;
+  color: #333333;
+}
+
+.custom-tag-input {
+  padding: 6px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.edit {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 0 0 8px 8px;
+}
+
+.edit h3{
+  margin-right:24px;
+}
+.editor {
+  flex-grow: 1;
+  text-align: left;
+
+}
+
+.save-button-container {
+  padding: 16px 24px;
+  text-align: right;
+}
+
+.save-button {
+  padding: 8px 16px;
+  background-color: #1890ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: #ff4d4f;
+  margin-top: 10px;
+  font-size: 14px;
 }
 </style>

@@ -82,17 +82,26 @@ export default {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
+  color: #F8F8F8;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
 }
 
 .article h3 {
+  color: #1E90FF;
   margin: 0;
+  text-align: left;
 }
 
 .img-preview {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.img-preview p {
+  margin: 0;
+  color: #333333;
 }
 
 .article-img {
@@ -111,8 +120,20 @@ export default {
 .meta .info {
   display: flex;
   gap: 10px;
+  align-items: center;
+}
+.meta .info span{
+  color:#666666;
 }
 
+.user{
+  font-style: italic;
+  font-size: small;
+}
+
+.data{
+  font-size: xx-small;
+}
 .meta .stats {
   display: flex;
   gap: 10px;
@@ -123,5 +144,6 @@ export default {
   display: flex;
   align-items: center;
   gap: 5px;
+  color: #333333;
 }
 </style>

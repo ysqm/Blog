@@ -1,29 +1,26 @@
 <template>
   <nav class="navbar">
-    <div class="logo">BLOG</div>
+    <div class="logo">WeBlog</div>
     <ul class="nav-links">
       <li><a href="#">分类</a></li>
       <li><a href="#">精华</a></li>
       <li><a href="#">博问</a></li>
       <li><a href="#">更多</a></li>
     </ul>
-
     <div class="search">
       <input type="text" placeholder="搜索" />
       <button class="search-btn">
         <SearchIcon />
       </button>
     </div>
-
     <button class="editor-icon">
       <router-link to="/Editor">
         <IconPen />
       </router-link>
     </button>
-
     <div class="auth-buttons">
-      <router-link to="/" class="auth-button">登录</router-link>
-      <router-link to="/register" class="auth-button">注册</router-link>
+      <button><router-link to="/">登录</router-link></button>
+      <button><router-link to="/register">注册</router-link></button>
     </div>
   </nav>
 </template>
@@ -48,7 +45,7 @@ export default {
   align-items: center;
   padding: 10px 20px;
   justify-content: space-between;
-  background-color: #2c3e50;
+  background-color: #1E90FF;
   z-index: 1000; /* 确保导航栏在顶部 */
 }
 
@@ -89,33 +86,32 @@ export default {
 .search button {
   padding: 5px 5px;
   border: none;
-  background-color: #fff;
+  background-color: #84FAD1FF;
   border-radius: 4px;
   cursor: pointer;
 }
 
 .editor-icon {
   margin-left: 5px;
+  background-color: #84FAD1FF;
+  border: none;
+  border-radius: 4px;
 }
+
 
 .auth-buttons {
   display: flex;
   margin-left: 5px;
+
 }
 
-.auth-button {
+.auth-buttons button {
   margin-right: 25px;
   padding: 5px 5px;
   border: none;
-  background-color: #fff;
+  color: #FFFFFF;
+  background-color: #84fad1;
   border-radius: 4px;
   cursor: pointer;
-  text-decoration: none;
-  color: #2c3e50;
-  font-size: 14px;
-}
-
-.auth-button:hover {
-  background-color: #e0e0e0; /* 添加悬停效果 */
 }
 </style>
