@@ -12,13 +12,13 @@ public class UpdateUserDTO {
     @ApiModelProperty("账号&&uid")
     private Integer userId;
 
-    @ApiModelProperty("账号名")
+    @ApiModelProperty("*账号名")
     private String username;
 
-    @ApiModelProperty("密码")
+    @ApiModelProperty("*密码")
     private String password;
 
-    @ApiModelProperty("email")
+    @ApiModelProperty("*email")
     private String email;
 
     @ApiModelProperty("头像")

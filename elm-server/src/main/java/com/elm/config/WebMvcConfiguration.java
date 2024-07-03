@@ -15,6 +15,8 @@ import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import javax.servlet.MultipartConfigElement;
+
 /**
  * 配置类，注册web层相关组件
  */
@@ -35,7 +37,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         registry.addInterceptor(jwtTokenUserInterceptor)
                 .addPathPatterns("/user/**")
                 .excludePathPatterns("/user/login")
-                .excludePathPatterns("/user/register");
+                .excludePathPatterns("/user/register")
+                .addPathPatterns("/file/**");
     }
 
     /**

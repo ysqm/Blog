@@ -4,7 +4,7 @@
     <ul>
       <li v-for="item in hotList" :key="item.id">
         <a href="#">{{ item.title }}</a>
-        <span>{{ item.heat }} <heat-icon/></span>
+        <span>{{ item.heat }} <HeatIcon/></span>
       </li>
     </ul>
   </div>
@@ -15,7 +15,7 @@ import HeatIcon from "@/components/icons/IconHeat.vue";
 
 export default {
   name: 'RightSidebar',
-  components: {HeatIcon},
+  components: { HeatIcon },
   data() {
     return {
       hotList: [
@@ -31,13 +31,14 @@ export default {
 <style scoped>
 .right-sidebar {
   position: fixed;
-  top: 60px; /* Adjust based on the height of the navbar */
+  top: 50px; /* 确保导航栏的高度 */
   right: 0;
   width: 200px;
+  height: calc(100vh - 50px); /* 调整高度以排除导航栏 */
   background-color: #f9f9f9;
   padding: 20px;
-  height: 100%;
   box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+  overflow-y: auto; /* 确保侧边栏可滚动 */
 }
 .right-sidebar h3 {
   margin-top: 0;
@@ -50,21 +51,26 @@ export default {
   padding: 0;
 }
 .right-sidebar ul li {
-  margin: 20px 0;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
   border-bottom: 1px solid #ddd;
 }
 .right-sidebar ul li a {
   text-decoration: none;
-  color: #333;
+  color: black;
   font-size: x-small;
   font-weight: bold;
   font-style: italic;
 }
 .right-sidebar ul li span {
-  display: block;
+  display: flex;
   color: red;
   font-size: xx-small;
   font-weight: lighter;
   font-style: italic;
+}
+.right-sidebar ul li span svg {
+  margin-left: 5px;
 }
 </style>

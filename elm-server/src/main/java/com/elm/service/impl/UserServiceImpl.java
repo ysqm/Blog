@@ -42,6 +42,12 @@ public class UserServiceImpl implements UserService {
         if(user.getEmail() != null && userMapper.getUserByEmail(user.getEmail()) != null) {
             return Result.error(MessageConstant.EMAIL_REPEAT);
         }
+        if(user.getQqAccount() != null && userMapper.getUserByQqAccount(user.getQqAccount()) != null) {
+            return Result.error(MessageConstant.QQ_REPEAT);
+        }
+        if(user.getWechatAccount() != null && userMapper.getUserByWechatAccount(user.getWechatAccount()) != null) {
+            return Result.error(MessageConstant.WECHAT_REPEAT);
+        }
         int msg = userMapper.createUser(user);
         return Result.success();
     }
@@ -85,6 +91,12 @@ public class UserServiceImpl implements UserService {
         }
         if(!user1.getUserId().equals(userId)){
             return Result.error(MessageConstant.ACCOUNT_EXIST);
+        }
+        if(user.getQqAccount() != null && userMapper.getUserByQqAccount(user.getQqAccount()) != null) {
+            return Result.error(MessageConstant.QQ_REPEAT);
+        }
+        if(user.getWechatAccount() != null && userMapper.getUserByWechatAccount(user.getWechatAccount()) != null) {
+            return Result.error(MessageConstant.WECHAT_REPEAT);
         }
         Integer msg = userMapper.updateUser(user);
         return result.success(msg);
