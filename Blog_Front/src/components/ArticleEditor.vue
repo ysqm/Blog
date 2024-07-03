@@ -187,8 +187,7 @@ const saveArticle = () => {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-right: 150px;
   margin-left: 150px;
-  left: 0;
-
+  margin-top: 0;
 }
 
 .toolbar {

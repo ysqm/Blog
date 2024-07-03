@@ -1,7 +1,5 @@
 <template>
-  <div>
     <ArticleEditor :articleId="$route.params.articleId" />
-  </div>
 </template>
 
 <script>
