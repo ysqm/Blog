@@ -75,7 +75,7 @@ const error = ref('');
 const status = ref('draft');
 
 const loadTags = () => {
-  axios.get('/tag/all')
+  axios.get('/api/tag/all')
       .then(response => {
         availableTags.value = response.data.data;
       })
@@ -86,7 +86,7 @@ const loadTags = () => {
 
 const addCustomTag = () => {
   if (customTag.value.trim() !== '') {
-    axios.post('/tag/create', { tagName: customTag.value })
+    axios.post('/api/tag/create', { tagName: customTag.value })
         .then(response => {
           availableTags.value.push(response.data.data);
           selectedTagIds.value.push(response.data.data.tagId);
@@ -129,7 +129,7 @@ const saveDraft = () => {
   formData.append('file', blob, fileName);
   formData.append('tagIds', selectedTagIds.value);
 
-  axios.post('/articles/create', formData)
+  axios.post('/api/articles/create', formData)
       .then(response => {
         console.log('Draft saved:', response.data);
         error.value = '';
@@ -173,7 +173,7 @@ const saveArticle = () => {
   formData.append('file', blob, fileName);
   formData.append('tagIds', selectedTagIds.value);
 
-  axios.post('/articles/create', formData)
+  axios.post('/api/articles/create', formData)
       .then(response => {
         console.log('Article saved:', response.data);
         error.value = '';
