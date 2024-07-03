@@ -77,7 +77,9 @@ const status = ref('draft');
 const loadTags = () => {
   axios.get('/api/tag/all')
       .then(response => {
-        availableTags.value = response.data.data;
+        availableTags.value = response.data.data.filter(tag =>
+            tag.status === 'approved' || tag.status === 'official'
+        );
       })
       .catch(err => {
         console.error('Error loading tags:', err);
