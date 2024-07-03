@@ -1,5 +1,7 @@
 <template>
   <div class="new-post">
+    <Navbar />
+    <Top />
     <h1>发布新文章</h1>
     <form @submit.prevent="submitPost">
       <div>
@@ -24,8 +26,12 @@
 </template>
 
 <script>
+import Top from "@/components/self-Top.vue";
+import Navbar from "@/components/Navbar.vue";
+
 export default {
   name: 'NewPost',
+  components: {Navbar, Top},
   data() {
     return {
       title: '',

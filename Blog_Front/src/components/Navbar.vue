@@ -7,20 +7,23 @@
       <li><a href="#">博问</a></li>
       <li><a href="#">更多</a></li>
     </ul>
+
     <div class="search">
       <input type="text" placeholder="搜索" />
       <button class="search-btn">
         <SearchIcon />
       </button>
     </div>
+
     <button class="editor-icon">
       <router-link to="/Editor">
         <IconPen />
       </router-link>
     </button>
+
     <div class="auth-buttons">
-      <button>登录</button>
-      <button>注册</button>
+      <router-link to="/" class="auth-button">登录</router-link>
+      <router-link to="/register" class="auth-button">注册</router-link>
     </div>
   </nav>
 </template>
@@ -100,12 +103,19 @@ export default {
   margin-left: 5px;
 }
 
-.auth-buttons button {
+.auth-button {
   margin-right: 25px;
   padding: 5px 5px;
   border: none;
   background-color: #fff;
   border-radius: 4px;
   cursor: pointer;
+  text-decoration: none;
+  color: #2c3e50;
+  font-size: 14px;
+}
+
+.auth-button:hover {
+  background-color: #e0e0e0; /* 添加悬停效果 */
 }
 </style>

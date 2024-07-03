@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <Navbar />
     <Top />
     <Announcement />
     <div class="main-content">
@@ -14,10 +15,12 @@ import Announcement from '../components/self-Announcement.vue';
 import PostList from '../components/self-PostList.vue';
 import Sidebar from '../components/self-Sidebar.vue';
 import Top from '../components/self-Top.vue';
+import Navbar from "@/components/Navbar.vue";
 
 export default {
   name: 'Home',
   components: {
+    Navbar,
     Announcement,
     PostList,
     Sidebar,

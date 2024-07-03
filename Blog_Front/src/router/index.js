@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Editor from '../views/Editor.vue';
 import Community from "@/views/Community.vue";
 import Login from "@/views/Login.vue";
+import Register from "@/views/Register.vue";
 
 import Home from '../views/self-Home.vue';
 import PostDetail from '../views/self-PostDetail.vue';
@@ -62,6 +63,11 @@ const routes = [
         path: '/',
         name: 'Login',
         component: Login
+    },
+    {
+        path: '/register',
+        name: 'Register',
+        component: Register
     }
 ];
 
