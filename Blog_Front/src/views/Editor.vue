@@ -1,5 +1,4 @@
 <template>
-  <div>
     <Navbar />
     <ArticleEditor :articleId="$route.params.articleId" />
 </template>

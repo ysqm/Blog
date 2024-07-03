@@ -2,9 +2,9 @@
   <div class="login-container">
     <div class="login-box">
       <div class="logo">
-        <img src="../../public/avatar.jpg" alt="logo" />
+        <img src="@/assets/logo.svg" alt="logo" />
       </div>
-      <h2>WeBlog-Login</h2>
+      <h2>BLOG用户登录</h2>
       <p class="tagline">代码改变世界</p>
       <div class="tabs">
         <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">密码登录</button>
@@ -22,10 +22,6 @@
       <form v-else @submit.prevent="login">
         <input type="text" placeholder="手机号" v-model="phone" />
         <input type="text" placeholder="验证码" v-model="verificationCode" />
-        <div class="remember-me">
-          <input type="checkbox" id="remember" v-model="rememberMe" />
-          <label for="remember">记住我</label>
-        </div>
         <button type="submit" class="login-button">登录</button>
       </form>
       <div class="third-party-login">
@@ -36,7 +32,7 @@
           <a href="#"><IconGithub></IconGithub></a>
         </div>
       </div>
-      <router-link to="/register"><a href="#" class="register-link">没有账号，立即注册</a></router-link>
+      <a href="#" class="register-link">没有账号，立即注册</a>
     </div>
   </div>
 </template>
@@ -46,10 +42,17 @@ import IconGithub from "@/components/icons/IconGithub.vue";
 import IconQQ from "@/components/icons/IconQQ.vue";
 import IconWeChat from "@/components/icons/IconWeChat.vue";
 import axios from "axios";
+
 import {store} from '@/store/modules/index'
+import { request } from "@/request";
+import {login} from "@/api/user"
+import { useRoute, useRouter } from 'vue-router'
+
+const router = useRouter();
+
 
 export default {
-  components: {IconGithub, IconQQ, IconWeChat},
+  components: { IconGithub, IconQQ, IconWeChat },
   data() {
     return {
       isPasswordLogin: true,
@@ -62,21 +65,20 @@ export default {
   },
   methods: {
     login() {
-
-
-
       // 在这里添加你的登录逻辑
-      axios.request({
-        method:"POST", // 请求方法
-        url: '/api/user/login', // 请求地址
-        data: {
-          username: this.username,
-          password: this.password
-      }
-      }).then(response => {
+      login(this.username,this.password).then(response => {
         console.log(response.data)
-
-        store.commit('setToken', 10)
+        if(response.data.code == 1){
+          store.commit('setBio',   response.data.bio)
+          store.commit('setToken', response.data.token)
+          store.commit('setUsername', response.data.username)
+          store.commit('setUid', response.data.uid)
+          store.commit('setAvatar', response.data.Avatar)
+          console.log("登录中...");
+          this.$router.push('/community');
+        } else {
+          alert(response.data.msg)
+        }
       }).catch(error => {
         console.error(error)
       })
@@ -87,6 +89,7 @@ export default {
 </script>
 
 <style scoped>
+/* 保持现有样式 */
 .login-container {
   top: 0;
   left: 0;
@@ -94,11 +97,9 @@ export default {
   position: fixed;
   display: flex;
   justify-content: center;
-  border-radius: 8px;
   align-items: center;
   height: 100vh;
   background-color: #f0f2f5;
-
 }
 
 .login-box {
@@ -125,6 +126,13 @@ h2 {
 .tagline {
   margin: 5px 0 20px;
   color: #999;
+}
+
+.vip-link {
+  color: #007bff;
+  text-decoration: none;
+  margin-bottom: 20px;
+  display: inline-block;
 }
 
 .tabs {
