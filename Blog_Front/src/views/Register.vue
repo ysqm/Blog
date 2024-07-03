@@ -2,6 +2,7 @@
   <div class="login-container">
     <div class="login-box">
       <div class="logo">
+
         <img src="../../public/avatar.jpg" alt="logo" />
       </div>
       <h2>WeBlog-Register</h2>
@@ -23,6 +24,7 @@
           <label for="remember">记住账号</label>
         </div>
         <button type="submit" class="login-button">注册</button>
+
       </form>
       <div class="third-party-login">
         <p>第三方登录/注册</p>
@@ -33,6 +35,7 @@
         </div>
       </div>
       <router-link to="/login"><a href="#" class="register-link">已有账号，立即登录</a></router-link>
+
     </div>
   </div>
 </template>
@@ -41,6 +44,8 @@
 import IconGithub from "@/components/icons/IconGithub.vue";
 import IconQQ from "@/components/icons/IconQQ.vue";
 import IconWeChat from "@/components/icons/IconWeChat.vue";
+import axios from "axios";
+
 
 
 export default {
@@ -56,12 +61,25 @@ export default {
     };
   },
   methods: {
-    register() {
-      console.log('register');
+
+
+    login() {
+      // 在这里添加你的登录逻辑
+      axios.request({
+        method:"POST", // 请求方法
+        url: '/api/user/login', // 请求地址
+        data: {
+          username: this.username,
+          password: this.password
+        }
+      }).then(response => {
+        console.log(response.data)
+      }).catch(error => {
+        console.error(error)
+      })
+      console.log("登录中...");
     },
-
   },
-
 };
 </script>
 
@@ -118,6 +136,7 @@ h2 {
   font-size: 16px;
   cursor: pointer;
   color: #007bff;
+
 }
 
 .tabs {
