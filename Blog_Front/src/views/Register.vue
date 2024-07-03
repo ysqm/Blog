@@ -35,7 +35,6 @@
         </div>
       </div>
       <router-link to="/login"><a href="#" class="register-link">已有账号，立即登录</a></router-link>
-
     </div>
   </div>
 </template>
