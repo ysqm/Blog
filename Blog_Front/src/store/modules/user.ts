@@ -1,5 +1,5 @@
 import { Module } from 'vuex';
-import { RootState } from './types';
+import { RootState } from '../types';
 
 interface userState {
   // 定义子模块的状态属性
