@@ -19,7 +19,7 @@
       </router-link>
     </button>
     <div class="auth-buttons">
-      <button><router-link to="/">登录</router-link></button>
+      <button><router-link to="/login">登录</router-link></button>
       <button><router-link to="/register">注册</router-link></button>
     </div>
   </nav>

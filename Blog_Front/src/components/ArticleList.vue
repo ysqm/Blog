@@ -8,8 +8,8 @@
       </div>
       <div class="meta">
         <div class="info">
-          <span>{{ article.author }}</span>
-          <span>{{ article.date }}</span>
+          <span class="user">{{ article.author }}</span>
+          <span class="data">{{ article.date }}</span>
         </div>
         <div class="stats">
           <span><HeatIcon />  {{ article.heat }}</span>
