@@ -168,6 +168,24 @@ const saveArticle = () => {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-right: 150px;
   margin-left: 150px;
+  margin-top: 0;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: 8px 8px 0 0;
+}
+
+.title-container,
+.tags-container,
+.status-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .editor {
@@ -179,4 +197,5 @@ const saveArticle = () => {
   text-align: right;
   margin-top: 20px;
 }
+
 </style>

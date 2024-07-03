@@ -55,12 +55,12 @@ const routes = [
         component: Editor
     },
     {
-        path: '/community',
+        path: '/',
         name: 'Community',
         component: Community
     },
     {
-        path: '/',
+        path: '/login',
         name: 'Login',
         component: Login
     },

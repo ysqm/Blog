@@ -2,9 +2,9 @@
   <div class="login-container">
     <div class="login-box">
       <div class="logo">
-        <img src="@/assets/logo.svg" alt="logo" />
+        <img src="../../public/avatar.jpg" alt="logo" />
       </div>
-      <h2>BLOG用户登录</h2>
+      <h2>WeBlog-Login</h2>
       <p class="tagline">代码改变世界</p>
       <div class="tabs">
         <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">密码登录</button>
@@ -22,6 +22,10 @@
       <form v-else @submit.prevent="login">
         <input type="text" placeholder="手机号" v-model="phone" />
         <input type="text" placeholder="验证码" v-model="verificationCode" />
+        <div class="remember-me">
+          <input type="checkbox" id="remember" v-model="rememberMe" />
+          <label for="remember">记住我</label>
+        </div>
         <button type="submit" class="login-button">登录</button>
       </form>
       <div class="third-party-login">
@@ -32,7 +36,7 @@
           <a href="#"><IconGithub></IconGithub></a>
         </div>
       </div>
-      <a href="#" class="register-link">没有账号，立即注册</a>
+      <router-link to="/register"><a href="#" class="register-link">没有账号，立即注册</a></router-link>
     </div>
   </div>
 </template>
@@ -93,6 +97,7 @@ export default {
   position: fixed;
   display: flex;
   justify-content: center;
+  border-radius: 8px;
   align-items: center;
   height: 100vh;
   background-color: #f0f2f5;
