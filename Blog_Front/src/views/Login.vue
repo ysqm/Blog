@@ -43,8 +43,8 @@ import IconQQ from "@/components/icons/IconQQ.vue";
 import IconWeChat from "@/components/icons/IconWeChat.vue";
 import axios from "axios";
 import {store} from '@/store/modules/index'
-
-
+import { request } from "@/request";
+import {login} from "@/api/user"
 
 
 export default {
@@ -61,21 +61,14 @@ export default {
   },
   methods: {
     login() {
-
-    
-
       // 在这里添加你的登录逻辑
-      axios.request({
-        method:"POST", // 请求方法
-        url: '/api/user/login', // 请求地址
-        data: {
-          username: this.username,
-          password: this.password
-      }
-      }).then(response => {
+      login(this.username,this.password).then(response => {
         console.log(response.data)
-
-        store.commit('setToken', 10)
+        store.commit('setBio',   response.data.bio)
+        store.commit('setToken', response.data.token)
+        store.commit('setUsername', response.data.username)
+        store.commit('setUid', response.data.uid)
+        store.commit('setAvatar', response.data.Avatar)
       }).catch(error => {
         console.error(error)
       })
