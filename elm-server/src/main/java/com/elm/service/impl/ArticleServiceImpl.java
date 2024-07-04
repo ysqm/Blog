@@ -114,6 +114,11 @@ public class ArticleServiceImpl implements ArticleService {
         articleMapper.topArticle(articleId);
         return getArticleById(articleId);
     }
+    @Override
+    public List<ArticleVO> getLatestArticles() {
+        List<Article> articles = articleMapper.getLatestArticles();
+        return articles.stream().map(this::toVO).collect(Collectors.toList());
+    }
 
     private ArticleVO toVO(Article article) {
         ArticleVO vo = new ArticleVO();
@@ -182,5 +187,6 @@ public class ArticleServiceImpl implements ArticleService {
     private List<Long> getArticleTagIds(Long articleId) {
         return articleTagMapper.getTagIdsByArticleId(articleId);
     }
+
 }
 
