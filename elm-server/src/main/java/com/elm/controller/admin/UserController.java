@@ -1,11 +1,13 @@
 package com.elm.controller.admin;
 
 import com.elm.constant.JwtClaimsConstant;
+import com.elm.dto.AccountPageQueryDTO;
 import com.elm.context.BaseContext;
 import com.elm.dto.UpdateUserDTO;
 import com.elm.dto.UserLoginDTO;
 import com.elm.entity.User;
 import com.elm.properties.JwtProperties;
+import com.elm.result.PageResult;
 import com.elm.result.Result;
 import com.elm.service.UserService;
 import com.elm.utils.JwtUtil;
@@ -71,4 +73,11 @@ public class UserController {
         return userService.updateUser(updateUserDTO);
     }
 
+    @PostMapping("/page")
+    @ApiOperation("分页查询用户信息")
+    public Result<PageResult> getAccountPage(@RequestBody AccountPageQueryDTO accountPageQueryDTO){
+        log.info("分页查询账号数据:{}", accountPageQueryDTO);
+        PageResult pageResult = userService.pageQuery(accountPageQueryDTO);
+        return Result.success(pageResult);
+    }
 }
