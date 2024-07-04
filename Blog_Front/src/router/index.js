@@ -12,8 +12,14 @@ import Tag from '../views/self-Tag.vue';
 import Archive from '../views/self-Archive.vue';
 import KnowledgeBase from '../views/self-KnowledgeBase.vue';
 import NewPost from '../views/self-NewPost.vue';
+import Upload from '../views/upload.vue'
 
 const routes = [
+    {
+        path: '/upload',
+        name: 'upload',
+        component: Upload
+    },
     {
         path: '/self-home',
         name: 'self-Home',
