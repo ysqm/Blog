@@ -25,6 +25,9 @@ public class CommentController {
     @PostMapping("/add")
     @ApiOperation("添加评论")
     public Result<CommentVO> addComment(@RequestBody CreateCommentDTO commentDTO) {
+        if (commentDTO.getUserId() == null || commentDTO.getArticleId() == null) {
+            log.info("User ID and Article ID are required");
+        }
         log.info("新增评论：{}", commentDTO);
         return commentService.addComment(commentDTO);
     }

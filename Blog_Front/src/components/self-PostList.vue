@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     goToPost(id) {
-      this.$router.push({name: 'PostDetail', params: {id}});
+      this.$router.push({name: 'Article', params: {id}});
     }
   }
 };
@@ -36,8 +36,10 @@ export default {
 <style>
 .post-list {
   display: flex;
+
   flex-wrap: wrap;
   gap: 20px;
+
 }
 
 @media (min-width: 768px) {
@@ -45,4 +47,16 @@ export default {
     justify-content: space-between;
   }
 }
+
+.post-item {
+  aspect-ratio: 16 / 9; /* 设置长宽比为16:9，水平长度大于垂直长度 */
+  width: 100%; /* 使其占满父元素的宽度 */
+  max-width: 300px; /* 限制最大宽度 */
+  background-color: lightgray; /* 示例背景色，可根据需要调整 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 </style>

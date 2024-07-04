@@ -27,7 +27,6 @@ import HeatIcon from './icons/IconHeat.vue'
 import LikeIcon from './icons/IconLike.vue'
 import ViewIcon from './icons/IconView.vue'
 import CommentIcon from './icons/IconComment.vue'
-import {getArticleById, getLatestArticles} from "../api/article.ts";
 
 export default {
   name: 'ArticleList',
