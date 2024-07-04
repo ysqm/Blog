@@ -5,6 +5,7 @@
 </template>
 
 <script setup>
+import AccountCenter from "@/views/AccountCenter.vue";
 </script>
 
 <style>
