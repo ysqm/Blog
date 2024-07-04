@@ -34,7 +34,7 @@
           <a href="#"><IconGithub></IconGithub></a>
         </div>
       </div>
-      <router-link to="/login">已有账号，立即登录</router-link>
+      <router-link to="/login" class="toRegister">已有账号，立即登录</router-link>
     </div>
   </div>
 </template>
@@ -45,9 +45,6 @@ import IconGithub from "@/components/icons/IconGithub.vue";
 import IconQQ from "@/components/icons/IconQQ.vue";
 import IconWeChat from "@/components/icons/IconWeChat.vue";
 import axios from "axios";
-import { register } from "@/api/user";
-
-
 
 export default {
   components: {IconGithub, IconQQ, IconWeChat},

@@ -4,7 +4,7 @@
       <div class="logo">
         <img src="@/assets/logo.svg" alt="logo" />
       </div>
-      <h2>BLOG-Login</h2>
+      <h2>WeBLOG-Login</h2>
       <p class="tagline">代码改变世界</p>
       <div class="tabs">
         <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">账号登录</button>
