@@ -5,6 +5,8 @@ import com.elm.entity.User;
 import com.elm.enumeration.OperationType;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -34,4 +36,7 @@ public interface UserMapper {
 
     @AutoFill(value = OperationType.UPDATE)
     Integer updateUser(User user);
+
+    @Update("UPDATE users SET is_logged_out = #{isLoggedOut} WHERE user_id = #{userId}")
+    Integer updateIsLoggedOut(@Param("userId") Integer userId, @Param("isLoggedOut") Integer isLoggedOut);
 }

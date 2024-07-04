@@ -4,22 +4,24 @@
     <div v-show="menuVisible" class="dropdown-menu" @mouseover="resetTimer" @mouseleave="startHideTimer">
       <router-link to="/self-home" class="choice">个人博客</router-link>
       <router-link to="/account" class="choice">用户中心</router-link>
-      <IconLogOutRight @click=""/>
+      <IconLogOutRight @click="logOut"/>
     </div>
   </div>
 </template>
 
 <script>
 import IconLogOutRight from "@/components/icons/IconLogOutRight.vue";
-import IconLogOutLeft from "@/components/icons/IconLogOutLeft.vue";
+import { store } from '@/store/modules/index'; // 确保正确导入 Vuex store
+import { logout } from "@/api/user.ts";
 
 export default {
   name: 'HeaderComponent',
-  components: {IconLogOutLeft, IconLogOutRight},
+  components: {IconLogOutRight},
   data() {
     return {
       menuVisible: false,
-      hideTimer: null
+      hideTimer: null,
+      userId: localStorage.getItem('uid')
     };
   },
   methods: {
@@ -35,17 +37,31 @@ export default {
       clearTimeout(this.hideTimer);
       this.hideTimer = setTimeout(() => {
         this.menuVisible = false;
-      }, 10000);
+      }, 1000);
     },
     resetTimer() {
       clearTimeout(this.hideTimer);
+    },
+    logOut() {
+      // logout(paresInt(this.userId)).then(response => {
+      //   if (response.data.code === 1) {
+      //     localStorage.setItem('isLoggedOut', 'true');
+      //     localStorage.removeItem('token');
+      //     localStorage.removeItem('uid');
+      //     localStorage.removeItem('username');
+      //     store.commit('setIsLoggedOut', true);
+      //     console.log("退出登录...");
+      //     location.reload();
+      //   }
+      // });
+      localStorage.setItem('isLoggedOut', 'true');
+      localStorage.removeItem('token');
+      localStorage.removeItem('uid');
+      localStorage.removeItem('username');
+      store.commit('setIsLoggedOut', true);
+      console.log("退出登录...");
+      location.reload();
     }
-  },
-  beforeDestroy() {
-    clearTimeout(this.hideTimer);
-  },
-  logOut(){
-
   }
 };
 </script>
@@ -85,5 +101,4 @@ export default {
 .dropdown-menu a:hover {
   background-color: #f1f1f1;
 }
-
 </style>
