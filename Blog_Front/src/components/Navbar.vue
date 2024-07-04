@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar">
-    <div class="logo">WeBlog</div>
+    <router-link to="/" class="link"><div class="logo">WeBlog</div></router-link>
     <ul class="nav-links">
       <li><a href="#">分类</a></li>
       <li><a href="#">精华</a></li>
@@ -19,8 +19,8 @@
       </router-link>
     </button>
     <div class="auth-buttons">
-      <button><router-link to="/login">登录</router-link></button>
-      <button><router-link to="/register">注册</router-link></button>
+      <router-link to="/login"><button>登录</button></router-link>
+      <router-link to="/register"><button>注册</button></router-link>
     </div>
   </nav>
 </template>
@@ -48,7 +48,9 @@ export default {
   background-color: #1E90FF;
   z-index: 1000; /* 确保导航栏在顶部 */
 }
-
+.link{
+  text-decoration: none;
+}
 .logo {
   font-size: 24px;
   font-weight: bold;
@@ -113,5 +115,6 @@ export default {
   background-color: #84fad1;
   border-radius: 4px;
   cursor: pointer;
+  text-decoration: none;
 }
 </style>
