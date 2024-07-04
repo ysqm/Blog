@@ -43,6 +43,7 @@
 <script>
 import { addComment, getCommentsByArticleId } from "@/api/comment";
 import { mapState } from "vuex";
+import store from "../store/modules";
 
 export default {
   name: 'CommentSection',
@@ -65,11 +66,11 @@ export default {
       articleId: 3
     };
   },
-  // computed: {
-  //   ...mapState({
-  //     userId: state => state.uid // 从 Vuex 中获取 userId
-  //   })
-  // },
+  computed: {
+    ...mapState({
+      userId: state => state.uid // 从 Vuex 中获取 userId
+    })
+  },
   created() {
     this.fetchComments();
   },

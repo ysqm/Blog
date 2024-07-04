@@ -17,6 +17,7 @@ interface UserData {
 export function addComment(userId: number, content: string, articleId: number) {
     const formData = new FormData();
     formData.append('userId', store.state.uid);
+
     return request<UserData>({
         url: '/api/comment/add',
         method: "post",

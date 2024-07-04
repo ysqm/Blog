@@ -45,7 +45,6 @@ import IconGithub from "@/components/icons/IconGithub.vue";
 import IconQQ from "@/components/icons/IconQQ.vue";
 import IconWeChat from "@/components/icons/IconWeChat.vue";
 import axios from "axios";
-import { register } from "@/api/user";
 
 
 
