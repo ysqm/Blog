@@ -18,6 +18,13 @@ interface RegisterDTO {
     isLoggedOut?: number;
 }
 
+interface PageQueryDTO {
+    startTime: string;
+    endTime: string;
+    page: number;
+    pageSize: number;
+}
+
 export function login(username:string,password:string){
     return request<UserData>({
         url:'/api/user/login',
@@ -35,6 +42,16 @@ export function register(registerDTO:RegisterDTO){
             url:'/api/user/register',
             method: "post",
             data: registerDTO,
+        }
+    )
+}
+
+export function getPageList(pageQueryDTO:PageQueryDTO){
+    return request<any>(
+        {
+            url:'/api/user/page',
+            method: "post",
+            data: pageQueryDTO,
         }
     )
 }

@@ -46,9 +46,7 @@
         WHERE article_id = #{articleId}
     </update>
 
-    <update id="softDeleteArticle" parameterType="java.lang.Long">
-        UPDATE articles SET is_deleted = 1 WHERE article_id = #{articleId}
-    </update>
+    <update id="softDeleteArticle" parameterType="java.lang.Long">UPDATE articles SET is_deleted = 1 WHERE article_id = #{articleId}</update>
 
     <delete id="deleteArticle" parameterType="java.lang.Long">
         DELETE FROM articles WHERE article_id = #{articleId}
