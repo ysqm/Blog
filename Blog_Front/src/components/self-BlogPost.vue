@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     goToPost(id) {
-      this.$router.push({ name: 'PostDetail', params: { id } });
+      this.$router.push({ name: 'Article', params: { id } });
     }
   }
 };

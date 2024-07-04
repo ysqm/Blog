@@ -2,10 +2,9 @@
   <div class="login-container">
     <div class="login-box">
       <div class="logo">
-
-        <img src="../../public/avatar.jpg" alt="logo" />
+        <img src="@/assets/logo.svg" alt="logo" />
       </div>
-      <h2>WeBlog-Register</h2>
+      <h2>WeBlog注册</h2>
       <p class="tagline">代码改变世界</p>
       <div class="tabs">
         <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">账号注册</button>
@@ -14,28 +13,22 @@
         <input type="text" placeholder="注册邮箱" v-model="username" />
         <input type="password" placeholder="密码" v-model="password" />
         <input type="password" placeholder="确认密码" v-model="password" />
-        <div class="phone-getCode">
-          <input type="tel" placeholder="手机号码" v-model="phone" />
-          <button class="Get-Code">获取验证码</button>
-        </div>
-        <input type="text" placeholder="验证码" v-model="verificationCode" />
         <div class="remember-me">
           <input type="checkbox" id="remember" v-model="rememberMe" />
-          <label for="remember">记住账号</label>
+          <label for="remember">记住我</label>
         </div>
         <button type="submit" class="login-button">注册</button>
 
       </form>
-      <div class="third-party-login">
-        <p>第三方登录/注册</p>
-        <div class="icons">
-          <a href="#"><IconWeChat></IconWeChat></a>
-          <a href="#"><IconQQ></IconQQ></a>
-          <a href="#"><IconGithub></IconGithub></a>
-        </div>
-      </div>
-      <router-link to="/login"><a href="#" class="register-link">已有账号，立即登录</a></router-link>
-
+<!--      <div class="third-party-login">-->
+<!--        <p>第三方登录/注册</p>-->
+<!--        <div class="icons">-->
+<!--          <a href="#"><IconWeChat></IconWeChat></a>-->
+<!--          <a href="#"><IconQQ></IconQQ></a>-->
+<!--          <a href="#"><IconGithub></IconGithub></a>-->
+<!--        </div>-->
+<!--      </div>-->
+      <router-link to="/login" class="toLogin">已有账号，立即登录</router-link>
     </div>
   </div>
 </template>
@@ -46,6 +39,7 @@ import IconGithub from "@/components/icons/IconGithub.vue";
 import IconQQ from "@/components/icons/IconQQ.vue";
 import IconWeChat from "@/components/icons/IconWeChat.vue";
 import axios from "axios";
+
 
 
 export default {
@@ -216,7 +210,7 @@ input {
   height: 30px;
 }
 
-.register-link {
+.toLogin {
   display: block;
   margin-top: 20px;
   color: #007bff;

@@ -7,6 +7,8 @@ import com.elm.enumeration.OperationType;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,4 +41,7 @@ public interface UserMapper {
 
 
     Page<User> pageQuery(AccountPageQueryDTO accountPageQueryDTO);
+
+    @Update("UPDATE users SET is_logged_out = #{isLoggedOut} WHERE user_id = #{userId}")
+    Integer updateIsLoggedOut(@Param("userId") Integer userId, @Param("isLoggedOut") Integer isLoggedOut);
 }

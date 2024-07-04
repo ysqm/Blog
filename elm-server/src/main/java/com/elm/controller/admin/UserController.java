@@ -2,6 +2,7 @@ package com.elm.controller.admin;
 
 import com.elm.constant.JwtClaimsConstant;
 import com.elm.dto.AccountPageQueryDTO;
+import com.elm.context.BaseContext;
 import com.elm.dto.UpdateUserDTO;
 import com.elm.dto.UserLoginDTO;
 import com.elm.entity.User;
@@ -58,6 +59,11 @@ public class UserController {
         BeanUtils.copyProperties(user, userLoginVO);
         userLoginVO.setToken(token);
         return Result.success(userLoginVO);
+    }
+    @PostMapping("/logout")
+    @ApiOperation("用户登出")
+    public Result logout(@RequestBody int userId) {
+        return userService.logout(userId);
     }
 
     @PostMapping("/edit")

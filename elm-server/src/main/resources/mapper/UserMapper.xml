@@ -53,4 +53,7 @@
         </where>
         order by create_time desc
     </select>
+    <update id="logoutUser" parameterType="java.lang.Integer">
+        UPDATE users SET is_logged_out = 1 WHERE user_id = #{userId}
+    </update>
 </mapper>

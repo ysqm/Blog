@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar">
-    <div class="logo">WeBlog</div>
+    <router-link to="/" class="link"><div class="logo">WeBlog</div></router-link>
     <ul class="nav-links">
       <li><a href="#">分类</a></li>
       <li><a href="#">精华</a></li>
@@ -14,13 +14,13 @@
       </button>
     </div>
     <button class="editor-icon">
-      <router-link to="/Editor">
-        <IconPen />
-      </router-link>
+      <router-link to="/Editor"><IconPen /></router-link>
     </button>
-    <div class="auth-buttons">
-      <button><router-link to="/login">登录</router-link></button>
-      <button><router-link to="/register">注册</router-link></button>
+    <div v-if="isLoggedOut" class="">
+      <LoginAndRegister />
+    </div>
+    <div v-else class="avatarSetting">
+      <SelfCenterEntry />
     </div>
   </nav>
 </template>
@@ -28,14 +28,26 @@
 <script>
 import SearchIcon from "@/components/icons/IconSearch.vue";
 import IconPen from "@/components/icons/IconPen.vue";
+import LoginAndRegister from "@/components/LoginAndRegister.vue";
+import SelfCenterEntry from "@/components/SelfCenterEntry.vue";
 
 export default {
   name: 'Navbar',
-  components: { IconPen, SearchIcon }
-}
+  components: {LoginAndRegister, IconPen, SearchIcon, SelfCenterEntry},
+  data() {
+    return {
+      isLoggedOut: true, // 默认值为 true
+    };
+  },
+  mounted() {
+    const isLoggedOutString = localStorage.getItem('isLoggedOut');
+    this.isLoggedOut = isLoggedOutString === 'true';
+  }
+};
 </script>
 
 <style scoped>
+/* 保持现有样式 */
 .navbar {
   position: fixed;
   top: 0;
@@ -47,6 +59,10 @@ export default {
   justify-content: space-between;
   background-color: #1E90FF;
   z-index: 1000; /* 确保导航栏在顶部 */
+}
+
+.link {
+  text-decoration: none;
 }
 
 .logo {
@@ -98,13 +114,6 @@ export default {
   border-radius: 4px;
 }
 
-
-.auth-buttons {
-  display: flex;
-  margin-left: 5px;
-
-}
-
 .auth-buttons button {
   margin-right: 25px;
   padding: 5px 5px;
@@ -113,5 +122,13 @@ export default {
   background-color: #84fad1;
   border-radius: 4px;
   cursor: pointer;
+  text-decoration: none;
+}
+
+.avatarSetting {
+  display: flex;
+  align-items: center;
+  width: 50px;
+  margin-right: 40px;
 }
 </style>

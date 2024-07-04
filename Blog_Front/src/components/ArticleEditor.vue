@@ -62,12 +62,15 @@
 import { ref, onMounted } from 'vue';
 import Vditor from 'vditor';
 import 'vditor/dist/index.css';
-import axios from 'axios';
 import { ElMessage } from 'element-plus';
-
+import { getAllTags, createTag } from '@/api/tag.ts';
+import { createArticle } from '@/api/article.ts';
+import { useStore } from 'vuex' // 引入useStore 方法
+const store = useStore()  // 该方法用于返回store 实例
+import axios from 'axios'
 const vditor = ref(null);
 const title = ref('');
-const userId = 1; // 你可以根据实际情况动态获取用户ID
+const userId = localStorage.getItem('uid'); // 使用 Vuex 中存储的用户 ID
 const availableTags = ref([]);
 const selectedTagIds = ref([]);
 const customTag = ref('');
@@ -75,7 +78,7 @@ const error = ref('');
 const status = ref('draft');
 
 const loadTags = () => {
-  axios.get('/api/tag/all')
+  getAllTags()
       .then(response => {
         availableTags.value = response.data.data.filter(tag =>
             tag.status === 'approved' || tag.status === 'official'
@@ -83,13 +86,20 @@ const loadTags = () => {
       })
       .catch(err => {
         console.error('Error loading tags:', err);
+        if (err.response) {
+          console.error('Request Headers:', err.config.headers);
+          console.error('Response Headers:', err.response.headers);
+          console.error('Response Data:', err.response.data);
+        } else {
+          console.error('Error Message:', err.message);
+        }
       });
 };
 
 const addCustomTag = () => {
   return new Promise((resolve, reject) => {
     if (customTag.value.trim() !== '') {
-      axios.post('/api/tag/create', { tagName: customTag.value })
+      createTag(customTag.value)
           .then(response => {
             const newTag = response.data.data;
             availableTags.value.push(newTag);
@@ -108,6 +118,8 @@ const addCustomTag = () => {
 };
 
 onMounted(() => {
+  console.log(store)
+  console.log('Token in store on mount:', store.state.token);
   vditor.value = new Vditor('vditor', {
     height: '50vh',
     width: '100%',
@@ -130,26 +142,36 @@ const formatFileName = (title) => {
 const saveArticle = () => {
   addCustomTag().then(() => {
     const content = vditor.value.getValue();
-    const formData = new FormData();
-    formData.append('userId', userId);
-    formData.append('title', title.value);
-    formData.append('status', status.value);
     const fileName = formatFileName(title.value);
     const blob = new Blob([content], { type: 'text/markdown' });
-    formData.append('file', blob, fileName);
-    formData.append('tagIds', selectedTagIds.value.join(','));// 确保标签ID作为JSON字符串发送
 
-    axios.post('/api/articles/create', formData)
-        .then(response => {
-          console.log('Article saved:', response.data);
-          error.value = '';
-          ElMessage.success('Article saved successfully');
-        })
-        .catch(err => {
-          console.error('Error saving article:', err);
-          error.value = 'Error saving article: ' + (err.response?.data?.message || err.message);
-          ElMessage.error('Error saving article: ' + (err.response?.data?.message || err.message));
-        });
+    // 读取文件内容并转换为Base64
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64Content = reader.result.split(',')[1];
+
+      const articleDTO = {
+        userId: parseInt(localStorage.getItem('uid'), 10),
+        title: title.value,
+        content: base64Content,
+        status: status.value,
+        tagIds: selectedTagIds.value
+      };
+
+      createArticle(articleDTO)
+          .then(response => {
+            console.log('Article saved:', response.data);
+            error.value = '';
+            ElMessage.success('Article saved successfully');
+          })
+          .catch(err => {
+            console.error('Error saving article:', err);
+            error.value = 'Error saving article: ' + (err.response?.data?.message || err.message);
+            ElMessage.error('Error saving article: ' + (err.response?.data?.message || err.message));
+          });
+    };
+
+    reader.readAsDataURL(blob);
   }).catch(err => {
     console.error('Error adding custom tag:', err);
     error.value = 'Error adding custom tag: ' + (err.response?.data?.message || err.message);

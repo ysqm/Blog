@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,6 +17,7 @@ import java.util.List;
 @RequestMapping("/articles")
 @Slf4j
 @Api(tags = "文章相关接口")
+//@CrossOrigin(origins = "*")
 public class ArticleController {
 
     @Autowired
@@ -25,18 +25,7 @@ public class ArticleController {
 
     @PostMapping("/create")
     @ApiOperation("添加文章")
-    public Result<ArticleVO> createArticle(
-            @RequestParam("userId") Long userId,
-            @RequestParam("title") String title,
-            @RequestParam("status") String status,
-            @RequestPart("file") MultipartFile file,
-            @RequestParam(value = "tagIds", required = false) List<Long> tagIds) {
-        CreateArticleDTO dto = new CreateArticleDTO();
-        dto.setUserId(userId);
-        dto.setTitle(title);
-        dto.setStatus(status);
-        dto.setFile(file);
-        dto.setTagIds(tagIds);
+    public Result<ArticleVO> createArticle(@RequestBody CreateArticleDTO dto) {
         ArticleVO articleVO = articleService.createArticle(dto);
         return Result.success(articleVO);
     }
@@ -47,12 +36,12 @@ public class ArticleController {
             @PathVariable Long articleId,
             @RequestParam("title") String title,
             @RequestParam("status") String status,
-            @RequestPart("file") MultipartFile file,
+            @RequestParam("content") String content,
             @RequestParam(value = "tagIds", required = false) List<Long> tagIds) {
         UpdateArticleDTO dto = new UpdateArticleDTO();
         dto.setTitle(title);
         dto.setStatus(status);
-        dto.setFile(file);
+        dto.setContent(content);
         dto.setTagIds(tagIds);
         ArticleVO articleVO = articleService.updateArticle(articleId, dto);
         return Result.success(articleVO);
@@ -99,4 +88,12 @@ public class ArticleController {
         ArticleVO articleVO = articleService.topArticle(articleId);
         return Result.success(articleVO);
     }
+
+    @PostMapping("/latest")
+    @ApiOperation("最新文章")
+    public Result<List<ArticleVO>> latestArticle() {
+        List<ArticleVO> articles = articleService.getLatestArticles();
+        return Result.success(articles);
+    }
+
 }
