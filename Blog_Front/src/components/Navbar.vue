@@ -19,10 +19,14 @@
       </router-link>
     </button>
     <div class="auth-buttons">
-      <router-link to="/login"><button>登录</button></router-link>
-      <router-link to="/register"><button>注册</button></router-link>
+      <router-link v-if="!isLoggedIn" to="/login"><button>登录</button></router-link>
+      <router-link v-if="!isLoggedIn" to="/register"><button>注册</button></router-link>
+      <div v-if="isLoggedIn" class="user-avatar" @click="goToSelfHome">
+        <img :src="userAvatar" alt="User Avatar" />
+      </div>
     </div>
   </nav>
+
 </template>
 
 <script>
@@ -31,7 +35,18 @@ import IconPen from "@/components/icons/IconPen.vue";
 
 export default {
   name: 'Navbar',
-  components: { IconPen, SearchIcon }
+  components: { IconPen, SearchIcon },
+  data() {
+    return {
+      isLoggedIn: localStorage.getItem('uid') !== null,
+      userAvatar: '../../public/profile.png' // 默认头像路径，可根据实际情况修改
+    };
+  },
+  methods: {
+    goToSelfHome() {
+      this.$router.push({ path: '/self-home' });
+    }
+  }
 }
 </script>
 
@@ -48,9 +63,11 @@ export default {
   background-color: #1E90FF;
   z-index: 1000; /* 确保导航栏在顶部 */
 }
-.link{
+
+.link {
   text-decoration: none;
 }
+
 .logo {
   font-size: 24px;
   font-weight: bold;
@@ -100,11 +117,9 @@ export default {
   border-radius: 4px;
 }
 
-
 .auth-buttons {
   display: flex;
   margin-left: 5px;
-
 }
 
 .auth-buttons button {
@@ -116,5 +131,15 @@ export default {
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
+}
+
+.user-avatar {
+  cursor: pointer;
+}
+
+.user-avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 </style>

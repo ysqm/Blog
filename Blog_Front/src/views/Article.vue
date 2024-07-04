@@ -52,8 +52,8 @@ export default {
   methods: {
     async fetchArticle() {
       try {
-        const response = await axios.get(`/api/articles/${this.$route.params.id}`);
-        this.article = response.data;
+        // const response = await axios.get(`/api/articles/${this.$route.params.id}`);
+        // this.article = response.data;
       } catch (error) {
         console.error("Error fetching article:", error);
       }

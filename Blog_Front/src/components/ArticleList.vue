@@ -42,9 +42,6 @@ export default {
       selectedArticle: {}
     };
   },
-  mounted() {
-    this.getNewArticles();
-  },
   methods: {
     getNewArticles() {
       getLatestArticles().then(response => {
