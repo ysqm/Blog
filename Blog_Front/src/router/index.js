@@ -6,12 +6,13 @@ import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 
 import Home from '../views/self-Home.vue';
-import NewPost from '../views/self-NewPost.vue';
+import PostDetail from '../views/self-PostDetail.vue';
 import Category from '../views/self-Category.vue';
 import Tag from '../views/self-Tag.vue';
 import Archive from '../views/self-Archive.vue';
 import KnowledgeBase from '../views/self-KnowledgeBase.vue';
-import Article from '../views/Article.vue';
+import NewPost from '../views/self-NewPost.vue';
+import AccountCenter from "@/views/AccountCenter.vue";
 
 const routes = [
     {
@@ -20,9 +21,9 @@ const routes = [
         component: Home
     },
     {
-        path: '/Article/:id',
-        name: 'Article',
-        component: Article
+        path: '/self-post/:id',
+        name: 'PostDetail',
+        component: PostDetail
     },
     {
         path: '/self-category',
@@ -74,15 +75,15 @@ const routes = [
         redirect: '/Community'
     },
     {
+        path:'/account',
+        name:'AccountCenter',
+        component: AccountCenter
+    },
+    {
         path: '/404',
         name: '404',
         component: 404
     }
-    // ,
-    // {
-    //     path:  '*',
-    //     redirect: '/404'
-    // }
 ];
 
 

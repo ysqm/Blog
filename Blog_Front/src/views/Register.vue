@@ -34,7 +34,7 @@
           <a href="#"><IconGithub></IconGithub></a>
         </div>
       </div>
-      <router-link to="/login"><a href="#" class="register-link">已有账号，立即登录</a></router-link>
+      <router-link to="/login">已有账号，立即登录</router-link>
     </div>
   </div>
 </template>
@@ -217,7 +217,7 @@ input {
   height: 30px;
 }
 
-.register-link {
+.toRegister {
   display: block;
   margin-top: 20px;
   color: #007bff;
