@@ -6,12 +6,12 @@ import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 
 import Home from '../views/self-Home.vue';
-import PostDetail from '../views/self-PostDetail.vue';
+import NewPost from '../views/self-NewPost.vue';
 import Category from '../views/self-Category.vue';
 import Tag from '../views/self-Tag.vue';
 import Archive from '../views/self-Archive.vue';
 import KnowledgeBase from '../views/self-KnowledgeBase.vue';
-import NewPost from '../views/self-NewPost.vue';
+import Article from '../views/Article.vue';
 
 const routes = [
     {
@@ -20,9 +20,9 @@ const routes = [
         component: Home
     },
     {
-        path: '/self-post/:id',
-        name: 'PostDetail',
-        component: PostDetail
+        path: '/Article:id',
+        name: 'Article',
+        component: Article
     },
     {
         path: '/self-category',

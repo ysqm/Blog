@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @EnableTransactionManagement //开启注解方式的事务管理
 @Slf4j
-@EnableJpaRepositories(basePackages = "com.elm.repository")
 public class elmApplication {
     public static void main(String[] args) {
         SpringApplication.run(elmApplication.class, args);

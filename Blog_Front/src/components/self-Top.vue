@@ -23,6 +23,7 @@ export default {
 };
 </script>
 
+
 <style>
 @import '/src/style/self-style/global.css';
 
