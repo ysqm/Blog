@@ -71,8 +71,9 @@ const routes = [
         component: Register
     },
     {
-        path:  '/',
+        path: '/',
         redirect: '/Community'
+
     },
     {
         path:'/account',

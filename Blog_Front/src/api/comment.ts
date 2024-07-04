@@ -15,12 +15,14 @@ interface UserData {
 }
 
 export function addComment(userId: number, content: string, articleId: number) {
-    const formData = new FormData();
-    formData.append('userId', store.state.uid);
 
+    const token = localStorage.getItem('token');
     return request<UserData>({
         url: '/api/comment/add',
         method: "post",
+        headers: {
+            Authorization: `Bearer ${token}`
+        },
         data: {
             userId,
             content,
@@ -30,18 +32,24 @@ export function addComment(userId: number, content: string, articleId: number) {
 }
 
 export function deleteComment(commentId: string) {
+    const token = localStorage.getItem('token');
     return request<UserData>({
         url: `/api/comment/delete/${commentId}`,
-        method: "post"
+        method: "post",
+        headers: {
+            Authorization: `Bearer ${token}`
+        },
     });
 }
 
-export function getCommentsByArticleId(articleId: string) {
+export function getCommentsByArticleId(articleId: number) {
+    const token = localStorage.getItem('token');
     return request<UserData>({
         url: `/api/comment/article/${articleId}`,
         method: "get",
-        data: {
-
+        headers: {
+            Authorization: `Bearer ${token}`
         }
+
     });
 }

@@ -4,7 +4,7 @@
       <div class="logo">
         <img src="../../public/avatar.jpg" alt="logo" />
       </div>
-      <h2>WeBLOG-Login</h2>
+      <h2>WeBLOG登录</h2>
       <p class="tagline">代码改变世界</p>
       <div class="tabs">
         <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">账号登录</button>
@@ -18,14 +18,14 @@
         </div>
         <button type="submit" class="login-button">登录</button>
       </form>
-      <div class="third-party-login">
-        <p>第三方登录/注册</p>
-        <div class="icons">
-          <a href="#"><IconWeChat></IconWeChat></a>
-          <a href="#"><IconQQ></IconQQ></a>
-          <a href="#"><IconGithub></IconGithub></a>
-        </div>
-      </div>
+<!--      <div class="third-party-login">-->
+<!--        <p>第三方登录/注册</p>-->
+<!--        <div class="icons">-->
+<!--          <a href="#"><IconWeChat></IconWeChat></a>-->
+<!--          <a href="#"><IconQQ></IconQQ></a>-->
+<!--          <a href="#"><IconGithub></IconGithub></a>-->
+<!--        </div>-->
+<!--      </div>-->
       <router-link to="/register" class="toRegister">没有账号，立即注册</router-link>
     </div>
   </div>

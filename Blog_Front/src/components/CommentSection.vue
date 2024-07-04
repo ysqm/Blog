@@ -1,21 +1,14 @@
 <template>
-  <div class="article-page">
-    <div class="article-content">
-      <h1>{{ articleTitle }}</h1>
-      <div v-html="articleBody"></div>
-    </div>
 
     <div class="comment-section">
-
       <h3>全部评论 ({{ comments.length }})</h3>
-
       <form @submit.prevent="submitComment">
         <textarea v-model="newComment.content" placeholder="发表一个友善的评论吧..." required></textarea>
         <button type="submit">发送</button>
       </form>
-
       <ul class="comment-list">
-        <li v-for="comment in comments" :key="comment.id" class="comment-item">
+
+        <li v-for="comment in comments" :key="comment.commentId" class="comment-item" v-if=1>
 
           <div class="comment-avatar">
             <img :src="comment.avatar || defaultAvatar" alt="avatar" />
@@ -24,26 +17,23 @@
           <div class="comment-content">
 
             <div class="comment-header">
-              <span class="comment-author">{{ comment.nickname }}</span>
-              <span class="comment-date">{{ comment.createTime }}</span>
+              <span class="comment-author">{{ comment.userId || '请刷新界面' }}</span>
+              <span class="comment-date">{{ formatDate(comment.commentDate) }}</span>
             </div>
 
             <p>{{ comment.content }}</p>
 
           </div>
-
         </li>
-      </ul>
 
+      </ul>
     </div>
 
-  </div>
 </template>
 
 <script>
-import { addComment, getCommentsByArticleId } from "@/api/comment";
-import { mapState } from "vuex";
-import store from "../store/modules";
+import { getCommentsByArticleId, addComment } from '@/api/comment'; // 确保导入路径正确
+import { mapState } from 'vuex';
 
 export default {
   name: 'CommentSection',
@@ -59,41 +49,56 @@ export default {
       newComment: {
         content: ''
       },
-      // defaultAvatar: 'path/to/default/avatar.png',
-      // articleTitle: '文章标题',
-      // articleBody: '<p>文章内容</p>'
-      // userId:1,
-      articleId: 3
+      defaultAvatar: '../../public/profile.png', // 定义默认头像路径
+      articleId: Number(this.$route.params.id)
     };
-  },
-  computed: {
-    ...mapState({
-      userId: state => state.uid // 从 Vuex 中获取 userId
-    })
   },
   created() {
     this.fetchComments();
   },
   methods: {
-
     async fetchComments() {
       try {
         const response = await getCommentsByArticleId(this.articleId);
-        this.comments = response.data;
+        if (response && response.data) {
+          this.comments = response.data.data || []; // 确保数据正确赋值并且是数组
+          console.log('response:', response);
+          console.log('Comments:', this.comments); // 添加日志以检查数据
+          console.log('Comments.data:', this.comments.data);
+          console.log('comments.content:', this.comments[1].content);
+          console.log('comments.data.content:', this.comments.data.content);
+          // console.log('Comments:', this.comments.content);
+          // console.log('Comments:', this.comments.commentDate);
+        } else {
+          console.error('No data returned from API');
+        }
       } catch (error) {
-        console.error("Error fetching comments:", error);
+        console.error('Error fetching comments:', error);
       }
     },
-
     async submitComment() {
       try {
-        const response = await addComment(this.userId, this.newComment.content, this.articleId);
-        this.comments.push(response.data); // 直接将新评论添加到当前评论列表
-        this.newComment.content = '';
+        const userId = localStorage.getItem('uid');
+        if (!userId) {
+          console.error('User is not logged in.');
+          return;
+        }
+        const response = await addComment(userId, this.newComment.content, this.articleId);
+        if (response && response.data) {
+          this.comments.push(response.data); // 直接将新评论添加到当前评论列表
+          this.newComment.content = ''; // 清空评论输入框
+          console.log('New comment added:', response.data);
+        } else {
+          console.error('Failed to add comment');
+        }
       } catch (error) {
-        console.error("Error submitting comment:", error);
+        console.error('Error submitting comment:', error);
       }
-
+    },
+    formatDate(dateArray) {
+      if (!dateArray || dateArray.length < 6) return '';
+      const [year, month, day, hour, minute, second] = dateArray;
+      return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
     }
   }
 };
@@ -113,10 +118,6 @@ export default {
   margin-bottom: 40px;
 }
 
-.article-content h1 {
-  margin-bottom: 20px;
-}
-
 .comment-section {
   padding: 20px;
   background: #f9f9f9;
@@ -134,6 +135,9 @@ export default {
 textarea {
   width: 100%;
   margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 button {

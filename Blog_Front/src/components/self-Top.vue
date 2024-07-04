@@ -5,10 +5,10 @@
         <h1>郭叶盛的演示博客</h1>
         <nav>
           <router-link to="/self-home">个人首页</router-link>
-          <router-link to="/self-category">分类</router-link>
+<!--          <router-link to="/self-category">分类</router-link>-->
           <router-link to="/self-tag">标签</router-link>
-          <router-link to="/self-archive">归档</router-link>
-          <router-link to="/self-knowledge-base">知识库</router-link>
+<!--          <router-link to="/self-archive">归档</router-link>-->
+<!--          <router-link to="/self-knowledge-base">知识库</router-link>-->
         </nav>
         <input type="text" placeholder="搜索文章" />
       </div>
