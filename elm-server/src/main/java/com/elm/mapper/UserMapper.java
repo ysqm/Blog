@@ -42,6 +42,4 @@ public interface UserMapper {
 
     Page<User> pageQuery(AccountPageQueryDTO accountPageQueryDTO);
 
-    @Update("UPDATE users SET is_logged_out = #{isLoggedOut} WHERE user_id = #{userId}")
-    Integer updateIsLoggedOut(@Param("userId") Integer userId, @Param("isLoggedOut") Integer isLoggedOut);
 }
