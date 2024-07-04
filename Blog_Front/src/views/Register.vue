@@ -2,10 +2,9 @@
   <div class="login-container">
     <div class="login-box">
       <div class="logo">
-
-        <img src="/avatar.jpg" alt="logo" />
+        <img src="@/assets/logo.svg" alt="logo" />
       </div>
-      <h2>WeBlog-Register</h2>
+      <h2>WeBlog注册</h2>
       <p class="tagline">代码改变世界</p>
       <div class="tabs">
         <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">账号注册</button>
@@ -16,20 +15,20 @@
         <input type="password" placeholder="确认密码" v-model="password" />
         <div class="remember-me">
           <input type="checkbox" id="remember" v-model="rememberMe" />
-          <label for="remember">记住账号</label>
+          <label for="remember">记住我</label>
         </div>
         <button type="submit" class="login-button">注册</button>
 
       </form>
-      <div class="third-party-login">
-        <p>第三方登录/注册</p>
-        <div class="icons">
-          <a href="#"><IconWeChat></IconWeChat></a>
-          <a href="#"><IconQQ></IconQQ></a>
-          <a href="#"><IconGithub></IconGithub></a>
-        </div>
-      </div>
-      <router-link to="/login">已有账号，立即登录</router-link>
+<!--      <div class="third-party-login">-->
+<!--        <p>第三方登录/注册</p>-->
+<!--        <div class="icons">-->
+<!--          <a href="#"><IconWeChat></IconWeChat></a>-->
+<!--          <a href="#"><IconQQ></IconQQ></a>-->
+<!--          <a href="#"><IconGithub></IconGithub></a>-->
+<!--        </div>-->
+<!--      </div>-->
+      <router-link to="/login" class="toLogin">已有账号，立即登录</router-link>
     </div>
   </div>
 </template>
@@ -211,7 +210,7 @@ input {
   height: 30px;
 }
 
-.toRegister {
+.toLogin {
   display: block;
   margin-top: 20px;
   color: #007bff;

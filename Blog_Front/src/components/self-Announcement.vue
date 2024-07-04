@@ -1,6 +1,6 @@
 <template>
   <div v-if="visible" class="announcement">
-    <p>公告：当前为第二层个人博客界面，第一层为社区首页，个人博客界面要求能让用户自定义一定UI界面并且保存</p>
+    <p>公告：当前为第二层个人博客界面，第一层为社区首页</p>
     <button class="close-button" @click="closeAnnouncement">×</button>
   </div>
 </template>
