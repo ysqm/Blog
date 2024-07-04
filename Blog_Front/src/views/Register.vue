@@ -3,7 +3,7 @@
     <div class="login-box">
       <div class="logo">
 
-        <img src="../../public/avatar.jpg" alt="logo" />
+        <img src="/avatar.jpg" alt="logo" />
       </div>
       <h2>WeBlog-Register</h2>
       <p class="tagline">代码改变世界</p>
@@ -35,16 +35,17 @@
         </div>
       </div>
       <router-link to="/login"><a href="#" class="register-link">已有账号，立即登录</a></router-link>
-
     </div>
   </div>
 </template>
 
 <script>
+import { register } from "@/api/user";
 import IconGithub from "@/components/icons/IconGithub.vue";
 import IconQQ from "@/components/icons/IconQQ.vue";
 import IconWeChat from "@/components/icons/IconWeChat.vue";
 import axios from "axios";
+import { register } from "@/api/user";
 
 
 
@@ -58,6 +59,7 @@ export default {
       rememberMe: false,
       phone: '',
       verificationCode: '',
+      email:''
     };
   },
   methods: {
@@ -65,19 +67,19 @@ export default {
 
     login() {
       // 在这里添加你的登录逻辑
-      axios.request({
-        method:"POST", // 请求方法
-        url: '/api/user/login', // 请求地址
-        data: {
-          username: this.username,
-          password: this.password
+      register(
+        {
+          email:this.email,
+          username:this.username,
+          password:this.password,
         }
-      }).then(response => {
-        console.log(response.data)
+      ).then(response => {
+        if(response.data.code == 1){
+          alert("注册成功")
+        } else alert(response.data.msg)
       }).catch(error => {
         console.error(error)
       })
-      console.log("登录中...");
     },
   },
 };

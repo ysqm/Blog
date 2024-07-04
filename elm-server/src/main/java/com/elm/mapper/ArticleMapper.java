@@ -15,4 +15,5 @@ public interface ArticleMapper {
     Integer softDeleteArticle(Long articleId);
     Integer hideArticle(Long articleId);
     Integer topArticle(Long articleId);
+    List<Article> getLatestArticles();
 }
