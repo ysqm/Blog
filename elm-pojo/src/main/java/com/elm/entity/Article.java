@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Article implements Serializable{
 
     private Long articleId;
-    private Long userId;
+    private Integer userId;
     private String title;
     private String contentPath;
     private Date publishDate;

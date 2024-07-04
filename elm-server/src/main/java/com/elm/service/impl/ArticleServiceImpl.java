@@ -7,6 +7,7 @@ import com.elm.entity.Article;
 import com.elm.mapper.ArticleMapper;
 import com.elm.properties.UploadFileProperties;
 import com.elm.mapper.ArticleTagMapper;
+import com.elm.mapper.UserMapper;
 import com.elm.service.ArticleService;
 import com.elm.vo.ArticleVO;
 import com.github.pagehelper.PageHelper;
@@ -40,6 +41,8 @@ public class ArticleServiceImpl implements ArticleService {
     private UploadFileProperties uploadFileProperties;
     @Autowired
     private ArticleTagMapper articleTagMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public ArticleVO createArticle(CreateArticleDTO articleDTO) {
@@ -146,6 +149,8 @@ public class ArticleServiceImpl implements ArticleService {
         ArticleVO vo = new ArticleVO();
         vo.setArticleId(article.getArticleId());
         vo.setUserId(article.getUserId());
+        String author= userMapper.getUserById(article.getUserId()).getUsername();
+        vo.setAuthor(author);
         vo.setTitle(article.getTitle());
         vo.setContentPath(article.getContentPath());
         vo.setPublishDate(article.getPublishDate());
