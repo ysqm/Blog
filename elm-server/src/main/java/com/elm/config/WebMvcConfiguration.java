@@ -42,7 +42,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .addPathPatterns("/tag/**")
                 .addPathPatterns("/articles/**")
                 .addPathPatterns("/likeDislike/**")
-                .addPathPatterns("/comment/**");
+                .excludePathPatterns("/comment/**");
     }
 
     /**

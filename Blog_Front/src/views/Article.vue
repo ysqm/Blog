@@ -5,22 +5,24 @@
     <div class="page-container">
 
       <div class="content-container">
-<!--        <img class="cover-image" :src="article.coverImage" alt="Cover Image">-->
         <div class="article-header">
           <h1>{{ article.title }}</h1>
           <div class="article-meta">
-            <span class="meta-item">发布于 {{ article.publishDate }}</span>
-            <span class="meta-item">分类: {{ article.category }}</span>
-            <span class="meta-item">浏览量: {{ article.views }}</span>
+            <span>发布于 {{ article.publishDate }}</span>
+            <span>分类: {{ article.category }}</span>
+            <span>浏览量: {{ article.views }}</span>
           </div>
         </div>
+
         <div class="article-content" v-html="article.content"></div>
         <CommentSection :articleId="article.id" />
+
       </div>
 
-      <Sidebar class="sidebar" />
+      <Sidebar />
 
     </div>
+
   </div>
 </template>
 
@@ -29,16 +31,12 @@ import axios from 'axios';
 import CommentSection from '@/components/CommentSection.vue';
 import Navbar from "@/components/Navbar.vue";
 import Sidebar from "@/components/self-Sidebar.vue";
-
-import {store} from '@/store/modules/index'
-
-import { request } from "@/request";
-import {createArticle} from "@/api/article.js"
-import { useRoute, useRouter } from 'vue-router'
+import PostList from "@/components/self-PostList.vue";
 
 export default {
   name: 'ArticleView',
   components: {
+    PostList,
     Sidebar,
     Navbar,
     CommentSection
@@ -65,8 +63,7 @@ export default {
 </script>
 
 <style scoped>
-.article {
-  display: flex;
+.article-view {
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -83,14 +80,7 @@ export default {
 }
 
 .sidebar {
-  width: 25%;
-  margin-right: 20px;
-}
-
-.cover-image {
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  width: 250px;
 }
 
 .content-container {
@@ -102,12 +92,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.article-meta {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.meta-item {
+.article-meta span {
   margin-right: 15px;
   color: #666;
 }

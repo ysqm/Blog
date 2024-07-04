@@ -26,7 +26,7 @@ export default {
 
 <style>
 .sidebar {
-  flex: 1; /* Sidebar 自动调整宽度 */
+  width: 250px; /* 固定 Sidebar 的宽度 */
   margin-left: 20px; /* Sidebar 与主要内容之间的间距 */
 }
 

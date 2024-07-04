@@ -63,13 +63,15 @@ export default {
       login(this.username,this.password).then(response => {
         console.log(response.data)
         if(response.data.code == 1){
-          store.commit('setBio',   response.data.bio)
-          store.commit('setToken', response.data.token)
-          store.commit('setUsername', response.data.username)
-          store.commit('setUid', response.data.uid)
-          store.commit('setAvatar', response.data.Avatar)
+          store.commit('setBio',   response.data.data.bio)
+          store.commit('setToken', response.data.data.token)
+          store.commit('setUsername', response.data.data.username)
+          store.commit('setUid', response.data.data.uid)
+          store.commit('setAvatar', response.data.data.avatar)
+          localStorage.setItem('token',response.data.data.token)
+          localStorage.setItem('uid',response.data.data.uid)
           console.log("登录中...");
-          this.$router.push('/community');
+          this.$router.push('/');
         } else {
           alert(response.data.msg)
         }
