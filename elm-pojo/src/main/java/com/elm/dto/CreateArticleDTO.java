@@ -13,7 +13,7 @@ import java.util.List;
 public class CreateArticleDTO implements Serializable {
 
     @ApiModelProperty("用户ID")
-    private Long userId;
+    private Integer userId;
 
     @ApiModelProperty("文章标题")
     private String title;

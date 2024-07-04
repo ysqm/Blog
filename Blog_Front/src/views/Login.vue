@@ -36,9 +36,14 @@ import IconGithub from "@/components/icons/IconGithub.vue";
 import IconQQ from "@/components/icons/IconQQ.vue";
 import IconWeChat from "@/components/icons/IconWeChat.vue";
 import axios from "axios";
-import {store} from '@/store/modules/index';
-import {login} from "@/api/user";
-import {useRoute, useRouter} from 'vue-router';
+
+import {store} from '@/store/modules/index'
+import { request } from "@/request";
+import {login} from "@/api/user"
+import { useRoute, useRouter } from 'vue-router'
+
+const router = useRouter();
+
 
 export default {
   components: {IconGithub, IconQQ, IconWeChat},

@@ -12,7 +12,9 @@ import Tag from '../views/self-Tag.vue';
 import Archive from '../views/self-Archive.vue';
 import KnowledgeBase from '../views/self-KnowledgeBase.vue';
 import NewPost from '../views/self-NewPost.vue';
-import AccountCenter from "@/views/AccountCenter.vue";
+import Upload from '../views/upload.vue'
+import Article from '../views/Article.vue'
+import ArticleDetail from "@/components/ArticleDetail.vue";
 
 const routes = [
     {
@@ -84,7 +86,23 @@ const routes = [
         path: '/404',
         name: '404',
         component: 404
-    }
+    },
+    {
+        path: '/article',
+        name: 'Article',
+        component: Article
+    },
+    {
+        path: '/article/:id',
+        name: 'ArticleDetail',
+        component: ArticleDetail,
+        props: true, // 使路由参数作为props传递给组件
+    },
+    // ,
+    // {
+    //     path:  '*',
+    //     redirect: '/404'
+    // }
 ];
 
 
