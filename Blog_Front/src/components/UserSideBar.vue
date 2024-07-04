@@ -1,5 +1,6 @@
 <template>
   <div class="sidebar">
+    <router-link to="/"><IconLogOutLeft class="logOut" /></router-link>
     <div class="logo">
       <img src="../../public/avatar.jpg" alt="logo" />
     </div>
@@ -15,8 +16,11 @@
 </template>
 
 <script>
+import IconLogOutLeft from "@/components/icons/IconLogOutLeft.vue";
+
 export default {
-  name: 'Sidebar'
+  name: 'Sidebar',
+  components: {IconLogOutLeft}
 }
 </script>
 
@@ -34,9 +38,16 @@ export default {
   border-radius: 10px;
   padding: 20px 0;
 }
+.logOut {
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 20px;
+  cursor: pointer;
+}
 
 .logo img {
-  height: 50px;
+  height:50px;
   width: 50px;
   margin-bottom: 20px;
   border-radius: 50%;

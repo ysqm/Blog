@@ -1,7 +1,7 @@
 <template>
   <div class="account-center">
     <UserSidebar />
-    <AccountSettings />
+    <AccountSettings class="accountSetting"/>
   </div>
 </template>
 
@@ -23,4 +23,11 @@ export default {
   display: flex;
   padding: 20px;
 }
+.accountSetting {
+  top: 0;
+  right: 0;
+  position: absolute;
+  width: 75%;
+}
+
 </style>

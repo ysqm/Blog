@@ -1,4 +1,4 @@
-<template>
+<template xmlns="">
   <nav class="navbar">
     <router-link to="/" class="link"><div class="logo">WeBlog</div></router-link>
     <ul class="nav-links">
@@ -14,13 +14,13 @@
       </button>
     </div>
     <button class="editor-icon">
-      <router-link to="/Editor">
-        <IconPen />
-      </router-link>
+      <router-link to="/Editor"><IconPen /></router-link>
     </button>
-    <div class="auth-buttons">
-      <router-link to="/login"><button>登录</button></router-link>
-      <router-link to="/register"><button>注册</button></router-link>
+    <div v-if="isLogged" class="">
+      <LoginAndRegister />
+    </div>
+    <div v-else class="avatarSetting">
+      <SelfCenterEntry />
     </div>
   </nav>
 </template>
@@ -28,10 +28,17 @@
 <script>
 import SearchIcon from "@/components/icons/IconSearch.vue";
 import IconPen from "@/components/icons/IconPen.vue";
+import LoginAndRegister from "@/components/LoginAndRegister.vue";
+import SelfCenterEntry from "@/components/SelfCenterEntry.vue";
 
 export default {
   name: 'Navbar',
-  components: { IconPen, SearchIcon }
+  components: {LoginAndRegister, IconPen, SearchIcon , SelfCenterEntry},
+  data(){
+    return{
+      isLogged: false
+    }
+  }
 }
 </script>
 
@@ -100,13 +107,6 @@ export default {
   border-radius: 4px;
 }
 
-
-.auth-buttons {
-  display: flex;
-  margin-left: 5px;
-
-}
-
 .auth-buttons button {
   margin-right: 25px;
   padding: 5px 5px;
@@ -116,5 +116,11 @@ export default {
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
+}
+.avatarSetting{
+  display: flex;
+  align-items: center;
+  width: 50px;
+  margin-right: 40px;
 }
 </style>
