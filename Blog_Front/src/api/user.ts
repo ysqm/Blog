@@ -38,3 +38,13 @@ export function register(registerDTO:RegisterDTO){
         }
     )
 }
+
+export function logout(uid:number){
+    return request<UserData>(
+        {
+            url:'/api/user/logout',
+            method: "post",
+            data: {uid},
+        }
+    )
+}

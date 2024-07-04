@@ -1,4 +1,4 @@
-<template xmlns="">
+<template>
   <nav class="navbar">
     <router-link to="/" class="link"><div class="logo">WeBlog</div></router-link>
     <ul class="nav-links">
@@ -16,7 +16,7 @@
     <button class="editor-icon">
       <router-link to="/Editor"><IconPen /></router-link>
     </button>
-    <div v-if="isLogged" class="">
+    <div v-if="isLoggedOut" class="">
       <LoginAndRegister />
     </div>
     <div v-else class="avatarSetting">
@@ -33,16 +33,21 @@ import SelfCenterEntry from "@/components/SelfCenterEntry.vue";
 
 export default {
   name: 'Navbar',
-  components: {LoginAndRegister, IconPen, SearchIcon , SelfCenterEntry},
-  data(){
-    return{
-      isLogged: false
-    }
+  components: {LoginAndRegister, IconPen, SearchIcon, SelfCenterEntry},
+  data() {
+    return {
+      isLoggedOut: true, // 默认值为 true
+    };
+  },
+  mounted() {
+    const isLoggedOutString = localStorage.getItem('isLoggedOut');
+    this.isLoggedOut = isLoggedOutString === 'true';
   }
-}
+};
 </script>
 
 <style scoped>
+/* 保持现有样式 */
 .navbar {
   position: fixed;
   top: 0;
@@ -55,9 +60,11 @@ export default {
   background-color: #1E90FF;
   z-index: 1000; /* 确保导航栏在顶部 */
 }
-.link{
+
+.link {
   text-decoration: none;
 }
+
 .logo {
   font-size: 24px;
   font-weight: bold;
@@ -117,7 +124,8 @@ export default {
   cursor: pointer;
   text-decoration: none;
 }
-.avatarSetting{
+
+.avatarSetting {
   display: flex;
   align-items: center;
   width: 50px;

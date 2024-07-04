@@ -36,17 +36,12 @@ import IconGithub from "@/components/icons/IconGithub.vue";
 import IconQQ from "@/components/icons/IconQQ.vue";
 import IconWeChat from "@/components/icons/IconWeChat.vue";
 import axios from "axios";
-
-import {store} from '@/store/modules/index'
-import { request } from "@/request";
-import {login} from "@/api/user"
-import { useRoute, useRouter } from 'vue-router'
-
-const router = useRouter();
-
+import {store} from '@/store/modules/index';
+import {login} from "@/api/user";
+import {useRoute, useRouter} from 'vue-router';
 
 export default {
-  components: { IconGithub, IconQQ, IconWeChat },
+  components: {IconGithub, IconQQ, IconWeChat},
   data() {
     return {
       isPasswordLogin: true,
@@ -59,25 +54,24 @@ export default {
   },
   methods: {
     login() {
-      // 在这里添加你的登录逻辑
-      login(this.username,this.password).then(response => {
-        console.log(response.data)
-        if(response.data.code == 1){
-          store.commit('setBio',   response.data.data.bio)
-          store.commit('setToken', response.data.data.token)
-          store.commit('setUsername', response.data.data.username)
-          store.commit('setUid', response.data.data.userId)
-          store.commit('setAvatar', response.data.data.avatar)
-          localStorage.setItem('token',response.data.data.token)
-          localStorage.setItem('uid',response.data.data.userId)
+      login(this.username, this.password).then(response => {
+        if (response.data.code == 1) {
+          store.commit('setBio', response.data.data.bio);
+          store.commit('setToken', response.data.data.token);
+          store.commit('setUsername', response.data.data.username);
+          store.commit('setUid', response.data.data.userId);
+          store.commit('setAvatar', response.data.data.avatar);
+          localStorage.setItem('token', response.data.data.token);
+          localStorage.setItem('uid', response.data.data.userId);
+          localStorage.setItem('isLoggedOut', 'false');
           console.log("登录中...");
           this.$router.push('/');
         } else {
-          alert(response.data.msg)
+          alert(response.data.msg);
         }
       }).catch(error => {
-        console.error(error)
-      })
+        console.error(error);
+      });
       console.log("登录中...");
     },
   },
