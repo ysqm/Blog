@@ -40,4 +40,7 @@ public class ArticleVO {
 
     @ApiModelProperty("摘要")
     private String summary;
+
+    @ApiModelProperty("具体内容")
+    private String content;
 }

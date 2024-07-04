@@ -13,7 +13,10 @@ interface CreateArticleDTO {
     status: string;
     tagIds: number[];
 }
-
+// interface ArticlePageSearchDTO {
+//     page:number,
+//     pageSize:number
+// }
 export function createArticle(articleDTO: CreateArticleDTO) {
     return request<ArticleData>({
         url: '/api/articles/create',
@@ -28,5 +31,15 @@ export function createArticle(articleDTO: CreateArticleDTO) {
         headers: {
             'Content-Type': 'application/json',
         },
+    });
+}
+export function getArticlesByPage(page:number,pageSize:number) {
+    return request({
+        url: '/api/articles/page',
+        method: 'get',
+        // data: {
+        //     page: articleDTO.page,
+        //     pageSize: articleDTO.pageSize,
+        // },
     });
 }

@@ -14,6 +14,7 @@ import KnowledgeBase from '../views/self-KnowledgeBase.vue';
 import NewPost from '../views/self-NewPost.vue';
 import Upload from '../views/upload.vue'
 import Article from '../views/Article.vue'
+import ArticleDetail from "@/components/ArticleDetail.vue";
 
 const routes = [
     {
@@ -89,7 +90,13 @@ const routes = [
         path: '/article',
         name: 'Article',
         component: Article
-    }
+    },
+    {
+        path: '/article/:id',
+        name: 'ArticleDetail',
+        component: ArticleDetail,
+        props: true, // 使路由参数作为props传递给组件
+    },
     // ,
     // {
     //     path:  '*',

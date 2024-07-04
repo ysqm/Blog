@@ -104,8 +104,10 @@ public class ArticleController {
     }
 
     @PostMapping("/page")
+    @ApiOperation("文章分页查询")
     public PageInfo<ArticleVO> getArticlesByPage(@RequestBody ArticlePageQueryDTO queryDTO) {
         return articleService.getArticlesByPage(queryDTO);
     }
+
 
 }

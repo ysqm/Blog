@@ -39,6 +39,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .excludePathPatterns("/user/login")
                 .excludePathPatterns("/user/register")
                 .excludePathPatterns("/articles/page")
+                .excludePathPatterns("/articles/{articleId}")
                 .addPathPatterns("/file/**")
                 .addPathPatterns("/tag/**")
                 .addPathPatterns("/articles/**")

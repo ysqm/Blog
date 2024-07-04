@@ -25,6 +25,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -150,7 +153,12 @@ public class ArticleServiceImpl implements ArticleService {
         vo.setStatus(article.getStatus());
         vo.setHeat(article.getHeat());
         vo.setTagIds(getArticleTagIds(article.getArticleId()));
-        vo.setSummary(generateSummary(article.getContentPath()));  // 生成摘要
+        vo.setSummary(generateSummary(article.getContentPath()));
+        try {
+            vo.setContent(new String(Files.readAllBytes(Paths.get(uploadFileProperties.getSavePath(), article.getContentPath()))));// 生成摘要
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return vo;
     }
 
