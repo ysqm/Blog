@@ -24,5 +24,6 @@
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
+  white-space: nowrap;
 }
 </style>

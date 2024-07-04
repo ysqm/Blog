@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="login-box">
       <div class="logo">
-        <img src="@/assets/logo.svg" alt="logo" />
+        <img src="../../public/avatar.jpg" alt="logo" />
       </div>
       <h2>WeBLOG-Login</h2>
       <p class="tagline">代码改变世界</p>

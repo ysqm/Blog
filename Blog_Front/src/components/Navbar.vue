@@ -53,6 +53,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
+  gap: 20px;
   display: flex;
   align-items: center;
   padding: 10px 20px;
@@ -107,6 +108,7 @@ export default {
   cursor: pointer;
 }
 
+
 .editor-icon {
   margin-left: 5px;
   background-color: #84FAD1FF;
@@ -123,6 +125,7 @@ export default {
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
+
 }
 
 .avatarSetting {

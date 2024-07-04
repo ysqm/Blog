@@ -29,7 +29,7 @@
           <a href="#"><IconGithub></IconGithub></a>
         </div>
       </div>
-      <router-link to="/login">已有账号，立即登录</router-link>
+      <router-link to="/login" class="toRegister">已有账号，立即登录</router-link>
     </div>
   </div>
 </template>
