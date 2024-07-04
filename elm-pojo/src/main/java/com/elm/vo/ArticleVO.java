@@ -37,4 +37,7 @@ public class ArticleVO {
 
     @ApiModelProperty("文章标签ID列表")
     private List<Long> tagIds;
+
+    @ApiModelProperty("摘要")
+    private String summary;
 }

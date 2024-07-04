@@ -1,9 +1,10 @@
 package com.elm.service;
 
+import com.elm.dto.ArticlePageQueryDTO;
 import com.elm.dto.CreateArticleDTO;
 import com.elm.dto.UpdateArticleDTO;
 import com.elm.vo.ArticleVO;
-
+import com.github.pagehelper.PageInfo;
 import java.util.List;
 
 public interface ArticleService {
@@ -16,4 +17,5 @@ public interface ArticleService {
     ArticleVO hideArticle(Long articleId);
     ArticleVO topArticle(Long articleId);
     List<ArticleVO> getLatestArticles();
+    PageInfo<ArticleVO> getArticlesByPage(ArticlePageQueryDTO queryDTO);
 }

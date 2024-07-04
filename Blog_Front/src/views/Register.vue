@@ -10,7 +10,7 @@
       <div class="tabs">
         <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">账号注册</button>
       </div>
-      <form v-if="isPasswordLogin" @submit.prevent=register>
+      <form v-if="isPasswordLogin" @submit.prevent=Blogregister>
         <input type="text" placeholder="注册邮箱" v-model="username" />
         <input type="password" placeholder="密码" v-model="password" />
         <input type="password" placeholder="确认密码" v-model="password" />
@@ -45,8 +45,6 @@ import IconGithub from "@/components/icons/IconGithub.vue";
 import IconQQ from "@/components/icons/IconQQ.vue";
 import IconWeChat from "@/components/icons/IconWeChat.vue";
 import axios from "axios";
-import { register } from "@/api/user";
-
 
 
 export default {
@@ -65,7 +63,7 @@ export default {
   methods: {
 
 
-    login() {
+    Blogregister() {
       // 在这里添加你的登录逻辑
       register(
         {

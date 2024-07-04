@@ -65,4 +65,10 @@
     <update id="topArticle" parameterType="java.lang.Long">
         UPDATE articles SET status = 'published' WHERE article_id = #{articleId} AND status = 'draft'
     </update>
+
+    <select id="selectArticlesByPage" resultType="com.elm.entity.Article">
+        SELECT * FROM articles
+        WHERE title LIKE CONCAT('%', #{title}, '%')
+        ORDER BY publish_date DESC
+    </select>
 </mapper>

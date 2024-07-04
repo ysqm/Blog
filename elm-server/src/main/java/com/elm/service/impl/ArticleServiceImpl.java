@@ -1,5 +1,6 @@
 package com.elm.service.impl;
 
+import com.elm.dto.ArticlePageQueryDTO;
 import com.elm.dto.CreateArticleDTO;
 import com.elm.dto.UpdateArticleDTO;
 import com.elm.entity.Article;
@@ -8,7 +9,11 @@ import com.elm.properties.UploadFileProperties;
 import com.elm.mapper.ArticleTagMapper;
 import com.elm.service.ArticleService;
 import com.elm.vo.ArticleVO;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +25,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -49,6 +56,17 @@ public class ArticleServiceImpl implements ArticleService {
             saveArticleTags(articleId, articleDTO.getTagIds());
         }
         return toVO(article);
+    }
+
+    @Override
+    public PageInfo<ArticleVO> getArticlesByPage(ArticlePageQueryDTO queryDTO) {
+        PageHelper.startPage(queryDTO.getPage(), queryDTO.getPageSize());
+        List<Article> articles = articleMapper.selectArticlesByPage(queryDTO);
+        List<ArticleVO> articleVOs = articles.stream()
+                .filter(article -> "published".equals(article.getStatus()))  // 只保留状态为 "published" 的文章
+                .map(this::toVO)
+                .collect(Collectors.toList());
+        return new PageInfo<>(articleVOs);
     }
 
     @Override
@@ -120,6 +138,7 @@ public class ArticleServiceImpl implements ArticleService {
         return articles.stream().map(this::toVO).collect(Collectors.toList());
     }
 
+
     private ArticleVO toVO(Article article) {
         ArticleVO vo = new ArticleVO();
         vo.setArticleId(article.getArticleId());
@@ -131,9 +150,19 @@ public class ArticleServiceImpl implements ArticleService {
         vo.setStatus(article.getStatus());
         vo.setHeat(article.getHeat());
         vo.setTagIds(getArticleTagIds(article.getArticleId()));
+        vo.setSummary(generateSummary(article.getContentPath()));  // 生成摘要
         return vo;
     }
 
+    private String generateSummary(String contentPath) {
+        try {
+            String content = new String(Files.readAllBytes(Paths.get(uploadFileProperties.getSavePath(), contentPath)));
+            return content.length() > 50 ? content.substring(0, 50) + "..." : content;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "Failed to generate summary";
+        }
+    }
     private String saveFile(String base64Content, String title) {
         if (base64Content == null || base64Content.isEmpty()) {
             throw new RuntimeException("File content is empty");
@@ -189,5 +218,6 @@ public class ArticleServiceImpl implements ArticleService {
     private List<Long> getArticleTagIds(Long articleId) {
         return articleTagMapper.getTagIdsByArticleId(articleId);
     }
+
 
 }

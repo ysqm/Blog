@@ -68,6 +68,8 @@ export default {
           store.commit('setUsername', response.data.data.username)
           store.commit('setUid', response.data.data.uid)
           store.commit('setAvatar', response.data.data.Avatar)
+          localStorage.setItem('token',response.data.data.token)
+          localStorage.setItem('uid',response.data.data.userId)
           console.log("登录中...");
           this.$router.push('/community');
         } else {

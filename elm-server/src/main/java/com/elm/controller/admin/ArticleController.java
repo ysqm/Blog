@@ -1,16 +1,22 @@
 package com.elm.controller.admin;
 
+import com.elm.dto.ArticlePageQueryDTO;
 import com.elm.dto.CreateArticleDTO;
 import com.elm.dto.UpdateArticleDTO;
 import com.elm.result.Result;
 import com.elm.service.ArticleService;
 import com.elm.vo.ArticleVO;
+import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -96,4 +102,10 @@ public class ArticleController {
         List<ArticleVO> articles = articleService.getLatestArticles();
         return Result.success(articles);
     }
+
+    @PostMapping("/page")
+    public PageInfo<ArticleVO> getArticlesByPage(@RequestBody ArticlePageQueryDTO queryDTO) {
+        return articleService.getArticlesByPage(queryDTO);
+    }
+
 }
