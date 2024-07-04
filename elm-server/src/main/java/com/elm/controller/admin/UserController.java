@@ -1,10 +1,12 @@
 package com.elm.controller.admin;
 
 import com.elm.constant.JwtClaimsConstant;
+import com.elm.dto.AccountPageQueryDTO;
 import com.elm.dto.UpdateUserDTO;
 import com.elm.dto.UserLoginDTO;
 import com.elm.entity.User;
 import com.elm.properties.JwtProperties;
+import com.elm.result.PageResult;
 import com.elm.result.Result;
 import com.elm.service.UserService;
 import com.elm.utils.JwtUtil;
@@ -35,14 +37,14 @@ public class UserController {
 
     @PostMapping("/register")
     @ApiOperation("用户注册,传入的id都会被置为null")
-    public Result register(@RequestBody UpdateUserDTO updateUserDTO) {
+    public Result register(UpdateUserDTO updateUserDTO) {
         log.info("新增用户：{}", updateUserDTO);
         return userService.addUser(updateUserDTO);
     }
 
     @PostMapping("/login")
     @ApiOperation("用户登录")
-    public Result login(@RequestBody UserLoginDTO userLoginDTO) {
+    public Result login(UserLoginDTO userLoginDTO) {
         log.info("用户登录：{}", userLoginDTO);
         User user = userService.login(userLoginDTO);
         Map<String, Object> claims = new HashMap<>();
@@ -60,9 +62,16 @@ public class UserController {
 
     @PostMapping("/edit")
     @ApiOperation("编辑用户信息")
-    public Result edit(@RequestBody UpdateUserDTO updateUserDTO) {
+    public Result edit(UpdateUserDTO updateUserDTO) {
         log.info("用户信息更新:{}", updateUserDTO);
         return userService.updateUser(updateUserDTO);
     }
 
+    @PostMapping("/page")
+    @ApiOperation("分页查询用户信息")
+    public Result<PageResult> getAccountPage(AccountPageQueryDTO accountPageQueryDTO){
+        log.info("分页查询账号数据:{}", accountPageQueryDTO);
+        PageResult pageResult = userService.pageQuery(accountPageQueryDTO);
+        return Result.success(pageResult);
+    }
 }

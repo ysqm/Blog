@@ -41,4 +41,13 @@
         WHERE user_id = #{userId}
     </update>
 
+    <select id="pageQuery" resultType="com.elm.entity.User">
+        select * from users
+        <where>
+            <if test="accountName != null and accountName != ''">
+                 and name like concat('%',#{accountName},'$')
+            </if>
+        </where>
+                order by create_time desc
+    </select>
 </mapper>

@@ -3,13 +3,18 @@ package com.elm.service.impl;
 import com.elm.constant.MessageConstant;
 import com.elm.constant.StatusConstant;
 import com.elm.context.BaseContext;
+import com.elm.dto.AccountPageQueryDTO;
 import com.elm.dto.UpdateUserDTO;
 import com.elm.dto.UserLoginDTO;
+import com.elm.entity.PermissionLevel;
 import com.elm.entity.User;
 import com.elm.exception.*;
 import com.elm.mapper.UserMapper;
+import com.elm.result.PageResult;
 import com.elm.result.Result;
 import com.elm.service.UserService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
@@ -100,6 +105,23 @@ public class UserServiceImpl implements UserService {
         }
         Integer msg = userMapper.updateUser(user);
         return result.success(msg);
+    }
+
+    @Override
+    public PageResult pageQuery(AccountPageQueryDTO accountPageQueryDTO) {
+        User user = userMapper.getUserById(BaseContext.getCurrentId());
+        if(user == null) {throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);}
+        if(user.getPermissionLevel() == PermissionLevel.BANNED) {throw new AccountLockedException(MessageConstant.ACCOUNT_LOCKED);}
+        if(user.getPermissionLevel() == PermissionLevel.USER) {throw new PermissionDenied(MessageConstant.PERMISSION_DENIED);}
+
+        PageHelper.startPage(accountPageQueryDTO.getPage(), accountPageQueryDTO.getPageSize());
+
+        Page<User> page = userMapper.pageQuery(accountPageQueryDTO);
+
+        long total = page.getTotal();
+        List<User> records = page.getResult();
+
+        return new PageResult(total, records);
     }
 
 
