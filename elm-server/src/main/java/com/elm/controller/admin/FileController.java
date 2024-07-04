@@ -75,7 +75,7 @@ public class FileController {
 
     @PostMapping("/delete")
     @ApiOperation("删除文件")
-    public Result deleteFile(Integer id) {
+    public Result deleteFile(@RequestBody Integer id) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);
         fileHistory.setStatus(FileStatus.DELETE);
@@ -84,7 +84,7 @@ public class FileController {
 
     @PostMapping("/recover")
     @ApiOperation("恢复文件")
-    public Result recoverFile(Integer id) {
+    public Result recoverFile(@RequestBody Integer id) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);
         fileHistory.setStatus(FileStatus.NORMAL);
@@ -93,7 +93,7 @@ public class FileController {
 
     @PostMapping("/rename")
     @ApiOperation("重命名文件")
-    public Result updateFile(Integer id,String filename) {
+    public Result updateFile(@RequestBody Integer id,@RequestBody String filename) {
         FileHistory fileHistory = new FileHistory();
         fileHistory.setId(id);
         fileHistory.setFilename(filename);

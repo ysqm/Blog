@@ -12,14 +12,9 @@ import Tag from '../views/self-Tag.vue';
 import Archive from '../views/self-Archive.vue';
 import KnowledgeBase from '../views/self-KnowledgeBase.vue';
 import NewPost from '../views/self-NewPost.vue';
-import Upload from '../views/upload.vue'
+import AccountCenter from "@/views/AccountCenter.vue";
 
 const routes = [
-    {
-        path: '/upload',
-        name: 'upload',
-        component: Upload
-    },
     {
         path: '/self-home',
         name: 'self-Home',
@@ -61,7 +56,7 @@ const routes = [
         component: Editor
     },
     {
-        path: '/',
+        path: '/Community',
         name: 'Community',
         component: Community
     },
@@ -74,6 +69,20 @@ const routes = [
         path: '/register',
         name: 'Register',
         component: Register
+    },
+    {
+        path:  '/',
+        redirect: '/Community'
+    },
+    {
+        path:'/account',
+        name:'AccountCenter',
+        component: AccountCenter
+    },
+    {
+        path: '/404',
+        name: '404',
+        component: 404
     }
 ];
 

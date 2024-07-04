@@ -63,8 +63,8 @@ import { ref, onMounted } from 'vue';
 import Vditor from 'vditor';
 import 'vditor/dist/index.css';
 import { ElMessage } from 'element-plus';
-import { getAllTags, createTag } from '@/api/tag';
-import { createArticle } from '@/api/article';
+import { getAllTags, createTag } from '@/api/tag.ts';
+import { createArticle } from '@/api/article.ts';
 import { useStore } from 'vuex' // 引入useStore 方法
 const store = useStore()  // 该方法用于返回store 实例
 import axios from 'axios'

@@ -4,11 +4,10 @@
       <div class="logo">
         <img src="@/assets/logo.svg" alt="logo" />
       </div>
-      <h2>BLOG用户登录</h2>
+      <h2>BLOG-Login</h2>
       <p class="tagline">代码改变世界</p>
       <div class="tabs">
-        <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">密码登录</button>
-        <button :class="{ active: !isPasswordLogin }" @click="isPasswordLogin = false">短信登录</button>
+        <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">账号登录</button>
       </div>
       <form v-if="isPasswordLogin" @submit.prevent="login">
         <input type="text" placeholder="登录用户名 / 邮箱" v-model="username" />
@@ -19,11 +18,6 @@
         </div>
         <button type="submit" class="login-button">登录</button>
       </form>
-      <form v-else @submit.prevent="login">
-        <input type="text" placeholder="手机号" v-model="phone" />
-        <input type="text" placeholder="验证码" v-model="verificationCode" />
-        <button type="submit" class="login-button">登录</button>
-      </form>
       <div class="third-party-login">
         <p>第三方登录/注册</p>
         <div class="icons">
@@ -32,7 +26,7 @@
           <a href="#"><IconGithub></IconGithub></a>
         </div>
       </div>
-      <a href="#" class="register-link">没有账号，立即注册</a>
+      <router-link to="/register" class="toRegister">没有账号，立即注册</router-link>
     </div>
   </div>
 </template>
@@ -48,7 +42,7 @@ import { request } from "@/request";
 import {login} from "@/api/user"
 import { useRoute, useRouter } from 'vue-router'
 
-const router = useRouter(); 
+const router = useRouter();
 
 
 export default {
@@ -76,6 +70,7 @@ export default {
           store.commit('setAvatar', response.data.data.avatar)
           localStorage.setItem('token',response.data.data.token)
           localStorage.setItem('uid',response.data.data.userId)
+
           console.log("登录中...");
           this.$router.push('/');
         } else {
@@ -128,13 +123,6 @@ h2 {
 .tagline {
   margin: 5px 0 20px;
   color: #999;
-}
-
-.vip-link {
-  color: #007bff;
-  text-decoration: none;
-  margin-bottom: 20px;
-  display: inline-block;
 }
 
 .tabs {
@@ -213,7 +201,7 @@ input {
   height: 30px;
 }
 
-.register-link {
+.toRegister {
   display: block;
   margin-top: 20px;
   color: #007bff;

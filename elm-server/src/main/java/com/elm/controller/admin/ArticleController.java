@@ -18,6 +18,7 @@ import java.util.List;
 @RequestMapping("/articles")
 @Slf4j
 @Api(tags = "文章相关接口")
+//@CrossOrigin(origins = "*")
 public class ArticleController {
 
     @Autowired
@@ -87,5 +88,12 @@ public class ArticleController {
     public Result<ArticleVO> topArticle(@PathVariable Long articleId) {
         ArticleVO articleVO = articleService.topArticle(articleId);
         return Result.success(articleVO);
+    }
+
+    @PostMapping("/latest")
+    @ApiOperation("最新文章")
+    public Result<List<ArticleVO>> latestArticle() {
+        List<ArticleVO> articles = articleService.getLatestArticles();
+        return Result.success(articles);
     }
 }
