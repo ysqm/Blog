@@ -56,7 +56,7 @@ const routes = [
         component: Editor
     },
     {
-        path: '/',
+        path: '/Community',
         name: 'Community',
         component: Community
     },
@@ -71,15 +71,19 @@ const routes = [
         component: Register
     },
     {
-        path: '/community',
-        redirect: '/'
+        path:  '/',
+        redirect: '/Community'
     },
     {
         path:'/account',
         name:'AccountCenter',
         component: AccountCenter
+    },
+    {
+        path: '/404',
+        name: '404',
+        component: 404
     }
-
 ];
 
 
