@@ -43,7 +43,7 @@ export default {
       clearTimeout(this.hideTimer);
     },
     logOut() {
-      // logout(paresInt(this.userId)).then(response => {
+      // logout(parseInt(this.userId)).then(response => {
       //   if (response.data.code === 1) {
       //     localStorage.setItem('isLoggedOut', 'true');
       //     localStorage.removeItem('token');
@@ -59,7 +59,6 @@ export default {
       localStorage.removeItem('uid');
       localStorage.removeItem('username');
       store.commit('setIsLoggedOut', true);
-      console.log("退出登录...");
       location.reload();
     }
   }

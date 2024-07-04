@@ -48,3 +48,16 @@ export function logout(uid:number){
         }
     )
 }
+
+export function edit(username:string, uid: number){
+    return request<UserData>(
+        {
+            url:'/api/user/edit',
+            method: "post",
+            data: {
+                username,
+                uid
+            }
+        }
+    )
+}
