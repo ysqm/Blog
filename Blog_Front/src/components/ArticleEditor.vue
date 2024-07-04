@@ -67,10 +67,10 @@ import { getAllTags, createTag } from '@/api/tag.ts';
 import { createArticle } from '@/api/article.ts';
 import { useStore } from 'vuex' // 引入useStore 方法
 const store = useStore()  // 该方法用于返回store 实例
-
+import axios from 'axios'
 const vditor = ref(null);
 const title = ref('');
-const userId = ref(store.state.uid); // 使用 Vuex 中存储的用户 ID
+const userId = localStorage.getItem('uid'); // 使用 Vuex 中存储的用户 ID
 const availableTags = ref([]);
 const selectedTagIds = ref([]);
 const customTag = ref('');
@@ -142,26 +142,36 @@ const formatFileName = (title) => {
 const saveArticle = () => {
   addCustomTag().then(() => {
     const content = vditor.value.getValue();
-    const file = new Blob([content], { type: 'text/markdown' });
-    const articleDTO = {
-      userId: userId.value,
-      title: title.value,
-      file: file,
-      status: status.value,
-      tagIds: selectedTagIds.value
+    const fileName = formatFileName(title.value);
+    const blob = new Blob([content], { type: 'text/markdown' });
+
+    // 读取文件内容并转换为Base64
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64Content = reader.result.split(',')[1];
+
+      const articleDTO = {
+        userId: parseInt(localStorage.getItem('uid'), 10),
+        title: title.value,
+        content: base64Content,
+        status: status.value,
+        tagIds: selectedTagIds.value
+      };
+
+      createArticle(articleDTO)
+          .then(response => {
+            console.log('Article saved:', response.data);
+            error.value = '';
+            ElMessage.success('Article saved successfully');
+          })
+          .catch(err => {
+            console.error('Error saving article:', err);
+            error.value = 'Error saving article: ' + (err.response?.data?.message || err.message);
+            ElMessage.error('Error saving article: ' + (err.response?.data?.message || err.message));
+          });
     };
 
-    createArticle(articleDTO)
-        .then(response => {
-          console.log('Article saved:', response.data);
-          error.value = '';
-          ElMessage.success('Article saved successfully');
-        })
-        .catch(err => {
-          console.error('Error saving article:', err);
-          error.value = 'Error saving article: ' + (err.response?.data?.message || err.message);
-          ElMessage.error('Error saving article: ' + (err.response?.data?.message || err.message));
-        });
+    reader.readAsDataURL(blob);
   }).catch(err => {
     console.error('Error adding custom tag:', err);
     error.value = 'Error adding custom tag: ' + (err.response?.data?.message || err.message);

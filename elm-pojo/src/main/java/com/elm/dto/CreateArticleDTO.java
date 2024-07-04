@@ -18,8 +18,8 @@ public class CreateArticleDTO implements Serializable {
     @ApiModelProperty("文章标题")
     private String title;
 
-    @ApiModelProperty("文章文件")
-    private MultipartFile file;
+    @ApiModelProperty("文章内容") // 将file改为content
+    private String content;
 
     @ApiModelProperty("文章状态")
     private String status;

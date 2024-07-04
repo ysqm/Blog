@@ -12,7 +12,7 @@ interface ArticleData {
 interface CreateArticleDTO {
     userId: number;
     title: string;
-    file: File;
+    content: string;
     status: string;
     tagIds: number[];
 }
@@ -28,7 +28,16 @@ export function createArticle(articleDTO: CreateArticleDTO) {
     return request<ArticleData>({
         url: '/api/articles/create',
         method: 'post',
-        data: formData,
+        data: {
+            userId: articleDTO.userId,
+            title: articleDTO.title,
+            content: articleDTO.content,
+            status: articleDTO.status,
+            tagIds: articleDTO.tagIds,
+        },
+        headers: {
+            'Content-Type': 'application/json',
+        },
     });
 
 
