@@ -25,18 +25,7 @@ public class ArticleController {
 
     @PostMapping("/create")
     @ApiOperation("添加文章")
-    public Result<ArticleVO> createArticle(
-            @RequestParam("userId") Long userId,
-            @RequestParam("title") String title,
-            @RequestParam("status") String status,
-            @RequestPart("file") MultipartFile file,
-            @RequestParam(value = "tagIds", required = false) List<Long> tagIds) {
-        CreateArticleDTO dto = new CreateArticleDTO();
-        dto.setUserId(userId);
-        dto.setTitle(title);
-        dto.setStatus(status);
-        dto.setFile(file);
-        dto.setTagIds(tagIds);
+    public Result<ArticleVO> createArticle(@RequestBody CreateArticleDTO dto) {
         ArticleVO articleVO = articleService.createArticle(dto);
         return Result.success(articleVO);
     }
@@ -47,12 +36,12 @@ public class ArticleController {
             @PathVariable Long articleId,
             @RequestParam("title") String title,
             @RequestParam("status") String status,
-            @RequestPart("file") MultipartFile file,
+            @RequestParam("content") String content,
             @RequestParam(value = "tagIds", required = false) List<Long> tagIds) {
         UpdateArticleDTO dto = new UpdateArticleDTO();
         dto.setTitle(title);
         dto.setStatus(status);
-        dto.setFile(file);
+        dto.setContent(content);
         dto.setTagIds(tagIds);
         ArticleVO articleVO = articleService.updateArticle(articleId, dto);
         return Result.success(articleVO);
