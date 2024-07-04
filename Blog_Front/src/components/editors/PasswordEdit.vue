@@ -32,6 +32,12 @@ export default {
 .edit-container {
   display: flex;
   flex-direction: column;
+  gap:5px
+}
+
+.edit-container input {
+  border-radius: 8px;
+  padding: 5px;
 }
 
 .buttons {
@@ -40,7 +46,10 @@ export default {
   margin-top: 10px;
 }
 
-button {
+.buttons button {
   margin-left: 10px;
+  border-radius: 8px;
+  background-color: #1E90FF;
+  color: #fff;
 }
 </style>

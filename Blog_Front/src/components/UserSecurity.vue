@@ -2,10 +2,10 @@
   <div class="user-security">
     <h2>账号与安全</h2>
     <div class="info-item" v-for="(field, index) in fields" :key="index">
+      <span class="title">{{ field.label }}</span>
       <div v-if="!field.editing">
-        <span>{{ field.label }}</span>
         <div class="info-content">
-          <span>{{ field.value }}</span>
+          <span class="value">{{ field.value }}</span>
           <button @click="editField(index)">编辑</button>
         </div>
       </div>
@@ -53,6 +53,9 @@ export default {
 <style scoped>
 .user-security {
   padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-top: 20px;
 }
 
 .info-item {
@@ -60,14 +63,23 @@ export default {
   display: flex;
   border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
-  align-items: center;
-  text-align: left;
-
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 30px;
 }
 
-.info-item span {
+.info-item .title {
   justify-content: flex-start;
   color: #666666;
+  font-size: larger;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.info-item .value {
+  color: #333333;
+  font-size: x-small;
+
 }
 
 .info-content {

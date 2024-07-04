@@ -44,7 +44,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0; /* 设置内边距 */
+  padding: 0 0; /* 设置内边距 */
 }
 
 header h1 {
