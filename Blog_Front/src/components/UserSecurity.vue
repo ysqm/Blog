@@ -1,40 +1,52 @@
 <template>
   <div class="user-security">
     <h2>账号与安全</h2>
-    <div class="info-item">
-      <span>头像</span>
-      <img src="../../public/avatar.jpg" class="avatar"/>
-    </div>
-    <div class="info-item">
-      <span>登录用户名</span>
-      <span>不会取名的人</span>
-    </div>
-    <div class="info-item">
-      <span>密码</span>
-      <span>*********</span>
-    </div>
-    <div class="info-item">
-      <span>显示昵称</span>
-      <span>不会取名的人</span>
-    </div>
-    <div class="info-item">
-      <span>邮箱</span>
-      <span>3089748482@qq.com</span>
-    </div>
-    <div class="info-item">
-      <span>手机号</span>
-      <span>+86 19979219353</span>
-    </div>
-    <div class="info-item">
-      <span>两步验证</span>
-      <span>关闭</span>
+    <div class="info-item" v-for="(field, index) in fields" :key="index">
+      <div v-if="!field.editing">
+        <span>{{ field.label }}</span>
+        <div class="info-content">
+          <span>{{ field.value }}</span>
+          <button @click="editField(index)">编辑</button>
+        </div>
+      </div>
+      <div v-else>
+        <component :is="field.component" :field="field" @save="saveField(index)" @cancel="cancelEdit(index)" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import UsernameEdit from './editors/UsernameEdit.vue';
+import PasswordEdit from './editors/PasswordEdit.vue';
+import NicknameEdit from './editors/NicknameEdit.vue';
+import EmailEdit from './editors/EmailEdit.vue';
+import PhoneEdit from './editors/PhoneEdit.vue';
+
 export default {
-  name: 'UserSecurity'
+  name: 'UserSecurity',
+  data() {
+    return {
+      fields: [
+        {label: '登录用户名', value: '不会取名的人', component: UsernameEdit, editing: false},
+        {label: '密码', value: '*********', component: PasswordEdit, editing: false},
+        {label: '显示昵称', value: '不会取名的人', component: NicknameEdit, editing: false},
+        {label: '邮箱', value: '3089748482@qq.com', component: EmailEdit, editing: false},
+        {label: '手机号', value: '+86 19979219353', component: PhoneEdit, editing: false},
+      ]
+    }
+  },
+  methods: {
+    editField(index) {
+      this.fields[index].editing = true;
+    },
+    saveField(index) {
+      this.fields[index].editing = false;
+    },
+    cancelEdit(index) {
+      this.fields[index].editing = false;
+    }
+  }
 }
 </script>
 
@@ -42,14 +54,17 @@ export default {
 .user-security {
   padding: 20px;
 }
+
 .info-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
-.avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+
+.info-content {
+  display: flex;
+  align-items: center;
+}
+
+button {
+  margin-left: 10px;
 }
 </style>

@@ -22,13 +22,17 @@ export default {
 
 <style scoped>
 .sidebar {
-  width: 10px;
-  background: #f8f9fa;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: left;
-  padding: 20px;
+  position: fixed;
+  top:0;
+  left: 0;
+  width: 190px;
+  height: 100%;
+  margin-left: 0;
+  background-color: #F8F8F8;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+  border-radius: 10px;
+  padding: 20px 0;
 }
 
 .logo img {
