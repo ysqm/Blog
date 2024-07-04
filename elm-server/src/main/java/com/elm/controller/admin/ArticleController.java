@@ -96,4 +96,5 @@ public class ArticleController {
         List<ArticleVO> articles = articleService.getLatestArticles();
         return Result.success(articles);
     }
+
 }
