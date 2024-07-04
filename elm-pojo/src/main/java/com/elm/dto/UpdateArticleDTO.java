@@ -16,7 +16,7 @@ public class UpdateArticleDTO implements Serializable {
     private String title;
 
     @ApiModelProperty("文章文件")
-    private MultipartFile file;
+    private String content;
 
     @ApiModelProperty("文章状态")
     private String status;

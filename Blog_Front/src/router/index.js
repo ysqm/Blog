@@ -12,6 +12,7 @@ import Tag from '../views/self-Tag.vue';
 import Archive from '../views/self-Archive.vue';
 import KnowledgeBase from '../views/self-KnowledgeBase.vue';
 import NewPost from '../views/self-NewPost.vue';
+import AccountCenter from "@/views/AccountCenter.vue";
 
 const routes = [
     {
@@ -74,15 +75,15 @@ const routes = [
         redirect: '/Community'
     },
     {
+        path:'/account',
+        name:'AccountCenter',
+        component: AccountCenter
+    },
+    {
         path: '/404',
         name: '404',
         component: 404
     }
-    // ,
-    // {
-    //     path:  '*',
-    //     redirect: '/404'
-    // }
 ];
 
 

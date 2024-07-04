@@ -9,12 +9,13 @@ import com.elm.mapper.ArticleTagMapper;
 import com.elm.service.ArticleService;
 import com.elm.vo.ArticleVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -27,13 +28,12 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
     @Autowired
     private UploadFileProperties uploadFileProperties;
-
     @Autowired
     private ArticleTagMapper articleTagMapper;
 
     @Override
     public ArticleVO createArticle(CreateArticleDTO articleDTO) {
-        String contentPath = saveFile(articleDTO.getFile());
+        String contentPath = saveFile(articleDTO.getContent(), articleDTO.getTitle());
 
         Article article = new Article();
         article.setUserId(articleDTO.getUserId());
@@ -58,7 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
             throw new RuntimeException("Article not found");
         }
 
-        String contentPath = saveFile(articleDTO.getFile());
+        String contentPath = saveFile(articleDTO.getContent(), articleDTO.getTitle());
 
         article.setTitle(articleDTO.getTitle());
         article.setContentPath(contentPath);
@@ -134,9 +134,9 @@ public class ArticleServiceImpl implements ArticleService {
         return vo;
     }
 
-    private String saveFile(MultipartFile file) {
-        if (file == null || file.isEmpty()) {
-            throw new RuntimeException("File is empty");
+    private String saveFile(String base64Content, String title) {
+        if (base64Content == null || base64Content.isEmpty()) {
+            throw new RuntimeException("File content is empty");
         }
 
         // Ensure the upload directory exists
@@ -148,13 +148,15 @@ public class ArticleServiceImpl implements ArticleService {
             }
         }
 
-        String originalFilename = file.getOriginalFilename();
-        String fileExtension = originalFilename.substring(originalFilename.lastIndexOf('.'));
+        // Decode Base64 content
+        byte[] decodedBytes = Base64.getDecoder().decode(base64Content);
+
+        String fileExtension = ".md"; // Assuming the content is markdown
         String newFilename = UUID.randomUUID().toString() + fileExtension;
 
         File dest = new File(uploadDirFile, newFilename);
-        try {
-            file.transferTo(dest);
+        try (FileOutputStream fos = new FileOutputStream(dest)) {
+            fos.write(decodedBytes);
         } catch (IOException e) {
             throw new RuntimeException("Failed to save file", e);
         }
@@ -189,4 +191,3 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
 }
-

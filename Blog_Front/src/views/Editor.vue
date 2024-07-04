@@ -1,6 +1,8 @@
 <template>
+  <div id="editor">
     <Navbar />
     <ArticleEditor :articleId="$route.params.articleId" />
+  </div>
 </template>
 
 <script>

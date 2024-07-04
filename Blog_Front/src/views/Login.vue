@@ -26,7 +26,7 @@
           <a href="#"><IconGithub></IconGithub></a>
         </div>
       </div>
-      <router-link to="/register"><a href="#" class="register-link">没有账号，立即注册</a></router-link>
+      <router-link to="/register" class="toRegister">没有账号，立即注册</router-link>
     </div>
   </div>
 </template>
@@ -66,10 +66,13 @@ export default {
           store.commit('setBio',   response.data.data.bio)
           store.commit('setToken', response.data.data.token)
           store.commit('setUsername', response.data.data.username)
-          store.commit('setUid', response.data.data.uid)
-          store.commit('setAvatar', response.data.data.Avatar)
+          store.commit('setUid', response.data.data.userId)
+          store.commit('setAvatar', response.data.data.avatar)
+          localStorage.setItem('token',response.data.data.token)
+          localStorage.setItem('uid',response.data.data.userId)
+
           console.log("登录中...");
-          this.$router.push('/community');
+          this.$router.push('/');
         } else {
           alert(response.data.msg)
         }
@@ -198,7 +201,7 @@ input {
   height: 30px;
 }
 
-.register-link {
+.toRegister {
   display: block;
   margin-top: 20px;
   color: #007bff;
