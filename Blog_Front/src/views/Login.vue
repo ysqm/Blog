@@ -70,7 +70,6 @@ export default {
           store.commit('setAvatar', response.data.data.avatar)
           localStorage.setItem('token',response.data.data.token)
           localStorage.setItem('uid',response.data.data.userId)
-
           console.log("登录中...");
           this.$router.push('/');
         } else {

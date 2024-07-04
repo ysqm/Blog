@@ -14,11 +14,6 @@
         <input type="text" placeholder="注册邮箱" v-model="username" />
         <input type="password" placeholder="密码" v-model="password" />
         <input type="password" placeholder="确认密码" v-model="password" />
-        <div class="phone-getCode">
-          <input type="tel" placeholder="手机号码" v-model="phone" />
-          <button class="Get-Code">获取验证码</button>
-        </div>
-        <input type="text" placeholder="验证码" v-model="verificationCode" />
         <div class="remember-me">
           <input type="checkbox" id="remember" v-model="rememberMe" />
           <label for="remember">记住账号</label>

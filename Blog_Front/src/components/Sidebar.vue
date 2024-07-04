@@ -27,6 +27,8 @@ export default {
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
   flex-shrink: 0;
   overflow-y: auto;
+  margin-left: 0;
+  border-radius: 10px;
 }
 .sidebar ul {
   list-style: none;

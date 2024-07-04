@@ -1,4 +1,4 @@
-<template>
+<template xmlns="">
   <nav class="navbar">
     <router-link to="/" class="link"><div class="logo">WeBlog</div></router-link>
     <ul class="nav-links">
@@ -14,37 +14,29 @@
       </button>
     </div>
     <button class="editor-icon">
-      <router-link to="/Editor">
-        <IconPen />
-      </router-link>
+      <router-link to="/Editor"><IconPen /></router-link>
     </button>
-    <div class="auth-buttons">
-      <router-link v-if="!isLoggedIn" to="/login"><button>登录</button></router-link>
-      <router-link v-if="!isLoggedIn" to="/register"><button>注册</button></router-link>
-      <div v-if="isLoggedIn" class="user-avatar" @click="goToSelfHome">
-        <img :src="userAvatar" alt="User Avatar" />
-      </div>
+    <div v-if="isLogged" class="">
+      <LoginAndRegister />
+    </div>
+    <div v-else class="avatarSetting">
+      <SelfCenterEntry />
     </div>
   </nav>
-
 </template>
 
 <script>
 import SearchIcon from "@/components/icons/IconSearch.vue";
 import IconPen from "@/components/icons/IconPen.vue";
+import LoginAndRegister from "@/components/LoginAndRegister.vue";
+import SelfCenterEntry from "@/components/SelfCenterEntry.vue";
 
 export default {
   name: 'Navbar',
-  components: { IconPen, SearchIcon },
-  data() {
-    return {
-      isLoggedIn: localStorage.getItem('uid') !== null,
-      userAvatar: '../../public/profile.png' // 默认头像路径，可根据实际情况修改
-    };
-  },
-  methods: {
-    goToSelfHome() {
-      this.$router.push({ path: '/self-home' });
+  components: {LoginAndRegister, IconPen, SearchIcon , SelfCenterEntry},
+  data(){
+    return{
+      isLogged: false
     }
   }
 }
@@ -63,11 +55,9 @@ export default {
   background-color: #1E90FF;
   z-index: 1000; /* 确保导航栏在顶部 */
 }
-
-.link {
+.link{
   text-decoration: none;
 }
-
 .logo {
   font-size: 24px;
   font-weight: bold;
@@ -117,11 +107,6 @@ export default {
   border-radius: 4px;
 }
 
-.auth-buttons {
-  display: flex;
-  margin-left: 5px;
-}
-
 .auth-buttons button {
   margin-right: 25px;
   padding: 5px 5px;
@@ -132,14 +117,10 @@ export default {
   cursor: pointer;
   text-decoration: none;
 }
-
-.user-avatar {
-  cursor: pointer;
-}
-
-.user-avatar img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+.avatarSetting{
+  display: flex;
+  align-items: center;
+  width: 50px;
+  margin-right: 40px;
 }
 </style>

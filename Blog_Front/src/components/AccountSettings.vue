@@ -20,7 +20,10 @@ export default {
 
 <style scoped>
 .account-settings {
+  margin-left: 200px;
   padding: 20px;
   flex: 1;
+  margin-right: 0;
+
 }
 </style>

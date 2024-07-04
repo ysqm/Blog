@@ -2,13 +2,16 @@
   <div class="user-profile">
     <h2>基本信息</h2>
     <div class="info-item">
-      <span>园号：</span><span>3114109</span>
+      <span>ID号：</span>
+      <span>3114109</span>
     </div>
     <div class="info-item">
-      <span>园豆：</span><span>200</span>
+      <span>积分：</span>
+      <span>200</span>
     </div>
     <div class="info-item">
-      <span>入园时间：</span><span>2023-02-23</span>
+      <span>创建时间：</span>
+      <span>2023-02-23</span>
     </div>
   </div>
 </template>
@@ -25,5 +28,9 @@ export default {
 }
 .info-item {
   margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+  padding-left: 60px;
 }
 </style>
