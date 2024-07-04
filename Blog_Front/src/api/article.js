@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/articles';
+const API_BASE_URL = '/api/articles';
 
 export const createArticle = (userId, title, status, file) => {
     const formData = new FormData();
@@ -40,3 +40,6 @@ export const getArticleById = (articleId) => {
 export const getArticlesByUserId = (userId) => {
     return axios.get(`${API_BASE_URL}/user/${userId}`);
 };
+export const getLatestArticles = () => {
+    return axios.get(`${API_BASE_URL}/latest`);
+}
