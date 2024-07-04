@@ -10,7 +10,7 @@
         </div>
       </div>
       <div v-else>
-        <component :is="field.component" :field="field" @save="saveField(index)" @cancel="cancelEdit(index)" />
+        <component :is="field.component" :field="field" @save="saveField(index)" @cancel="cancelEdit(index)"/>
       </div>
     </div>
   </div>
@@ -56,15 +56,30 @@ export default {
 }
 
 .info-item {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  align-items: center;
+  text-align: left;
+
+}
+
+.info-item span {
+  justify-content: flex-start;
+  color: #666666;
 }
 
 .info-content {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 button {
-  margin-left: 10px;
+  border-radius: 8px;
+  background-color: #1E90FF;
+  color: #fff;
+  justify-content: right;
 }
 </style>
