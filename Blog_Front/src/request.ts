@@ -8,12 +8,12 @@ export interface MyResponse{
 }
 
 const instance = axios.create({
-    // 可以在这里设置通用的请求配置，如baseURL、请求拦截器等
-    // headers: {
-    //   common: {
-    //     'token': store.state.token
-    //   }
-    // }
+  // 可以在这里设置通用的请求配置，如baseURL、请求拦截器等
+  // headers: {
+  //   common: {
+  //     'token': store.state.token
+  //   }
+  // }
 });
 
 // 请求拦截器，在每次请求前，动态获取 store 中的 token 并添加到请求头

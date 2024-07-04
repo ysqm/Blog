@@ -15,4 +15,5 @@ public interface ArticleService {
     List<ArticleVO> getArticlesByUserId(Long userId);
     ArticleVO hideArticle(Long articleId);
     ArticleVO topArticle(Long articleId);
+    List<ArticleVO> getLatestArticles();
 }
