@@ -35,6 +35,10 @@ export default {
     id: {
       type: Number,
       required: true
+    },
+    articleId:{
+      type: Number,
+      required: true
     }
   },
   setup(props) {
@@ -117,5 +121,6 @@ export default {
   margin-top: 20px;
   font-size: 16px;
   line-height: 1.8;
+  text-align: left;
 }
 </style>
