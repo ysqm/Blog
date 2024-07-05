@@ -35,7 +35,7 @@
                 style = "margin-top:20px;"
                 />
 
-                
+
                 <!-- <el-pagination background layout="prev, pager, next ,jumper" :total="total" style = "margin-top:20px;"/> -->
             </el-main>
         </el-container>
@@ -118,7 +118,7 @@ name: 'userManage',
     padding: 10px;
     margin-bottom: 10px;
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
 }
 .left-aligned {
     display: flex;
@@ -136,6 +136,6 @@ name: 'userManage',
 }
 .timeimputstyles {
     top:3px;
-    width:"15%";
+    width:15%;
 }
 </style>

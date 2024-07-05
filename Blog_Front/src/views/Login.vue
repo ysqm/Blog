@@ -2,12 +2,12 @@
   <div class="login-container">
     <div class="login-box">
       <div class="logo">
-        <img src="@/assets/logo.svg" alt="logo" />
+        <img src="../../public/avatar.jpg" alt="logo" />
       </div>
-      <h2>BLOG-Login</h2>
+      <h2>WeBLOG登录</h2>
       <p class="tagline">代码改变世界</p>
       <div class="tabs">
-        <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">账号登录</button>
+        <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">密码登录</button>
       </div>
       <form v-if="isPasswordLogin" @submit.prevent="login">
         <input type="text" placeholder="登录用户名 / 邮箱" v-model="username" />
@@ -26,7 +26,7 @@
           <a href="#"><IconGithub></IconGithub></a>
         </div>
       </div>
-      <router-link to="/register"><a href="#" class="register-link">没有账号，立即注册</a></router-link>
+      <router-link to="/register" class="toRegister">没有账号，立即注册</router-link>
     </div>
   </div>
 </template>
@@ -59,25 +59,24 @@ export default {
   },
   methods: {
     login() {
-      // 在这里添加你的登录逻辑
-      login(this.username,this.password).then(response => {
-        console.log(response.data)
-        if(response.data.code == 1){
-          store.commit('setBio',   response.data.data.bio)
-          store.commit('setToken', response.data.data.token)
-          store.commit('setUsername', response.data.data.username)
-          store.commit('setUid', response.data.data.uid)
-          store.commit('setAvatar', response.data.data.Avatar)
-          localStorage.setItem('token',response.data.data.token)
-          localStorage.setItem('uid',response.data.data.userId)
+      login(this.username, this.password).then(response => {
+        if (response.data.code == 1) {
+          store.commit('setBio', response.data.data.bio);
+          store.commit('setToken', response.data.data.token);
+          store.commit('setUsername', response.data.data.username);
+          store.commit('setUid', response.data.data.userId);
+          store.commit('setAvatar', response.data.data.avatar);
+          localStorage.setItem('token', response.data.data.token);
+          localStorage.setItem('uid', response.data.data.userId);
+          localStorage.setItem('isLoggedOut', 'false');
           console.log("登录中...");
           this.$router.push('/community');
         } else {
-          alert(response.data.msg)
+          alert(response.data.msg);
         }
       }).catch(error => {
-        console.error(error)
-      })
+        console.error(error);
+      });
       console.log("登录中...");
     },
   },
@@ -200,7 +199,7 @@ input {
   height: 30px;
 }
 
-.register-link {
+.toRegister {
   display: block;
   margin-top: 20px;
   color: #007bff;

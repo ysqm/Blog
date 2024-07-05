@@ -14,7 +14,7 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 import Sidebar from '../components/Sidebar.vue'
-import ArticleList from '../components/ArticleList1.vue'
+import ArticleList from '../components/ArticleList.vue'
 import RightSidebar from '../components/RightSidebar.vue'
 import PostList from "@/components/self-PostList.vue";
 

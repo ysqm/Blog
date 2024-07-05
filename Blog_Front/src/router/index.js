@@ -4,7 +4,9 @@ import Editor from '../views/Editor.vue';
 import Community from "@/views/Community.vue";
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
+
 import Home from '../views/self-Home.vue';
+import Article from '../views/Article.vue';
 import Category from '../views/self-Category.vue';
 import Tag from '../views/self-Tag.vue';
 import Archive from '../views/self-Archive.vue';
@@ -12,6 +14,7 @@ import KnowledgeBase from '../views/self-KnowledgeBase.vue';
 import NewPost from '../views/self-NewPost.vue';
 import Article from '../views/Article.vue'
 import ArticleDetail from "@/components/ArticleDetail.vue";
+import AccountCenter from "@/views/AccountCenter.vue";
 
 const routes = [
 
@@ -21,7 +24,7 @@ const routes = [
         component: Home
     },
     {
-        path: '/test/:id',
+        path: '/Article/:id',
         name: 'Article',
         component: Article
     },
@@ -72,7 +75,29 @@ const routes = [
     },
     {
         path:  '/',
-        redirect: '/Community'
+        redirect: '/community'
+    },
+    {
+        path: '/AdminDial',
+        name: 'AdminDial',
+        component: () => import("@/views/AdminDial.vue"),
+        children:[
+            {
+                path: 'user',
+                name: 'userManage',
+                component: () => import("@/components/UserManage.vue")
+            }
+        ]
+    },
+    {
+        path: '/Board',
+        name: 'Board',
+        component: () => import("@/views/Board.vue")
+    },
+    {
+        path:'/account',
+        name:'AccountCenter',
+        component: AccountCenter
     },
     {
         path: '/404',
@@ -85,11 +110,11 @@ const routes = [
         component: ArticleDetail,
         props: true, // 使路由参数作为props传递给组件
     },
-    // ,
-    // {
-    //     path:  '*',
-    //     redirect: '/404'
-    // }
+    {
+        path: '/subscribe',
+        name: 'Subscribe',
+        component: () => import("@/views/Subscribe.vue")
+    }
 ];
 
 

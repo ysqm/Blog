@@ -53,9 +53,11 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
+  min-height: 50px;
+  gap: 20px;
   display: flex;
   align-items: center;
-  padding: 10px 20px;
+  padding: 10px 25px;
   justify-content: space-between;
   background-color: #1E90FF;
   z-index: 1000; /* 确保导航栏在顶部 */
@@ -107,6 +109,7 @@ export default {
   cursor: pointer;
 }
 
+
 .editor-icon {
   margin-left: 5px;
   background-color: #84FAD1FF;
@@ -123,6 +126,7 @@ export default {
   border-radius: 4px;
   cursor: pointer;
   text-decoration: none;
+
 }
 
 .avatarSetting {

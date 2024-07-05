@@ -1,15 +1,24 @@
 <template>
   <div class="edit-container">
-    <input v-model="field.tempValue" placeholder="请输入新的用户名" />
-    <label><input type="checkbox" /> 使用邮箱作为登录用户名</label>
+    <input
+        v-model="field.tempValue"
+        :placeholder="isEmailChecked ? '邮箱将用作登录用户名' : '请输入新的用户名'"
+        :disabled="isEmailChecked"
+    />
+    <label>
+      <input type="checkbox" v-model="isEmailChecked" @change="handleEmailCheckboxChange" /> 使用邮箱作为登录用户名
+    </label>
     <div class="buttons">
-      <button @click="save">确定</button>
+      <button @click="updateUsername">确定</button>
       <button @click="cancel">取消</button>
     </div>
   </div>
 </template>
 
+
 <script>
+// import {edit, updateUsername} from "@/api/user.ts"; // 引入axios以发送HTTP请求
+
 export default {
   props: ['field'],
   data() {
@@ -17,12 +26,29 @@ export default {
       field: {
         ...this.field,
         tempValue: this.field.value
-      }
+      },
+      isEmailChecked: false // 增加一个状态变量
     }
   },
   methods: {
-    save() {
-      this.$emit('save');
+    handleEmailCheckboxChange() {
+      if (this.isEmailChecked) {
+        this.field.tempValue = this.field.email; // 假设字段中有邮箱信息
+        console.log(this.field.tempValue);
+      } else {
+        this.field.tempValue = this.field.value;
+      }
+    },
+    updateUsername() {
+    //   const payload = {
+    //     value: this.isEmailChecked ? this.field.email : this.field.tempValue
+    //   };
+    //   edit(this.field.tempValue, this.field.id)
+    //       .catch(error => {
+    //         console.error('保存失败:', error);
+    //       });
+    //   this.$emit('update');
+      this.$emit('update');
     },
     cancel() {
       this.$emit('cancel');
@@ -30,6 +56,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped>
 .edit-container {
