@@ -32,7 +32,7 @@
                 :current-page="pageNumber"
                 layout="prev, pager, next ,jumper"
                 :total="total"
-                style="margin: 0 auto; margin-top: 20px; width: fit-content;"
+                style = "margin-top:20px;"
                 />
 
                 
@@ -103,7 +103,7 @@ name: 'userManage',
 
 <style>
 .common-layout {
-    background-color:#79bbff;
+    background-color:#a0cfff;
     text-align: left;
     display: flex;
     flex-direction: column;
