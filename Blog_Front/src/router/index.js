@@ -6,7 +6,6 @@ import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 
 import Home from '../views/self-Home.vue';
-import Article from '../views/Article.vue';
 import Category from '../views/self-Category.vue';
 import Tag from '../views/self-Tag.vue';
 import Archive from '../views/self-Archive.vue';
@@ -24,9 +23,9 @@ const routes = [
         component: Home
     },
     {
-        path: '/Article/:id',
-        name: 'Article',
-        component: Article
+        path: '/article/:id',
+        name: 'ArticleDetail',
+        component: ArticleDetail
     },
     {
         path: '/self-category',
@@ -105,9 +104,9 @@ const routes = [
         component: 404
     },
     {
-        path: '/article/:id',
-        name: 'ArticleDetail',
-        component: ArticleDetail,
+        path: '/test/:id',
+        name: 'Article',
+        component: Article,
         props: true, // 使路由参数作为props传递给组件
     },
     {

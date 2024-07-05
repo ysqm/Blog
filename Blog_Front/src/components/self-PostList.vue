@@ -29,7 +29,7 @@ export default {
   },
   methods: {
     goToPost(id) {
-      this.$router.push({name: 'Article', params: {id}});
+      this.$router.push({name: 'ArticleDetail', params: {id}});
     }
   }
 };
