@@ -11,18 +11,18 @@
                   <el-menu-item index="dashboard" :class="{'active': currentPath === '/dashboard'}" @click="handleTabClick('dashboard')">
                       <el-icon><Monitor /></el-icon>仪表盘
                   </el-menu-item>
-                  <el-menu-item index="article" :class="{'active': currentPath === '/article'}   " @click="handleTabClick('article')">
+                  <el-menu-item index="article" :class="{'active': currentPath === '/article'}"@click="handleTabClick('article')">
                       <el-icon><Management /></el-icon>文章管理
                   </el-menu-item>
-                  <el-menu-item index="tag" :class="{'active': currentPath === '/tag'}" @click="handleTabClick('tag')">
+                  <el-menu-item index="tag" :class="{'active': currentPath === '/tag'}"@click="handleTabClick('tag')">
                       <el-icon><PriceTag /></el-icon>标签管理
                   </el-menu-item>
                   
                   
-                  <el-menu-item index="user" :class="{'active': currentPath === '/user'} " @click="handleTabClick('user')">
-                    <router-link to = "/AdminDial/user">
+                  <el-menu-item index="user" :class="{'active': currentPath === '/user'}"@click="handleTabClick('user')">
+                    <<router-link to = "/AdminDial/user">
                       <el-icon><User /></el-icon>用户管理
-                    </router-link> 
+                    </router-link>>
                   </el-menu-item>
               </el-menu>
           </el-collapse-item >

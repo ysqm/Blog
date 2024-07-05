@@ -7,7 +7,7 @@
       <h2>WeBLOG-Login</h2>
       <p class="tagline">代码改变世界</p>
       <div class="tabs">
-        <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">账号登录</button>
+        <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">密码登录</button>
       </div>
       <form v-if="isPasswordLogin" @submit.prevent="login">
         <input type="text" placeholder="登录用户名 / 邮箱" v-model="username" />
@@ -70,7 +70,7 @@ export default {
           localStorage.setItem('uid', response.data.data.userId);
           localStorage.setItem('isLoggedOut', 'false');
           console.log("登录中...");
-          this.$router.push('/');
+          this.$router.push('/community');
         } else {
           alert(response.data.msg);
         }
