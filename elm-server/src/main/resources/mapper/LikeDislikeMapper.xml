@@ -8,46 +8,46 @@
     <resultMap id="BaseResultMap" type="com.elm.entity.LikeDislike">
         <id column="record_id" property="recordId" jdbcType="BIGINT"/>
         <result column="user_id" property="userId" jdbcType="BIGINT"/>
-        <result column="target_id" property="targetId" jdbcType="BIGINT"/>
-        <result column="record_type" property="recordType" jdbcType="VARCHAR"/>
+        <result column="article_id" property="articleId" jdbcType="BIGINT"/>
+        <result column="comment_id" property="commentId" jdbcType="BIGINT"/>
         <result column="record_status" property="recordStatus" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!-- 查找是否存在现有记录 -->
     <select id="findByUserIdAndTargetIdAndRecordType" resultMap="BaseResultMap" parameterType="map">
         SELECT * FROM LikeDislikes
-        WHERE user_id = #{userId} AND target_id = #{targetId} AND record_type = #{recordType}
+        WHERE user_id = #{userId} AND (article_id = #{articleId} OR comment_id = #{commentId})
     </select>
 
     <!-- 插入新记录 -->
     <insert id="insert" parameterType="com.elm.entity.LikeDislike">
-        INSERT INTO LikeDislikes (user_id, target_id, record_type, record_status)
-        VALUES (#{userId}, #{targetId}, #{recordType}, #{recordStatus})
+        INSERT INTO LikeDislikes (user_id, article_id, comment_id, record_status)
+        VALUES (#{userId}, #{articleId}, #{commentId}, #{recordStatus})
     </insert>
 
     <!-- 更新现有记录 -->
     <update id="update" parameterType="com.elm.entity.LikeDislike">
         UPDATE LikeDislikes
         SET record_status = #{recordStatus}
-        WHERE user_id = #{userId} AND target_id = #{targetId} AND record_type = #{recordType}
+        WHERE user_id = #{userId} AND (article_id = #{articleId} OR comment_id = #{commentId})
     </update>
 
     <!-- 删除记录 -->
     <delete id="delete" parameterType="com.elm.entity.LikeDislike">
         DELETE FROM LikeDislikes
-        WHERE user_id = #{userId} AND target_id = #{targetId} AND record_type = #{recordType}
+        WHERE user_id = #{userId} AND (article_id = #{articleId} OR comment_id = #{commentId})
     </delete>
 
     <!-- 统计评论的点赞或点踩数量 -->
     <select id="countByCommentId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
         SELECT COUNT(*) FROM LikeDislikes
-        WHERE record_type = 'comment' AND target_id = #{commentId}
+        WHERE comment_id = #{commentId}
     </select>
 
     <!-- 统计文章的点赞或点踩数量 -->
     <select id="countByArticleId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
         SELECT COUNT(*) FROM LikeDislikes
-        WHERE record_type = 'article' AND target_id = #{articleId}
+        WHERE article_id = #{articleId}
     </select>
 
     <!-- 统计用户的点赞或点踩数量 -->

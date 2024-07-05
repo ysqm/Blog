@@ -59,8 +59,8 @@ public class LikeDislikeController {
     private LikeDislike toEntity(LikeDislikeDTO dto) {
         LikeDislike likeDislike = new LikeDislike();
         likeDislike.setUserId(dto.getUserId());
-        likeDislike.setTargetId(dto.getTargetId());
-        likeDislike.setRecordType(dto.getRecordType());
+        likeDislike.setArticleId(dto.getArticleId());
+        likeDislike.setCommentId(dto.getCommentId());
         likeDislike.setRecordStatus(dto.getRecordStatus());
         return likeDislike;
     }

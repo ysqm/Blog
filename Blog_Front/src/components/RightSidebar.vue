@@ -19,8 +19,8 @@ export default {
   data() {
     return {
       hotList: [
-        { id: 1, title: 'C# 语言写的仅有 8KB 大小的贪吃蛇开源游戏', heat: 809 },
-        { id: 2, title: '你要的 AI Agent 工具都在这里', heat: 2145 }
+        { id: 1, title: '测试文章3', heat: 45 },
+        { id: 2, title: '测试文章1', heat: 21 }
         // 更多热度排行项目
       ]
     }

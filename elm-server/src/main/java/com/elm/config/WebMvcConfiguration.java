@@ -43,7 +43,7 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
                 .addPathPatterns("/tag/**")
                 .excludePathPatterns("/articles/**")
                 .excludePathPatterns("/articles/latest") // 将 /articles/latest 端点从拦截器中排除
-                .addPathPatterns("/likeDislike/**")
+                .excludePathPatterns("/likeDislike/**")
                 .excludePathPatterns("/comment/**");
     }
 

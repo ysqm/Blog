@@ -2,17 +2,14 @@ package com.elm.mapper;
 
 import com.elm.entity.LikeDislike;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface LikeDislikeMapper {
-    void insertOrUpdate(LikeDislike likeDislike);
+    LikeDislike findByUserIdAndTargetIdAndRecordType(Long userId, Long articleId, Long commentId);
     void insert(LikeDislike likeDislike);
+    void update(LikeDislike likeDislike);
     void delete(LikeDislike likeDislike);
-    void update(LikeDislike existingRecord);
-    Integer countByCommentId(@Param("commentId") Integer commentId);
-    Integer countByArticleId(@Param("articleId") Integer articleId);
-    Integer countByUserId(@Param("userId") Integer userId);
-
-    LikeDislike findByUserIdAndTargetIdAndRecordType(Long userId, Long targetId, String recordType);
+    Integer countByCommentId(Integer commentId);
+    Integer countByArticleId(Integer articleId);
+    Integer countByUserId(Integer userId);
 }

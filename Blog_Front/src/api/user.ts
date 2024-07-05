@@ -48,3 +48,12 @@ export function logout(uid:number){
         }
     )
 }
+export function showUserDetail(uid:number){
+    return request<UserData>(
+        {
+            url:'/api/user/logout',
+            method: "get",
+
+        }
+    )
+}

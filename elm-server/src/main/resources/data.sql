@@ -79,12 +79,12 @@ DROP TABLE IF EXISTS `LikeDislikes`;
 CREATE TABLE LikeDislikes (
                               record_id       INT AUTO_INCREMENT PRIMARY KEY,
                               user_id         INT NOT NULL,
-                              target_id       INT NOT NULL,
-                              record_type     ENUM('article', 'comment') NOT NULL,
+                              article_id      INT,
+                              comment_id      INT,
                               record_status   ENUM('like', 'dislike') NOT NULL,
                               FOREIGN KEY (user_id) REFERENCES Users(user_id),
-                              FOREIGN KEY (target_id) REFERENCES Articles(article_id),
-                              FOREIGN KEY (target_id) REFERENCES Comments(comment_id)
+                              FOREIGN KEY (article_id) REFERENCES Articles(article_id),
+                              FOREIGN KEY (comment_id) REFERENCES Comments(comment_id)
 );
 
 DROP TABLE IF EXISTS `Follows`;

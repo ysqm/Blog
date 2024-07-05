@@ -13,11 +13,11 @@ public class LikeDislikeDTO implements Serializable {
     @ApiModelProperty("用户ID")
     private Long userId;
 
-    @ApiModelProperty("目标ID(comment/article)")
-    private Long targetId;
+    @ApiModelProperty("文章ID")
+    private Long articleId;
 
-    @ApiModelProperty("操作类型")
-    private String recordType;
+    @ApiModelProperty("评论ID")
+    private Long commentId;
 
     @ApiModelProperty("操作状态")
     private String recordStatus;
