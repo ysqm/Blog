@@ -6,6 +6,7 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import store from './store/modules';
 
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 // axios.defaults.baseURL = '/api'; // 请确保此URL正确
 // 创建vue实例app
@@ -20,4 +21,7 @@ axios.defaults.withCredentials = false;
 app.use(ElementPlus);
 // 挂载app
 app.mount('#app')
-
+//导入所有图标并进行全局注册
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+}

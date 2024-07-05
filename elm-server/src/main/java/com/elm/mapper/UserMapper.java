@@ -1,8 +1,10 @@
 package com.elm.mapper;
 
 import com.elm.annotation.AutoFill;
+import com.elm.dto.AccountPageQueryDTO;
 import com.elm.entity.User;
 import com.elm.enumeration.OperationType;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -36,6 +38,9 @@ public interface UserMapper {
 
     @AutoFill(value = OperationType.UPDATE)
     Integer updateUser(User user);
+
+
+    Page<User> pageQuery(AccountPageQueryDTO accountPageQueryDTO);
 
     @Update("UPDATE users SET is_logged_out = #{isLoggedOut} WHERE user_id = #{userId}")
     Integer updateIsLoggedOut(@Param("userId") Integer userId, @Param("isLoggedOut") Integer isLoggedOut);

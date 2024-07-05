@@ -71,9 +71,25 @@ const routes = [
         component: Register
     },
     {
-        path: '/',
-        redirect: '/Community'
-
+        path:  '/',
+        redirect: '/Board'
+    },
+    {
+        path: '/AdminDial',
+        name: 'AdminDial',
+        component: () => import("@/views/AdminDial.vue"),
+        children:[
+            {
+                path: '/user',
+                name: 'userManage',
+                component: () => import("@/components/UserManage.vue")
+            }
+        ]
+    },
+    {
+        path: '/Board',
+        name: 'Board',
+        component: () => import("@/views/Board.vue")
     },
     {
         path:'/account',
@@ -85,6 +101,11 @@ const routes = [
         name: '404',
         component: 404
     }
+    // ,
+    // {
+    //     path:  '*',
+    //     redirect: '/404'
+    // }
 ];
 
 
