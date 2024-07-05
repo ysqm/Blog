@@ -1,10 +1,12 @@
 <template>
   <div class="comment-section">
     <h3>全部评论 ({{ comments.length }})</h3>
-    <form @submit.prevent="submitComment">
+
+    <form @submit="submitComment">
       <textarea v-model="newComment.content" placeholder="发表一个友善的评论吧..." required></textarea>
       <button type="submit">发送</button>
     </form>
+
     <ul class="comment-list">
       <li v-for="comment in comments" :key="comment.commentId" class="comment-item" v-if=1>
         <div class="comment-avatar">
@@ -13,7 +15,7 @@
         </div>
         <div class="comment-content">
           <div class="comment-header">
-            <span class="comment-date">{{ formatDate(comment.commentDate) }}</span>
+            <span class="comment-date">{{ comment.commentDate }}</span>
           </div>
           <p>{{ comment.content }}</p>
           <LikeButton :commentId="comment.commentId" :initialLikes="comment.likes || 0" />

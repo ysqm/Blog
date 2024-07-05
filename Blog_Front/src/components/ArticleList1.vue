@@ -14,7 +14,7 @@
         <div class="stats">
           <span><HeatIcon/>  {{ article.heat }}</span>
           <span><LikeIcon/>  {{ article.likes }}</span>
-          <span><ViewIcon/>  {{ article.views }}</span>
+<!--          <span><ViewIcon/>  {{ article.views }}</span>-->
           <span><CommentIcon/>  {{ article.comments }}</span>
         </div>
       </div>

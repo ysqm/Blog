@@ -54,17 +54,17 @@ public class UserController {
                 jwtProperties.getUserSecretKey(),
                 jwtProperties.getUserTtl(),
                 claims
-                );
+        );
         UserLoginVO userLoginVO = new UserLoginVO();
         BeanUtils.copyProperties(user, userLoginVO);
         userLoginVO.setToken(token);
         return Result.success(userLoginVO);
     }
-    @PostMapping("/logout")
-    @ApiOperation("用户登出")
-    public Result logout(@RequestBody int userId) {
-        return userService.logout(userId);
-    }
+//    @PostMapping("/logout")
+//    @ApiOperation("用户登出")
+//    public Result logout(@RequestBody int userId) {
+//        return userService.logout(userId);
+//    }
 
     @PostMapping("/edit")
     @ApiOperation("编辑用户信息")

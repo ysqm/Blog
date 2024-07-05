@@ -1,22 +1,36 @@
 <template>
   <div class="article-detail">
-    <el-card shadow="hover" class="article-card">
-      <h1>{{ article.title }}</h1>
-      <p><i class="el-icon-user"></i> 作者: {{ article.author }}</p>
-      <p><i class="el-icon-time"></i> 发布时间: {{ formatDate(article.publishDate) }}</p>
-      <div class="article-content" v-html="renderedContent"></div>
-    </el-card>
+    <Navbar />
+
+    <div class="page-container">
+      <div class="main-content">
+        <el-card shadow="hover" class="article-card">
+          <h1>{{ article.title }}</h1>
+          <p><i class="el-icon-user"></i> 作者: {{ article.author }}</p>
+          <p><i class="el-icon-time"></i> 发布时间: {{ formatDate(article.publishDate) }}</p>
+          <div class="article-content" v-html="renderedContent"></div>
+          <CommentSection :articleId="article.id" />
+        </el-card>
+      </div>
+      <div class="sidebar-container">
+        <Sidebar />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
-import {marked} from 'marked'; // 导入 marked 库
+import { marked } from 'marked'; // 导入 marked 库
 import dayjs from 'dayjs';
+import Navbar from "@/components/Navbar.vue";
+import Sidebar from "@/components/self-Sidebar.vue";
+import CommentSection from "@/components/CommentSection.vue";
 
 export default {
   name: 'ArticleDetail',
+  components: { CommentSection, Sidebar, Navbar },
   props: {
     id: {
       type: Number,
@@ -70,9 +84,22 @@ export default {
   padding: 20px;
 }
 
+.page-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-content {
+  flex: 3;
+}
+
+.sidebar-container {
+  flex: 1;
+  margin-left: 20px;
+}
+
 .article-card {
-  width: 80%;
-  margin: auto;
+  width: 100%;
 }
 
 .article-card h1 {

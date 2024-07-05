@@ -1,7 +1,7 @@
 <template>
   <div class="user-profile">
-    <img src="/src/assets/images/profile.png" alt="Profile" class="profile-img" />
-    <h2>郭叶盛</h2>
+    <img src="../../public/profile.png" alt="Profile" class="profile-img" />
+    <h2>用户1</h2>
     <p>工程实训</p>
     <div class="stats">
       <div>
@@ -14,7 +14,7 @@
         <strong>0</strong> 标签
       </div>
       <div>
-        <strong>114514</strong> 总访问量
+        <strong>11</strong> 总访问量
       </div>
     </div>
 

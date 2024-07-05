@@ -4,33 +4,26 @@ import Editor from '../views/Editor.vue';
 import Community from "@/views/Community.vue";
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
-
 import Home from '../views/self-Home.vue';
-import PostDetail from '../views/self-PostDetail.vue';
 import Category from '../views/self-Category.vue';
 import Tag from '../views/self-Tag.vue';
 import Archive from '../views/self-Archive.vue';
 import KnowledgeBase from '../views/self-KnowledgeBase.vue';
 import NewPost from '../views/self-NewPost.vue';
-import Upload from '../views/upload.vue'
 import Article from '../views/Article.vue'
 import ArticleDetail from "@/components/ArticleDetail.vue";
 
 const routes = [
-    {
-        path: '/upload',
-        name: 'upload',
-        component: Upload
-    },
+
     {
         path: '/self-home',
         name: 'self-Home',
         component: Home
     },
     {
-        path: '/self-post/:id',
-        name: 'PostDetail',
-        component: PostDetail
+        path: '/test/:id',
+        name: 'Article',
+        component: Article
     },
     {
         path: '/self-category',
@@ -85,11 +78,6 @@ const routes = [
         path: '/404',
         name: '404',
         component: 404
-    },
-    {
-        path: '/article',
-        name: 'Article',
-        component: Article
     },
     {
         path: '/article/:id',

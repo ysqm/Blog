@@ -124,10 +124,10 @@ public class UserServiceImpl implements UserService {
         return new PageResult(total, records);
     }
 
-    @Override
-    public Result logout(Integer userId) {
-        Integer msg = userMapper.updateIsLoggedOut(userId, 1); // 将 is_logged_out 设置为 1
-        return Result.success(msg);
-    }
+//    @Override
+//    public Result logout(Integer userId) {
+//        Integer msg = userMapper.updateIsLoggedOut(userId, 1); // 将 is_logged_out 设置为 1
+//        return Result.success(msg);
+//    }
 
 }
