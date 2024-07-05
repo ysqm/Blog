@@ -14,7 +14,7 @@
 <script>
 import Navbar from '../components/Navbar.vue'
 import Sidebar from '../components/Sidebar.vue'
-import ArticleList from '../components/ArticleList.vue'
+import ArticleList from '../components/ArticleList1.vue'
 import RightSidebar from '../components/RightSidebar.vue'
 
 export default {
@@ -32,7 +32,7 @@ export default {
 #community {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   background-color: #F0F8FF;
 }
 
