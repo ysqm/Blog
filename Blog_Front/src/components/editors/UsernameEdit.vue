@@ -17,8 +17,7 @@
 
 
 <script>
-import axios from 'axios';
-import {edit, updateUsername} from "@/api/user.ts"; // 引入axios以发送HTTP请求
+// import {edit, updateUsername} from "@/api/user.ts"; // 引入axios以发送HTTP请求
 
 export default {
   props: ['field'],
@@ -41,13 +40,14 @@ export default {
       }
     },
     updateUsername() {
-      const payload = {
-        value: this.isEmailChecked ? this.field.email : this.field.tempValue
-      };
-      edit(this.field.tempValue, this.field.id)
-          .catch(error => {
-            console.error('保存失败:', error);
-          });
+    //   const payload = {
+    //     value: this.isEmailChecked ? this.field.email : this.field.tempValue
+    //   };
+    //   edit(this.field.tempValue, this.field.id)
+    //       .catch(error => {
+    //         console.error('保存失败:', error);
+    //       });
+    //   this.$emit('update');
       this.$emit('update');
     },
     cancel() {

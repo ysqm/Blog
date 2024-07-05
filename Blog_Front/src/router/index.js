@@ -6,15 +6,14 @@ import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 
 import Home from '../views/self-Home.vue';
-import Article from '../views/Article.vue';
 import Category from '../views/self-Category.vue';
 import Tag from '../views/self-Tag.vue';
 import Archive from '../views/self-Archive.vue';
 import KnowledgeBase from '../views/self-KnowledgeBase.vue';
 import NewPost from '../views/self-NewPost.vue';
-import Upload from '../views/upload.vue'
 import Article from '../views/Article.vue'
 import ArticleDetail from "@/components/ArticleDetail.vue";
+import AccountCenter from "@/views/AccountCenter.vue";
 
 const routes = [
     {
@@ -74,7 +73,7 @@ const routes = [
     },
     {
         path:  '/',
-        redirect: '/Board'
+        redirect: '/community'
     },
     {
         path: '/AdminDial',
@@ -82,7 +81,7 @@ const routes = [
         component: () => import("@/views/AdminDial.vue"),
         children:[
             {
-                path: '/user',
+                path: 'user',
                 name: 'userManage',
                 component: () => import("@/components/UserManage.vue")
             }
@@ -114,12 +113,11 @@ const routes = [
         component: ArticleDetail,
         props: true, // 使路由参数作为props传递给组件
     },
-    // ,
-    // {
-    //     path:  '*',
-    //     redirect: '/404'
-    // }
-
+    {
+        path: '/subscribe',
+        name: 'Subscribe',
+        component: () => import("@/views/Subscribe.vue")
+    }
 ];
 
 

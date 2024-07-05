@@ -11,8 +11,8 @@
 
 <script>
 import IconLogOutRight from "@/components/icons/IconLogOutRight.vue";
-import { store } from '@/store/modules/index'; // 确保正确导入 Vuex store
-import { logout } from "@/api/user.ts";
+import { store } from '@/store/modules/index';
+import {logout} from "@/api/user.ts"; // 确保正确导入 Vuex store
 
 export default {
   name: 'HeaderComponent',
@@ -43,17 +43,6 @@ export default {
       clearTimeout(this.hideTimer);
     },
     logOut() {
-      // logout(parseInt(this.userId)).then(response => {
-      //   if (response.data.code === 1) {
-      //     localStorage.setItem('isLoggedOut', 'true');
-      //     localStorage.removeItem('token');
-      //     localStorage.removeItem('uid');
-      //     localStorage.removeItem('username');
-      //     store.commit('setIsLoggedOut', true);
-      //     console.log("退出登录...");
-      //     location.reload();
-      //   }
-      // });
       localStorage.setItem('isLoggedOut', 'true');
       localStorage.removeItem('token');
       localStorage.removeItem('uid');

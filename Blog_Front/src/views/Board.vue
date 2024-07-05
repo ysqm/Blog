@@ -17,10 +17,10 @@
                   <el-menu-item index="tag" :class="{'active': currentPath === '/tag'}"@click="handleTabClick('tag')">
                       <el-icon><PriceTag /></el-icon>标签管理
                   </el-menu-item>
-                  
-                  
+
+
                   <el-menu-item index="user" :class="{'active': currentPath === '/user'}"@click="handleTabClick('user')">
-                    <<router-link to = "/AdminDial/user">
+                    <router-link to = "/AdminDial/user">
                       <el-icon><User /></el-icon>用户管理
                     </router-link>>
                   </el-menu-item>
