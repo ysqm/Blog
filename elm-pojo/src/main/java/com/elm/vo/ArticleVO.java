@@ -15,7 +15,7 @@ public class ArticleVO {
     private Long articleId;
 
     @ApiModelProperty("用户ID")
-    private Long userId;
+    private Integer userId;
 
     @ApiModelProperty("文章标题")
     private String title;
@@ -37,4 +37,13 @@ public class ArticleVO {
 
     @ApiModelProperty("文章标签ID列表")
     private List<Long> tagIds;
+
+    @ApiModelProperty("摘要")
+    private String summary;
+
+    @ApiModelProperty("具体内容")
+    private String content;
+
+    @ApiModelProperty("作者")
+    private String author;
 }

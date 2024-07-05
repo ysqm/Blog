@@ -4,10 +4,10 @@
       <div class="logo">
         <img src="@/assets/logo.svg" alt="logo" />
       </div>
-      <h2>WeBLOG登录</h2>
+      <h2>BLOG-Login</h2>
       <p class="tagline">代码改变世界</p>
       <div class="tabs">
-        <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">密码登录</button>
+        <button :class="{ active: isPasswordLogin }" @click="isPasswordLogin = true">账号登录</button>
       </div>
       <form v-if="isPasswordLogin" @submit.prevent="login">
         <input type="text" placeholder="登录用户名 / 邮箱" v-model="username" />
@@ -18,15 +18,15 @@
         </div>
         <button type="submit" class="login-button">登录</button>
       </form>
-<!--      <div class="third-party-login">-->
-<!--        <p>第三方登录/注册</p>-->
-<!--        <div class="icons">-->
-<!--          <a href="#"><IconWeChat></IconWeChat></a>-->
-<!--          <a href="#"><IconQQ></IconQQ></a>-->
-<!--          <a href="#"><IconGithub></IconGithub></a>-->
-<!--        </div>-->
-<!--      </div>-->
-      <router-link to="/register" class="toRegister">没有账号，立即注册</router-link>
+      <div class="third-party-login">
+        <p>第三方登录/注册</p>
+        <div class="icons">
+          <a href="#"><IconWeChat></IconWeChat></a>
+          <a href="#"><IconQQ></IconQQ></a>
+          <a href="#"><IconGithub></IconGithub></a>
+        </div>
+      </div>
+      <router-link to="/register"><a href="#" class="register-link">没有账号，立即注册</a></router-link>
     </div>
   </div>
 </template>
@@ -46,7 +46,7 @@ const router = useRouter();
 
 
 export default {
-  components: {IconGithub, IconQQ, IconWeChat},
+  components: { IconGithub, IconQQ, IconWeChat },
   data() {
     return {
       isPasswordLogin: true,
@@ -59,24 +59,25 @@ export default {
   },
   methods: {
     login() {
-      login(this.username, this.password).then(response => {
-        if (response.data.code == 1) {
-          store.commit('setBio', response.data.data.bio);
-          store.commit('setToken', response.data.data.token);
-          store.commit('setUsername', response.data.data.username);
-          store.commit('setUid', response.data.data.userId);
-          store.commit('setAvatar', response.data.data.avatar);
-          localStorage.setItem('token', response.data.data.token);
-          localStorage.setItem('uid', response.data.data.userId);
-          localStorage.setItem('isLoggedOut', 'false');
+      // 在这里添加你的登录逻辑
+      login(this.username,this.password).then(response => {
+        console.log(response.data)
+        if(response.data.code == 1){
+          store.commit('setBio',   response.data.data.bio)
+          store.commit('setToken', response.data.data.token)
+          store.commit('setUsername', response.data.data.username)
+          store.commit('setUid', response.data.data.uid)
+          store.commit('setAvatar', response.data.data.Avatar)
+          localStorage.setItem('token',response.data.data.token)
+          localStorage.setItem('uid',response.data.data.userId)
           console.log("登录中...");
           this.$router.push('/community');
         } else {
-          alert(response.data.msg);
+          alert(response.data.msg)
         }
       }).catch(error => {
-        console.error(error);
-      });
+        console.error(error)
+      })
       console.log("登录中...");
     },
   },
@@ -199,7 +200,7 @@ input {
   height: 30px;
 }
 
-.toRegister {
+.register-link {
   display: block;
   margin-top: 20px;
   color: #007bff;

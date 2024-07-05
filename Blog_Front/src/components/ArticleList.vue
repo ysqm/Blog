@@ -27,6 +27,7 @@ import HeatIcon from './icons/IconHeat.vue'
 import LikeIcon from './icons/IconLike.vue'
 import ViewIcon from './icons/IconView.vue'
 import CommentIcon from './icons/IconComment.vue'
+// import {getArticleById, getLatestArticles} from "@/api/article.js";
 
 export default {
   name: 'ArticleList',
@@ -41,6 +42,9 @@ export default {
       articles: [],
       selectedArticle: {}
     };
+  },
+  mounted() {
+    this.getNewArticles();
   },
   methods: {
     getNewArticles() {

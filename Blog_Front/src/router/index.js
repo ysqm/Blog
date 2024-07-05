@@ -6,24 +6,31 @@ import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 
 import Home from '../views/self-Home.vue';
-import Article from '../views/Article.vue';
+import PostDetail from '../views/self-PostDetail.vue';
 import Category from '../views/self-Category.vue';
 import Tag from '../views/self-Tag.vue';
 import Archive from '../views/self-Archive.vue';
 import KnowledgeBase from '../views/self-KnowledgeBase.vue';
 import NewPost from '../views/self-NewPost.vue';
-import AccountCenter from "@/views/AccountCenter.vue";
+import Upload from '../views/upload.vue'
+import Article from '../views/Article.vue'
+import ArticleDetail from "@/components/ArticleDetail.vue";
 
 const routes = [
+    {
+        path: '/upload',
+        name: 'upload',
+        component: Upload
+    },
     {
         path: '/self-home',
         name: 'self-Home',
         component: Home
     },
     {
-        path: '/Article/:id',
-        name: 'Article',
-        component: Article
+        path: '/self-post/:id',
+        name: 'PostDetail',
+        component: PostDetail
     },
     {
         path: '/self-category',
@@ -72,35 +79,24 @@ const routes = [
     },
     {
         path:  '/',
-        redirect: '/Board'
-    },
-    {
-        path: '/AdminDial',
-        name: 'AdminDial',
-        component: () => import("@/views/AdminDial.vue"),
-        children:[
-            {
-                path: '/user',
-                name: 'userManage',
-                component: () => import("@/components/UserManage.vue")
-            }
-        ]
-    },
-    {
-        path: '/Board',
-        name: 'Board',
-        component: () => import("@/views/Board.vue")
-    },
-    {
-        path:'/account',
-        name:'AccountCenter',
-        component: AccountCenter
+        redirect: '/Community'
     },
     {
         path: '/404',
         name: '404',
         component: 404
-    }
+    },
+    {
+        path: '/article',
+        name: 'Article',
+        component: Article
+    },
+    {
+        path: '/article/:id',
+        name: 'ArticleDetail',
+        component: ArticleDetail,
+        props: true, // 使路由参数作为props传递给组件
+    },
     // ,
     // {
     //     path:  '*',
