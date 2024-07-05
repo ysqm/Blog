@@ -1,42 +1,35 @@
 <template>
-
-    <div class="comment-section">
-      <h3>全部评论 ({{ comments.length }})</h3>
-      <form @submit.prevent="submitComment">
-        <textarea v-model="newComment.content" placeholder="发表一个友善的评论吧..." required></textarea>
-        <button type="submit">发送</button>
-      </form>
-      <ul class="comment-list">
-
-        <li v-for="comment in comments" :key="comment.commentId" class="comment-item" v-if=1>
-
-          <div class="comment-avatar">
-            <img :src="comment.avatar || defaultAvatar" alt="avatar" />
+  <div class="comment-section">
+    <h3>全部评论 ({{ comments.length }})</h3>
+    <form @submit.prevent="submitComment">
+      <textarea v-model="newComment.content" placeholder="发表一个友善的评论吧..." required></textarea>
+      <button type="submit">发送</button>
+    </form>
+    <ul class="comment-list">
+      <li v-for="comment in comments" :key="comment.commentId" class="comment-item" v-if=1>
+        <div class="comment-avatar">
+          <img :src="comment.avatar || defaultAvatar" alt="avatar" />
+          <span class="comment-author">{{ comment.userId || '请刷新界面' }}</span>
+        </div>
+        <div class="comment-content">
+          <div class="comment-header">
+            <span class="comment-date">{{ formatDate(comment.commentDate) }}</span>
           </div>
-
-          <div class="comment-content">
-
-            <div class="comment-header">
-              <span class="comment-author">{{ comment.userId || '请刷新界面' }}</span>
-              <span class="comment-date">{{ formatDate(comment.commentDate) }}</span>
-            </div>
-
-            <p>{{ comment.content }}</p>
-
-          </div>
-        </li>
-
-      </ul>
-    </div>
-
+          <p>{{ comment.content }}</p>
+          <LikeButton :commentId="comment.commentId" :initialLikes="comment.likes || 0" />
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
 import { getCommentsByArticleId, addComment } from '@/api/comment'; // 确保导入路径正确
-import { mapState } from 'vuex';
+import LikeButton from './LikeButton.vue'; // 导入点赞组件
 
 export default {
   name: 'CommentSection',
+  components: { LikeButton },
   props: {
     articleId: {
       type: Number,
@@ -62,13 +55,6 @@ export default {
         const response = await getCommentsByArticleId(this.articleId);
         if (response && response.data) {
           this.comments = response.data.data || []; // 确保数据正确赋值并且是数组
-          console.log('response:', response);
-          console.log('Comments:', this.comments); // 添加日志以检查数据
-          console.log('Comments.data:', this.comments.data);
-          console.log('comments.content:', this.comments[1].content);
-          console.log('comments.data.content:', this.comments.data.content);
-          // console.log('Comments:', this.comments.content);
-          // console.log('Comments:', this.comments.commentDate);
         } else {
           console.error('No data returned from API');
         }
@@ -167,17 +153,21 @@ button:hover {
   margin-bottom: 10px;
   border-radius: 4px;
   background: #fff;
+  position: relative;
 }
 
 .comment-avatar {
   flex-shrink: 0;
   margin-right: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .comment-avatar img {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  margin-right: 8px;
 }
 
 .comment-content {
@@ -196,5 +186,26 @@ button:hover {
 .comment-date {
   color: #999;
   font-size: 0.9em;
+}
+
+.comment-item .like-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.like-button {
+  display: inline-block;
+  padding: 3px 8px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.like-button:hover {
+  background-color: #0056b3;
 }
 </style>

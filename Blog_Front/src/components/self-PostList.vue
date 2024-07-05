@@ -20,10 +20,10 @@ export default {
   data() {
     return {
       posts: [
-        {id: 1, title: '测试文章1', date: '2023-11-23', tags: ['Java'], banner: '/src/assets/images/banner1.png'},
-        {id: 2, title: '测试文章2', date: '2024-01-28', tags: ['Java'], banner: '/src/assets/images/banner2.png'},
-        {id: 3, title: '测试文章3', date: '2024-01-28', tags: ['Java'], banner: '/src/assets/images/banner1.png'},
-        {id: 4, title: '测试文章4', date: '2024-01-28', tags: ['Java'], banner: '/src/assets/images/banner1.png'}
+        {id: 1, title: '测试文章1', date: '2024-07-02', tags: ['Test'], banner: '/src/assets/images/banner1.png'},
+        {id: 2, title: '测试文章2', date: '2024-07-03', tags: ['Test'], banner: '/src/assets/images/banner2.png'},
+        {id: 3, title: '测试文章3', date: '2024-07-04', tags: ['Test'], banner: '/src/assets/images/banner1.png'},
+        {id: 4, title: '测试文章4', date: '2024-07-04', tags: ['Test'], banner: '/src/assets/images/banner1.png'}
       ]
     };
   },

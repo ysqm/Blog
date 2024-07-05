@@ -16,7 +16,7 @@ public class LikeDislikeServiceImpl implements LikeDislikeService {
     public void addLikeDislike(LikeDislike likeDislike) {
         // 检查是否已经存在记录
         LikeDislike existingRecord = likeDislikeMapper.findByUserIdAndTargetIdAndRecordType(
-                likeDislike.getUserId(), likeDislike.getTargetId(), likeDislike.getRecordType());
+                likeDislike.getUserId(), likeDislike.getArticleId(), likeDislike.getCommentId());
         if (existingRecord != null) {
             // 如果存在，则更新记录
             existingRecord.setRecordStatus(likeDislike.getRecordStatus());
