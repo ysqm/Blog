@@ -1,7 +1,6 @@
 <template>
   <div class="article-detail">
     <Navbar />
-
     <div class="page-container">
       <div class="main-content">
         <el-card shadow="hover" class="article-card">
@@ -27,21 +26,15 @@ import dayjs from 'dayjs';
 import Navbar from "@/components/Navbar.vue";
 import Sidebar from "@/components/self-Sidebar.vue";
 import CommentSection from "@/components/CommentSection.vue";
+import { useRoute } from 'vue-router';
 
 export default {
   name: 'ArticleDetail',
   components: { CommentSection, Sidebar, Navbar },
-  props: {
-    id: {
-      type: Number,
-      required: true
-    },
-    articleId:{
-      type: Number,
-      required: true
-    }
-  },
-  setup(props) {
+  setup() {
+    const route = useRoute();
+    const articleId = route.params.id; // 从路由参数中获取文章ID
+
     const article = ref({});
     const renderedContent = ref(''); // 使用 ref 来定义响应式变量
 
@@ -71,7 +64,7 @@ export default {
 
     // 在组件加载时获取文章详情
     onMounted(() => {
-      fetchArticleDetail(props.id);
+      fetchArticleDetail(articleId);
     });
 
     return {

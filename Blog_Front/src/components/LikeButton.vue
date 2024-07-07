@@ -1,4 +1,3 @@
-<!-- LikeButton.vue -->
 <template>
   <button @click="likeComment">
     👍 {{ likes }}
@@ -6,7 +5,7 @@
 </template>
 
 <script>
-import { getCommentLikeNum, addCommentLike } from '@/api/likeDislike'; // 确保导入路径正确
+import { getCommentLikeNum, addCommentLike } from '@/api/likeDislike';
 
 export default {
   name: 'LikeButton',
@@ -29,7 +28,7 @@ export default {
     try {
       const response = await getCommentLikeNum(this.commentId);
       if (response && response.data) {
-        this.likes = response.data.data; // 假设返回的点赞数在 response.data.data
+        this.likes = response.data.data;
       } else {
         console.error('Failed to fetch initial likes');
       }
