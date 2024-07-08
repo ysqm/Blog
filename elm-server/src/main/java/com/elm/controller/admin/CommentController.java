@@ -39,12 +39,12 @@ public class CommentController {
         return commentService.getComment(commentId);
     }
 
-    @PostMapping("/update")
-    @ApiOperation("更新评论")
-    public Result<CommentVO> updateComment(@RequestBody UpdateCommentDTO commentDTO) {
-        log.info("更新评论：{}", commentDTO);
-        return commentService.updateComment(commentDTO);
-    }
+//    @PostMapping("/update")
+//    @ApiOperation("更新评论")
+//    public Result<CommentVO> updateComment(@RequestBody UpdateCommentDTO commentDTO) {
+//        log.info("更新评论：{}", commentDTO);
+//        return commentService.updateComment(commentDTO);
+//    }
 
     @DeleteMapping("/delete/{commentId}")
     @ApiOperation("删除评论")
@@ -74,10 +74,10 @@ public class CommentController {
         return Result.success(commentService.getCommentsByParentCommentId(parentCommentId));
     }
 
-    @PostMapping("/reply")
-    @ApiOperation("回复评论")
-    public Result<CommentVO> replyComment(@RequestBody CreateCommentDTO commentDTO) {
-        log.info("回复评论：{}", commentDTO);
-        return commentService.addComment(commentDTO);
-    }
+//    @PostMapping("/reply")
+//    @ApiOperation("回复评论")
+//    public Result<CommentVO> replyComment(@RequestBody CreateCommentDTO commentDTO) {
+//        log.info("回复评论：{}", commentDTO);
+//        return commentService.addComment(commentDTO);
+//    }
 }

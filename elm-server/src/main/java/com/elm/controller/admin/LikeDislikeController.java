@@ -36,23 +36,23 @@ public class LikeDislikeController {
     }
 
     @GetMapping("/count/comment/{commentId}")
-    @ApiOperation("通过评论ID获取点赞和踩数量")
+    @ApiOperation("通过评论ID获取点赞")
     public Result<Integer> getLikeDislikeCountByCommentId(@PathVariable Integer commentId) {
-        log.info("通过评论ID获取点赞和踩数量：{}", commentId);
+        log.info("通过评论ID获取点赞数量：{}", commentId);
         return Result.success(likeDislikeService.getLikeDislikeCountByCommentId(commentId));
     }
 
     @GetMapping("/count/article/{articleId}")
-    @ApiOperation("通过文章ID获取点赞和踩数量")
+    @ApiOperation("通过文章ID获取点赞数量")
     public Result<Integer> getLikeDislikeCountByArticleId(@PathVariable Integer articleId) {
-        log.info("通过文章ID获取点赞和踩数量：{}", articleId);
+        log.info("通过文章ID获取点赞数量：{}", articleId);
         return Result.success(likeDislikeService.getLikeDislikeCountByArticleId(articleId));
     }
 
     @GetMapping("/count/user/{userId}")
-    @ApiOperation("通过用户ID获取所有评论的点赞和踩数量")
+    @ApiOperation("通过用户ID获取所有评论的点赞数量")
     public Result<Integer> getLikeDislikeCountByUserId(@PathVariable Integer userId) {
-        log.info("通过用户ID获取所有评论的点赞和踩数量：{}", userId);
+        log.info("通过用户ID获取所有评论的点赞数量：{}", userId);
         return Result.success(likeDislikeService.getLikeDislikeCountByUserId(userId));
     }
 
