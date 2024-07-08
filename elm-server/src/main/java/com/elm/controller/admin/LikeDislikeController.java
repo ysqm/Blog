@@ -20,17 +20,17 @@ public class LikeDislikeController {
     private LikeDislikeService likeDislikeService;
 
     @PostMapping("/add")
-    @ApiOperation("添加点赞或踩操作")
+    @ApiOperation("添加点赞操作")
     public Result<Void> addLikeDislike(@RequestBody LikeDislikeDTO likeDislikeDTO) {
-        log.info("添加点赞或踩操作：{}", likeDislikeDTO);
+        log.info("添加点赞操作：{}", likeDislikeDTO);
         likeDislikeService.addLikeDislike(toEntity(likeDislikeDTO));
         return Result.success();
     }
 
     @PostMapping("/remove")
-    @ApiOperation("移除点赞或踩操作")
+    @ApiOperation("移除点赞操作")
     public Result<Void> removeLikeDislike(@RequestBody LikeDislikeDTO likeDislikeDTO) {
-        log.info("移除点赞或踩操作：{}", likeDislikeDTO);
+        log.info("移除点赞操作：{}", likeDislikeDTO);
         likeDislikeService.removeLikeDislike(toEntity(likeDislikeDTO));
         return Result.success();
     }
