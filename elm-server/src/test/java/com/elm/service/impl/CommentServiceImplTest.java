@@ -3,7 +3,9 @@ package com.elm.service.impl;
 import com.elm.dto.CreateCommentDTO;
 import com.elm.dto.UpdateCommentDTO;
 import com.elm.entity.Comment;
+import com.elm.mapper.ArticleMapper;
 import com.elm.mapper.CommentMapper;
+import com.elm.mapper.UserMapper;
 import com.elm.result.Result;
 import com.elm.vo.CommentVO;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +26,12 @@ class CommentServiceImplTest {
 
     @Mock
     private CommentMapper commentMapper;
+
+    @Mock
+    private ArticleMapper articleMapper;
+
+    @Mock
+    private UserMapper userMapper;
 
     @InjectMocks
     private CommentServiceImpl commentService;
@@ -156,5 +164,53 @@ class CommentServiceImplTest {
         assertNotNull(result);
         assertEquals(comments.size(), result.size());
         verify(commentMapper, times(1)).getCommentsByParentCommentId(parentCommentId);
+    }
+
+    @Test
+    void testCreateCommentArticleNotExist() {
+        CreateCommentDTO createCommentDTO = new CreateCommentDTO();
+        createCommentDTO.setUserId(1L);
+        createCommentDTO.setArticleId(0L);
+        createCommentDTO.setParentCommentId(2L);
+        createCommentDTO.setContent("12345");
+
+        when(articleMapper.getArticleById(0L)).thenReturn(null); // 模拟文章不存在
+
+        Result<CommentVO> result = commentService.addComment(createCommentDTO);
+
+        assertNotNull(result);
+        assertEquals(0, result.getCode()); // 假设文章不存在时返回的 code 为 0
+        verify(commentMapper, never()).createComment(any(Comment.class));
+    }
+
+    @Test
+    void testCreateCommentUserNotExist() {
+        CreateCommentDTO createCommentDTO = new CreateCommentDTO();
+        createCommentDTO.setUserId(0L);
+        createCommentDTO.setArticleId(1L);
+        createCommentDTO.setParentCommentId(2L);
+        createCommentDTO.setContent("12345");
+
+        when(userMapper.getUserById(0)).thenReturn(null); // 模拟用户不存在
+
+        Result<CommentVO> result = commentService.addComment(createCommentDTO);
+
+        assertNotNull(result);
+        assertEquals(0, result.getCode()); // 假设用户不存在时返回的 code 为 0
+        verify(commentMapper, never()).createComment(any(Comment.class));
+    }
+
+    @Test
+    void testGetCommentsByArticleNotExist() {
+        Long articleId = 0L;
+
+        when(articleMapper.getArticleById(articleId)).thenReturn(null); // 模拟文章不存在
+        when(commentMapper.getCommentsByArticleId(articleId)).thenReturn(null);
+
+        List<CommentVO> result = commentService.getCommentsByArticleId(articleId);
+
+        assertNotNull(result);
+        assertEquals(0, result.size());
+        verify(commentMapper, times(1)).getCommentsByArticleId(articleId);
     }
 }
